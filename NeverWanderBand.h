@@ -59,3 +59,26 @@ uint16_t calcDistanceMeters(st_gpsPosition position1, st_gpsPosition position2);
 *@return: degrees in the a range of -180 to 180
 *********************************************************/
 int16_t calcAngleDegrees(st_gpsPosition position1, st_gpsPosition position2);
+
+/*********************************************************
+*displayAngleDegrees
+*Displays an arrow on the screen at the specified angle
+*@i16_angle: angle to point to, in degrees, between -180 and 180
+*@return: nothing
+*********************************************************/
+void displayAngleDegrees(int16_t i16_angle);
+
+/*********************************************************
+*printCharacters
+*prints the characters passed to it
+*@ch_letters: array of characters to be printed, null terminated
+*@return:none
+*********************************************************/
+void printCharacters(char* ch_letters);
+
+/*********************************************************
+*clearScreen
+*clears the screen
+*@return:none
+*********************************************************/
+void clearScreen();
