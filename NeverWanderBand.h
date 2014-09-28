@@ -1,23 +1,27 @@
-struct{
+#ifndef _NEVERWANDERBAND_H_
+#define _NEVERWANDERBAND_H_
+
+typedef struct st_gpsCoordinate{
 	uint8_t u8_hemisphereIndicator;
 	uint8_t u8_degrees;
 	uint8_t u8_minutes;
 	uint8_t u8_seconds;
-}st_gpsCoordinate;
+} st_gpsCoordinate;
 
 //This is format of the data for transfering the positions between
 //	the modules
-struct{
+typedef struct st_gpsPosition{
 	st_gpsCoordinate latitude;
 	st_gpsCoordinate longitude;
-}st_gpsPosition;
+} st_gpsPosition;
+
 
 /*********************************************************
 *getGpsPosition
 *gets the current position from the gps
 *@return: the current gps position
 *********************************************************/
-st_gpsPostition getGpsPosition();
+st_gpsPosition getGpsPosition();
 
 /*********************************************************
 *getGpsPosition
@@ -82,3 +86,5 @@ void printCharacters(char* ch_letters);
 *@return:none
 *********************************************************/
 void clearScreen();
+
+#endif
