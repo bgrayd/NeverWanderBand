@@ -2,9 +2,9 @@
 #define _ADAFRUIT_GPS_H
 
 #define UART1_RX_INTERRUPT
-#define UART1_RX_FIFO_SIZE 257
+#define UART1_RX_FIFO_SIZE 771
 #define UART1_TX_INTERRUPT
-#define UART1_TX_FIFO_SIZE 257
+#define UART1_TX_FIFO_SIZE 771
 
 #include "pic24_all.h"
 #include "NeverWanderBand.h"
