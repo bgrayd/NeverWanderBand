@@ -1,3 +1,5 @@
 *.o
 NeverWanderBandMain.map
-NeverWanderBandMain.cof
+NeverWanderBandMain.map
+*.map
+*.cof

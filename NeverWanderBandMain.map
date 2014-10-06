@@ -1,4 +1,4 @@
-Microchip Technology Inc, vv3_31 (A) y
+Microchip Technology Inc, vv3_31 (A) t
 
 Tool Name:
   c:\program files (x86)\microchip\mplab c30\bin\bin\..\bin/pic30-coff-ld.exe
@@ -107,9 +107,9 @@ Data Memory  [Origin = 0x800, Length = 0x800]
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
 .nbss                        0x800                   0             0xc  (12)
-_02cb8e005428c39f            0x80c                   0             0x2  (2)
-_02cb8ee05428c39f            0x80e                   0             0x2  (2)
-_029182a05428c39f            0x810                   0             0x2  (2)
+_02b88e005432f3c6            0x80c                   0             0x2  (2)
+_02b88ee05432f3c6            0x80e                   0             0x2  (2)
+_027e92a05432f3c6            0x810                   0             0x2  (2)
 .data                        0x812                   0             0x2  (2)
 .heap                        0x814                   0            0x64  (100)
 
@@ -1852,19 +1852,19 @@ __c30_signature
                     0x0804                  u32_heartbeatCount
  .nbss              0x0808          0x4 pic24_clockfreq.o
 
-_02cb8e005428c39f
+_02b88e005432f3c6
                     0x080c          0x2
- _02cb8e005428c39f
+ _02b88e005432f3c6
                     0x080c          0x2 pic24_util.o
 
-_02cb8ee05428c39f
+_02b88ee05432f3c6
                     0x080e          0x2
- _02cb8ee05428c39f
+ _02b88ee05432f3c6
                     0x080e          0x2 pic24_util.o
 
-_029182a05428c39f
+_027e92a05432f3c6
                     0x0810          0x2
- _029182a05428c39f
+ _027e92a05432f3c6
                     0x0810          0x2 pic24_util.o
                     0x0810                  sz_lastTimeoutError
 
