@@ -21,7 +21,7 @@ _packetType_t parsePacketType(char* psz_s){
 	if((*(psz_s+1)=='G')&&(*(psz_s+2)=='P')&&(*(psz_s+3)=='R')&&(*(psz_s+4)=='M')&&(*(psz_s+5)=='C')){
 		return GPRMC;
 	}
-	return 0;
+	return INVALIDPACKET;
 }
 
 _RMCPacket parseRMCPacket(char* psz_s){
@@ -58,22 +58,35 @@ _RMCPacket parseRMCPacket(char* psz_s){
 	st_rmcPacket.position.longitude.u8_degrees = ((*(psz_s+32)-48)*100 + (*(psz_s+33)-48)*10 + (*(psz_s+34)-48));
 	st_rmcPacket.position.longitude.u8_minutes = ((*(psz_s+35)-48)*10 + (*(psz_s+36)-48));
 	st_rmcPacket.position.longitude.u8_seconds = ((*(psz_s+38)-48)*6 + (*(psz_s+39)-48)*6/10);
-	/*
-	uint8_t u8_counter = 44;
-	while(u8_counter<=255){
+	
+	uint8_t u8_counter = 43+2;
+	while(u8_counter <= 254){
 		//loop past the speed over ground
 		if(*(psz_s + u8_counter) == ',')
 			break;
 		u8_counter++;
-	}*/
+	}
+	u8_counter++;
+	
 	st_rmcPacket.u16_course = 0;
+	
+	//the course has a varying length of whole numbers and a decimal
+	while(u8_counter <=254){
+		if(*(psz_s + u8_counter) == '.')
+			break;
+		st_rmcPacket.u16_course *= 10;
+		st_rmcPacket.u16_course += (*(psz_s + u8_counter)-48);
+		u8_counter++;
+	}	
+	
+	
 	return st_rmcPacket;
 }	
 
 void configRMC1Hz(){
-	DELAY_MS(1000);
+	//DELAY_MS(100);
 	const char *message = PMTK_SET_NEA_OUTPUT_RMCONLY;
-	const char *message2 = PMTK_SET_NMEA_UPDATE_100_MILLIHERTZ;
+	const char *message2 = PMTK_SET_NMEA_UPDATE_1HZ;
 	outString(message);
 	outString(message2);
 }
