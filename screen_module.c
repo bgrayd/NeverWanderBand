@@ -2,7 +2,87 @@
 
 #include "glcdfont.c"
 #include "screen_module.h"
+#include "pic24_all.h"
 
+
+#define CONFIG_SLAVE_ENABLE() CONFIG_RB3_AS_DIG_OUTPUT()
+#define SLAVE_ENABLE()      _LATB3 = 0  //low true assertion
+#define SLAVE_DISABLE()     _LATB3 = 1
+#define DCCONFIG()			CONFIG_RB2_AS_DIG_OUTPUT()
+#define DCHIGH()			_LATB2 = 1;
+#define DCLOW()				_LATB2 = 0;
+#define ENABLE_SLAVE()		SLAVE_ENABLE()
+#define DISABLE_SLAVE()		SLAVE_DISABLE()
+
+#define SSD1306_SETCONTRAST 0x81
+#define SSD1306_DISPLAYALLON_RESUME 0xA4
+#define SSD1306_DISPLAYALLON 0xA5
+#define SSD1306_NORMALDISPLAY 0xA6
+#define SSD1306_INVERTDISPLAY 0xA7
+#define SSD1306_DISPLAYOFF 0xAE
+#define SSD1306_DISPLAYON 0xAF
+
+#define SSD1306_SETDISPLAYOFFSET 0xD3
+#define SSD1306_SETCOMPINS 0xDA
+
+#define SSD1306_SETVCOMDETECT 0xDB
+
+#define SSD1306_SETDISPLAYCLOCKDIV 0xD5
+#define SSD1306_SETPRECHARGE 0xD9
+
+#define SSD1306_SETMULTIPLEX 0xA8
+
+#define SSD1306_SETLOWCOLUMN 0x00
+#define SSD1306_SETHIGHCOLUMN 0x10
+
+#define SSD1306_SETSTARTLINE 0x40
+
+#define SSD1306_MEMORYMODE 0x20
+#define SSD1306_COLUMNADDR 0x21
+#define SSD1306_PAGEADDR   0x22
+
+#define SSD1306_COMSCANINC 0xC0
+#define SSD1306_COMSCANDEC 0xC8
+
+#define SSD1306_SEGREMAP 0xA0
+
+#define SSD1306_CHARGEPUMP 0x8D
+
+#define SSD1306_EXTERNALVCC 0x1
+#define SSD1306_SWITCHCAPVCC 0x2
+
+// Scrolling #defines
+#define SSD1306_ACTIVATE_SCROLL 0x2F
+#define SSD1306_DEACTIVATE_SCROLL 0x2E
+#define SSD1306_SET_VERTICAL_SCROLL_AREA 0xA3
+#define SSD1306_RIGHT_HORIZONTAL_SCROLL 0x26
+#define SSD1306_LEFT_HORIZONTAL_SCROLL 0x27
+#define SSD1306_VERTICAL_AND_RIGHT_HORIZONTAL_SCROLL 0x29
+#define SSD1306_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL 0x2
+
+
+void configSPI1(void) {
+  //spi clock = 40MHz/1*4 = 40MHz/4 = 10MHz
+  SPI1CON1 = SEC_PRESCAL_1_1 |     //1:1 secondary prescale
+             PRI_PRESCAL_4_1 |     //4:1 primary prescale
+             CLK_POL_ACTIVE_HIGH | //clock active high (CKP = 0)
+             SPI_CKE_ON          | //out changes active to inactive (CKE=1)
+             SPI_MODE8_ON        | //8-bit mode
+             MASTER_ENABLE_ON;     //master mode
+
+  CONFIG_SDO1_TO_RP(6);      //use RP6 for SDO
+  CONFIG_RP6_AS_DIG_PIN();   //Ensure that this is a digital pin
+  CONFIG_SCK1OUT_TO_RP(7);   //use RP7 for SCLK
+  CONFIG_RP7_AS_DIG_PIN();   //Ensure that this is a digital pin
+  CONFIG_SDI1_TO_RP(5);      //use RP5 for SDI                   needs to be carefully removed
+  CONFIG_RP5_AS_DIG_PIN();   //Ensure that this is a digital pin
+  
+
+  CONFIG_SLAVE_ENABLE();     //slave select config
+  //CONFIG_SLAVE_ORDY();       //output ready from slave
+  SLAVE_DISABLE();           //disable slave
+  SPI1STATbits.SPIEN = 1;    //enable SPI mode
+}
 
 #define pgm_read_byte(addr) (*(const unsigned char *)(addr))
 
@@ -86,6 +166,79 @@ void initScreen(){
 	screenData.u8_i2cAddr = 0x3D;  //the I2C address of the screen
 }
 
+// editted from https://github.com/adafruit/Adafruit_SSD1306/blob/master/Adafruit_SSD1306.cpp#L337
+void ssd1306_command(uint8_t c) { 
+  
+    // SPI
+    // the way the screen is designed, commands need the D/C pin low
+    DCLOW();
+	SLAVE_ENABLE();
+    ioMasterSPI1(c);
+	SLAVE_DISABLE();
+}
+
+// editted from https://github.com/adafruit/Adafruit_SSD1306/blob/master/Adafruit_SSD1306.cpp#L476
+void display(void) {
+  ssd1306_command(SSD1306_COLUMNADDR);
+  ssd1306_command(0);   // Column start address (0 = reset)
+  ssd1306_command(LCDWIDTH-1); // Column end address (127 = reset)
+
+  ssd1306_command(SSD1306_PAGEADDR);
+  ssd1306_command(0); // Page start address (0 = reset)
+  ssd1306_command(7); // Page end address
+
+    // SPI
+    DISABLE_SLAVE();
+	DCHIGH();
+	ENABLE_SLAVE();
+	
+	uint16_t i = 0;
+    for (i; i<(LCDWIDTH*LCDHEIGHT/8); i++) {
+      ioMasterSPI1(buffer[i]);
+      //ssd1306_data(buffer[i]);
+    }
+    ENABLE_SLAVE();
+ }
+
+//edited from https://github.com/adafruit/Adafruit-GFX-Library/blob/master/Adafruit_GFX.cpp#L469
+void setTextSize(uint8_t s) {
+  screenData.u8_textSize = (s > 0) ? s : 1;
+}
+
+// edited from https://github.com/adafruit/Adafruit-GFX-Library/blob/master/Adafruit_GFX.cpp#L479
+void setTextColor(uint16_t c) {
+  // For 'transparent' background, we'll set the bg 
+  // to the same as fg instead of using a flag
+  screenData.u16_textColor = screenData.u16_backgroundColor = c;
+}
+
+//https://github.com/adafruit/Adafruit-GFX-Library/blob/master/Adafruit_GFX.cpp#L464
+void setCursor(int16_t x, int16_t y) {
+  screenData.i16_x = x;
+  screenData.i16_y = y;
+}
+
+//https://github.com/adafruit/Adafruit_SSD1306/blob/master/Adafruit_SSD1306.cpp#L536
+void clearDisplay(void) {
+  memset(buffer, 0, (LCDWIDTH*LCDHEIGHT/8));
+}
+
+//https://github.com/adafruit/Adafruit-GFX-Library/blob/master/Adafruit_GFX.cpp#L407
+void write(uint8_t c) {
+  if (c == '\n') {
+    screenData.i16_y += screenData.u8_textSize*8;
+    screenData.i16_x  = 0;
+  } else if (c == '\r') {
+    // skip em
+  } else {
+    drawChar(screenData.i16_x, screenData.i16_y, c, screenData.u16_textColor, screenData.u16_backgroundColor,screenData.u8_textSize);
+    screenData.i16_x += screenData.u8_textSize*6;
+    if (screenData.b_wrap && (screenData.i16_x > (screenData.i16_width - screenData.u8_textSize*6))) {
+      screenData.i16_y += screenData.u8_textSize*8;
+      screenData.i16_x = 0;
+    }
+  }
+}
 
 //based off of code from Adafruit and can be found at https://github.com/adafruit/Adafruit_SSD1306/blob/master/Adafruit_SSD1306.cpp#L659
 void drawFastVLine(int16_t x, int16_t __y, int16_t __h, uint16_t color) {
