@@ -9,12 +9,12 @@
 #define SLAVE_ENABLE()      _LATB3 = 0  //low true assertion
 #define SLAVE_DISABLE()     _LATB3 = 1
 #define DCCONFIG()			CONFIG_RB2_AS_DIG_OUTPUT()
-#define DCHIGH()			_LATB2 = 1;
-#define DCLOW()				_LATB2 = 0;
+#define DCHIGH()			_LATB2 = 1
+#define DCLOW()				_LATB2 = 0
 #define ENABLE_SLAVE()		SLAVE_ENABLE()
 #define DISABLE_SLAVE()		SLAVE_DISABLE()
-#define RSTHIGH()           _LATB5 = 1;
-#define RSTLOW()			_LATB5 = 0;
+#define RSTHIGH()           _LATB5 = 1
+#define RSTLOW()			_LATB5 = 0
 
 #define SSD1306_SETCONTRAST 0x81
 #define SSD1306_DISPLAYALLON_RESUME 0xA4
@@ -50,8 +50,8 @@
 
 #define SSD1306_CHARGEPUMP 0x8D
 
-#define SSD1306_EXTERNALVCC 0x1
-#define SSD1306_SWITCHCAPVCC 0x2
+#define SSD1306_EXTERNALVCC 0x10
+#define SSD1306_SWITCHCAPVCC 0x20
 
 // Scrolling #defines
 #define SSD1306_ACTIVATE_SCROLL 0x2F
@@ -60,7 +60,7 @@
 #define SSD1306_RIGHT_HORIZONTAL_SCROLL 0x26
 #define SSD1306_LEFT_HORIZONTAL_SCROLL 0x27
 #define SSD1306_VERTICAL_AND_RIGHT_HORIZONTAL_SCROLL 0x29
-#define SSD1306_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL 0x2
+#define SSD1306_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL 0x20
 
 
 void configSPI1(void) {
@@ -88,7 +88,6 @@ void configSPI1(void) {
 }
 
 #define pgm_read_byte(addr) (*(const unsigned char *)(addr))
-
 
 static uint8_t buffer[1024] = { 
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -171,6 +170,7 @@ void initScreen(){
 	RSTLOW();
 	DELAY_MS(10);
 	RSTHIGH();
+	DCCONFIG();
 
  // Init sequence for 128x64 OLED module
     ssd1306_command(SSD1306_DISPLAYOFF);                    // 0xAE
@@ -182,7 +182,7 @@ void initScreen(){
     ssd1306_command(0x0);                                   // no offset
     ssd1306_command(SSD1306_SETSTARTLINE | 0x0);            // line #0
     ssd1306_command(SSD1306_CHARGEPUMP);                    // 0x8D
-    if (1) 
+    if (0) 
       { ssd1306_command(0x10); }
     else 
       { ssd1306_command(0x14); }
@@ -193,12 +193,12 @@ void initScreen(){
     ssd1306_command(SSD1306_SETCOMPINS);                    // 0xDA
     ssd1306_command(0x12);
     ssd1306_command(SSD1306_SETCONTRAST);                   // 0x81
-    if (1) 
+    if (0) 
       { ssd1306_command(0x9F); }
     else 
       { ssd1306_command(0xCF); }
     ssd1306_command(SSD1306_SETPRECHARGE);                  // 0xd9
-    if (1) 
+    if (0) 
       { ssd1306_command(0x22); }
     else 
       { ssd1306_command(0xF1); }
@@ -212,14 +212,25 @@ void initScreen(){
 
 // editted from https://github.com/adafruit/Adafruit_SSD1306/blob/master/Adafruit_SSD1306.cpp#L337
 void ssd1306_command(uint8_t c) { 
-  
     // SPI
     // the way the screen is designed, commands need the D/C pin low
+    SLAVE_DISABLE();
     DCLOW();
 	SLAVE_ENABLE();
     ioMasterSPI1(c);
 	SLAVE_DISABLE();
 }
+
+void ssd1306_data(uint8_t c){
+	//SPI
+	//send 8-bits of data
+	SLAVE_DISABLE();
+	DCHIGH();
+	SLAVE_ENABLE();
+	ioMasterSPI1(c)	;
+	SLAVE_DISABLE();
+}	
+
 
 // editted from https://github.com/adafruit/Adafruit_SSD1306/blob/master/Adafruit_SSD1306.cpp#L476
 void display(void) {
@@ -241,7 +252,7 @@ void display(void) {
       ioMasterSPI1(buffer[i]);
       //ssd1306_data(buffer[i]);
     }
-    ENABLE_SLAVE();
+    DISABLE_SLAVE();
  }
 
 //edited from https://github.com/adafruit/Adafruit-GFX-Library/blob/master/Adafruit_GFX.cpp#L469
@@ -467,4 +478,3 @@ void drawChar(int16_t x, int16_t y, unsigned char c,
     }
   }
 }
-
