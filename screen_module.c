@@ -13,6 +13,8 @@
 #define DCLOW()				_LATB2 = 0;
 #define ENABLE_SLAVE()		SLAVE_ENABLE()
 #define DISABLE_SLAVE()		SLAVE_DISABLE()
+#define RSTHIGH()           _LATB5 = 1;
+#define RSTLOW()			_LATB5 = 0;
 
 #define SSD1306_SETCONTRAST 0x81
 #define SSD1306_DISPLAYALLON_RESUME 0xA4
@@ -74,8 +76,9 @@ void configSPI1(void) {
   CONFIG_RP6_AS_DIG_PIN();   //Ensure that this is a digital pin
   CONFIG_SCK1OUT_TO_RP(7);   //use RP7 for SCLK
   CONFIG_RP7_AS_DIG_PIN();   //Ensure that this is a digital pin
-  CONFIG_SDI1_TO_RP(5);      //use RP5 for SDI                   needs to be carefully removed
+  CONFIG_RB5_AS_DIG_OUTPUT();      //use RP5 for RST                   needs to be carefully removed
   CONFIG_RP5_AS_DIG_PIN();   //Ensure that this is a digital pin
+  RSTHIGH();
   
 
   CONFIG_SLAVE_ENABLE();     //slave select config
@@ -155,6 +158,7 @@ static uint8_t buffer[1024] = {
 };
 
 void initScreen(){
+	configSPI1();
 	screenData.i16_x = 0;
 	screenData.i16_y = 0;
 	screenData.u16_textColor = 0;
@@ -164,6 +168,46 @@ void initScreen(){
 	screenData.i16_width = LCDWIDTH;
 	screenData.i16_height = LCDHEIGHT;
 	screenData.u8_i2cAddr = 0x3D;  //the I2C address of the screen
+	RSTLOW();
+	DELAY_MS(10);
+	RSTHIGH();
+
+ // Init sequence for 128x64 OLED module
+    ssd1306_command(SSD1306_DISPLAYOFF);                    // 0xAE
+    ssd1306_command(SSD1306_SETDISPLAYCLOCKDIV);            // 0xD5
+    ssd1306_command(0x80);                                  // the suggested ratio 0x80
+    ssd1306_command(SSD1306_SETMULTIPLEX);                  // 0xA8
+    ssd1306_command(0x3F);
+    ssd1306_command(SSD1306_SETDISPLAYOFFSET);              // 0xD3
+    ssd1306_command(0x0);                                   // no offset
+    ssd1306_command(SSD1306_SETSTARTLINE | 0x0);            // line #0
+    ssd1306_command(SSD1306_CHARGEPUMP);                    // 0x8D
+    if (1) 
+      { ssd1306_command(0x10); }
+    else 
+      { ssd1306_command(0x14); }
+    ssd1306_command(SSD1306_MEMORYMODE);                    // 0x20
+    ssd1306_command(0x00);                                  // 0x0 act like ks0108
+    ssd1306_command(SSD1306_SEGREMAP | 0x1);
+    ssd1306_command(SSD1306_COMSCANDEC);
+    ssd1306_command(SSD1306_SETCOMPINS);                    // 0xDA
+    ssd1306_command(0x12);
+    ssd1306_command(SSD1306_SETCONTRAST);                   // 0x81
+    if (1) 
+      { ssd1306_command(0x9F); }
+    else 
+      { ssd1306_command(0xCF); }
+    ssd1306_command(SSD1306_SETPRECHARGE);                  // 0xd9
+    if (1) 
+      { ssd1306_command(0x22); }
+    else 
+      { ssd1306_command(0xF1); }
+    ssd1306_command(SSD1306_SETVCOMDETECT);                 // 0xDB
+    ssd1306_command(0x40);
+    ssd1306_command(SSD1306_DISPLAYALLON_RESUME);           // 0xA4
+    ssd1306_command(SSD1306_NORMALDISPLAY);                 // 0xA6
+    
+  ssd1306_command(SSD1306_DISPLAYON);//--turn on oled panel
 }
 
 // editted from https://github.com/adafruit/Adafruit_SSD1306/blob/master/Adafruit_SSD1306.cpp#L337

@@ -32,7 +32,7 @@ static screenData_t screenData;
 
 void initScreen();
 
-
+void display(void);
 
 
 #endif  //_SCREEN_MODULE_H_
