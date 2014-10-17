@@ -1,4 +1,9 @@
 //screen_module.c
+//data - RB6
+//clk - RB7
+//D/C (SA0) - RB2
+//Cs - RB3
+//rst - RB5
 
 #include "glcdfont.c"
 #include "screen_module.h"
@@ -293,6 +298,19 @@ void write(uint8_t c) {
       screenData.i16_x = 0;
     }
   }
+}
+
+char psz_s;
+void writeString(char* psz_s){
+    //uint8_t length = 0;
+	uint8_t counter = 0;
+    //length = strlen(psz_s);
+    char string;
+    while(*(psz_s + counter) != 0){ 
+    string = (*(psz_s + counter));
+	write(string);
+    counter++;
+	}
 }
 
 //based off of code from Adafruit and can be found at https://github.com/adafruit/Adafruit_SSD1306/blob/master/Adafruit_SSD1306.cpp#L659

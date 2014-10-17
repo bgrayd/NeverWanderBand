@@ -15,7 +15,18 @@ int main(void) {
   //ssd1306_command(0xA5);
   display();
   clearDisplay();
+  setTextColor(1);
+  setTextSize(2);
+  char *newLine = "It is working!!";
+  writeString(newLine);
+  display();
+  ssd1306_command(0x26);
+  ssd1306_command(0x2F);
+  display();
+  	
   while(1){
-	doHeartbeat();
+	ssd1306_command(0x2F);
+	DELAY_MS(10);
+    doHeartbeat();
   };
 }
