@@ -15,7 +15,6 @@ int main(void) {
 
 int main(void){
 	configClock();
-	configPinsForLowPower();
 	configHeartbeat();
 	configDefaultUART(9600);
 	//printResetCause();       //print statement about what caused reset
