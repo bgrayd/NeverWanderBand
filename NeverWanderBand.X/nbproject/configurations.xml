@@ -31,12 +31,13 @@
       </logicalFolder>
       <itemPath>../NeverWanderBand.h</itemPath>
       <itemPath>../GPS_module.h</itemPath>
+      <itemPath>../screen_module.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
       <itemPath>C:/ece3724/pic24lib_all/lib/lkr/p24HJ32GP202_bootldr.gld</itemPath>
-      <itemPath>C:/ece3724/pic24lib_all/lib/lkr/p33EP128GP502_bootldr.gld</itemPath>
+      <itemPath>../../../../../../ece3724/pic24lib_all/lib/lkr/p33EP128GP502_bootldr.gld</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -52,6 +53,7 @@
       </logicalFolder>
       <itemPath>../NeverWanderBand.c</itemPath>
       <itemPath>../GPS_module.c</itemPath>
+      <itemPath>../screen_module.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -330,6 +332,10 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
+      <item path="../../../../../../ece3724/pic24lib_all/lib/lkr/p33EP128GP502_bootldr.gld"
+            ex="true"
+            overriding="false">
+      </item>
       <C30>
         <property key="code-model" value="default"/>
         <property key="const-model" value="default"/>
@@ -449,7 +455,7 @@
         <property key="save-temps" value="false"/>
       </C30Global>
       <item path="C:/ece3724/pic24lib_all/lib/lkr/p24HJ32GP202_bootldr.gld"
-            ex="true"
+            ex="false"
             overriding="false">
         <C30>
         </C30>
@@ -487,6 +493,14 @@
         <property key="periphADC2.altscl" value="false"/>
         <property key="periphADC2.minTacq" value=""/>
         <property key="periphADC2.tacqunits" value="microseconds"/>
+        <property key="tracecontrol.include.timestamp" value="false"/>
+        <property key="tracecontrol.select" value="0"/>
+        <property key="tracecontrol.stallontracebufferfull" value="false"/>
+        <property key="tracecontrol.timestamp" value="0"/>
+        <property key="tracecontrol.tracebufmax" value="546000"/>
+        <property key="tracecontrol.tracefile"
+                  value="C:\Users\Billy\Documents\GitHub\NeverWanderBand\NeverWanderBand.X\debug\pic24H\defmplabxtrace.log"/>
+        <property key="tracecontrol.traceresetonrun" value="false"/>
         <property key="uart10io.output" value="window"/>
         <property key="uart10io.outputfile" value=""/>
         <property key="uart10io.uartioenabled" value="false"/>

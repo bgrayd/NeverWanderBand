@@ -1,5 +1,5 @@
-build/pic33/production/_ext/1472/NeverWanderBand.o:  \
-../NeverWanderBand.c  \
+build/pic24H/production/_ext/1472/GPS_module.o:  \
+../GPS_module.c  \
  C:/ece3724/pic24lib_all/lib/include/pic24_all.h  \
  C:/ece3724/pic24lib_all/lib/include/pic24_chip.h  \
  C:/ece3724/pic24lib_all/lib/include/pic24_libconfig.h  \
@@ -21,6 +21,5 @@ build/pic33/production/_ext/1472/NeverWanderBand.o:  \
  C:/ece3724/pic24lib_all/lib/include/pic24_unions.h  \
  C:/ece3724/pic24lib_all/lib/include/pic24_flash.h  \
  C:/ece3724/pic24lib_all/lib/include/pic24_comparator.h  \
- ../NeverWanderBand.h  \
-../screen_module.h  \
-../GPS_module.h 
+../GPS_module.h  \
+ ../NeverWanderBand.h 

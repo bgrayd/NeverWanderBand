@@ -1,4 +1,4 @@
-build/pic33/production/_ext/1472/NeverWanderBand.o:  \
+build/pic24H/production/_ext/1472/NeverWanderBand.o:  \
 ../NeverWanderBand.c  \
  C:/ece3724/pic24lib_all/lib/include/pic24_all.h  \
  C:/ece3724/pic24lib_all/lib/include/pic24_chip.h  \

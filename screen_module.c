@@ -78,11 +78,11 @@ void configSPI1(void) {
              MASTER_ENABLE_ON;     //master mode
 
   CONFIG_SDO1_TO_RP(6);      //use RP6 for SDO
-  CONFIG_RP6_AS_DIG_PIN();   //Ensure that this is a digital pin
+  //CONFIG_RB6_AS_DIG_PIN();   //Ensure that this is a digital pin
   CONFIG_SCK1OUT_TO_RP(7);   //use RP7 for SCLK
-  CONFIG_RP7_AS_DIG_PIN();   //Ensure that this is a digital pin
+  //CONFIG_RB7_AS_DIG_PIN();   //Ensure that this is a digital pin
   CONFIG_RB5_AS_DIG_OUTPUT();      //use RP5 for RST                   needs to be carefully removed
-  CONFIG_RP5_AS_DIG_PIN();   //Ensure that this is a digital pin
+  //CONFIG_RB5_AS_DIG_PIN();   //Ensure that this is a digital pin
   RSTHIGH();
   
 
@@ -435,7 +435,7 @@ void fillRect(int16_t x, int16_t y, int16_t w, int16_t h,
 			    uint16_t color) {
   // Update in subclasses if desired!
 	int16_t i =x;
-  for (i; i<x+w; i++) {
+  for (i; i< x+w; i++) {
     drawFastVLine(i, y, h, color);
   }
 }

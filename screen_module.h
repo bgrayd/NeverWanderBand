@@ -34,6 +34,8 @@ void initScreen();
 
 void display(void);
 void writeString();
+void setTextSize(uint8_t s);
+void setTextColor(uint16_t c);
 
 
 #endif  //_SCREEN_MODULE_H_
