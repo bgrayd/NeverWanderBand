@@ -86,7 +86,27 @@ _RMCPacket parseRMCPacket(char* psz_s){
 void configRMC1Hz(){
 	//DELAY_MS(100);
 	const char *message = PMTK_SET_NEA_OUTPUT_RMCONLY;
-	const char *message2 = PMTK_SET_NMEA_UPDATE_1HZ;
+	const char *message2 = PMTK_SET_NMEA_UPDATE_100_MILLIHERTZ;
 	outString(message);
 	outString(message2);
+}
+
+
+char * uitoa(uint16_t u16_x) {
+    static uint8_t au8_String[8];
+    static uint8_t u8_digit;
+
+    u8_digit = 0;
+    if (u16_x > 9999)
+        au8_String[u8_digit++] = '0' + u16_x / 10000;
+    if (u16_x > 999)
+        au8_String[u8_digit++] = '0' + u16_x / 1000;
+    if (u16_x > 99)
+        au8_String[u8_digit++] = '0' + u16_x / 100;
+    if (u16_x > 9)
+        au8_String[u8_digit++] = '0' + (u16_x % 100) / 10;
+    au8_String[u8_digit++] = '0' + (u16_x % 10);
+    au8_String[u8_digit] = 0;
+
+    return au8_String;
 }

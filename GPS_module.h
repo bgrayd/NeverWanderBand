@@ -46,4 +46,6 @@ _RMCPacket parseRMCPacket(char* psz_s);
 
 void configRMC1Hz();
 
+char * uitoa(uint16_t u16_x);
+
 #endif

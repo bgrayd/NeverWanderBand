@@ -46,16 +46,18 @@ int main(void){
 	char *psz_input;
 	psz_input = sz_buffer; 
 	_RMCPacket RMCPacket;
+        setTextColor(1);
+        setTextSize(1);
+        write('h');
+        display();
 	while(1){
-            //clearDisplay();
-            setTextColor(1);
-            write('h');
+            clearDisplay();
+            setCursor(0,0);
 		psz_input = sz_buffer;
 		inString(psz_input, 256);
-		//outString(newLine);
 		switch(parsePacketType(psz_input)){
 			case GPRMC:
-				/*RMCPacket = parseRMCPacket(psz_input);
+				RMCPacket = parseRMCPacket(psz_input);/*
 				outString(psz_input);
 				outUint8(RMCPacket.u8_hours);
 				outUint8(RMCPacket.u8_minutes);
@@ -75,12 +77,13 @@ int main(void){
 				outUint16(RMCPacket.u16_course);
 				WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
 				outString(newLine);*/
-                                writeString(psz_input);
 				break;
 			default:
 				break;
-		}/*
-		outString(psz_input);
+		}
+                writeString(uitoa(RMCPacket.position.latitude.u8_degrees));
+                display();
+                /*outString(psz_input);
 		outUint8(RMCPacket.u8_hours);
 		outUint8(RMCPacket.u8_minutes);
 		WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
@@ -99,5 +102,6 @@ int main(void){
 		outUint16(RMCPacket.u16_course);
 		WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
 		outString(newLine);*/
+                DELAY_MS(10);
 	};
 }

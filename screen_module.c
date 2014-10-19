@@ -77,9 +77,9 @@ void configSPI1(void) {
              SPI_MODE8_ON        | //8-bit mode
              MASTER_ENABLE_ON;     //master mode
 
-  CONFIG_SDO1_TO_RP(6);      //use RP6 for SDO
+  CONFIG_SDO1_TO_RP(RB6_RP);      //use RP6 for SDO
   //CONFIG_RB6_AS_DIG_PIN();   //Ensure that this is a digital pin
-  CONFIG_SCK1OUT_TO_RP(7);   //use RP7 for SCLK
+  CONFIG_SCK1OUT_TO_RP(RB7_RP);   //use RP7 for SCLK
   //CONFIG_RB7_AS_DIG_PIN();   //Ensure that this is a digital pin
   CONFIG_RB5_AS_DIG_OUTPUT();      //use RP5 for RST                   needs to be carefully removed
   //CONFIG_RB5_AS_DIG_PIN();   //Ensure that this is a digital pin
@@ -285,10 +285,10 @@ void clearDisplay(void) {
 
 //https://github.com/adafruit/Adafruit-GFX-Library/blob/master/Adafruit_GFX.cpp#L407
 void write(uint8_t c) {
-  if (c == '\n') {
+  if ((c == '\n') || (c == 0x0A)) {
     screenData.i16_y += screenData.u8_textSize*8;
     screenData.i16_x  = 0;
-  } else if (c == '\r') {
+  } else if ((c == '\r')||(c == 0x0D)) {
     // skip em
   } else {
     drawChar(screenData.i16_x, screenData.i16_y, c, screenData.u16_textColor, screenData.u16_backgroundColor,screenData.u8_textSize);

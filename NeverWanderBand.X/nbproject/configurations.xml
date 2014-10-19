@@ -335,6 +335,16 @@
       <item path="../../../../../../ece3724/pic24lib_all/lib/lkr/p33EP128GP502_bootldr.gld"
             ex="true"
             overriding="false">
+        <C30>
+        </C30>
+        <C30-AR>
+        </C30-AR>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
       </item>
       <C30>
         <property key="code-model" value="default"/>
