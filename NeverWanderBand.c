@@ -20,13 +20,16 @@ int main(void) {
   char *newLine = "It is working! But not really.";
   writeString(newLine);
   display();
-  ssd1306_command(0xA3);
-  ssd1306_command(0x2F);
-  display();
+  DELAY_MS(10000);
+  clearDisplay();
+  //drawFastVLine(64, 32, 10, 1)
+  //ssd1306_command(0xA3);
+  //ssd1306_command(0x2F);
+  //display();
   	
   while(1){
-	ssd1306_command(0x2F);
-	DELAY_MS(10);
+	//ssd1306_command(0x2F);
+	//DELAY_MS(10);
     doHeartbeat();
   };
 }
