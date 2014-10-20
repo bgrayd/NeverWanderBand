@@ -16,11 +16,11 @@ int main(void) {
   display();
   clearDisplay();
   setTextColor(1);
-  setTextSize(2);
-  char *newLine = "It is working!!";
+  setTextSize(1);
+  char *newLine = "It is working! But not really.";
   writeString(newLine);
   display();
-  ssd1306_command(0x26);
+  ssd1306_command(0xA3);
   ssd1306_command(0x2F);
   display();
   	
