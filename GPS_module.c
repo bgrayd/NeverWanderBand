@@ -86,7 +86,7 @@ _RMCPacket parseRMCPacket(char* psz_s){
 void configRMC1Hz(){
 	//DELAY_MS(100);
 	const char *message = PMTK_SET_NEA_OUTPUT_RMCONLY;
-	const char *message2 = PMTK_SET_NMEA_UPDATE_100_MILLIHERTZ;
+	const char *message2 = PMTK_SET_NMEA_UPDATE_1HZ;
 	outString(message);
 	outString(message2);
 }

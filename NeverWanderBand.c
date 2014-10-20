@@ -41,7 +41,10 @@ int main(void){
 	outString(HELLO_MSG);
 	configRMC1Hz();
         initScreen();
-	const char *newLine = "\n";
+	//const char *newLine = "\n";
+        const char psz_latitude[11] = "Latitude: ";
+        const char psz_longitude[12] = "Longitude: ";
+        const char psz_time[7] = "Time: ";
 	char sz_buffer[256];
 	char *psz_input;
 	psz_input = sz_buffer; 
@@ -53,55 +56,80 @@ int main(void){
 	while(1){
             clearDisplay();
             setCursor(0,0);
-		psz_input = sz_buffer;
-		inString(psz_input, 256);
-		switch(parsePacketType(psz_input)){
-			case GPRMC:
-				RMCPacket = parseRMCPacket(psz_input);/*
-				outString(psz_input);
-				outUint8(RMCPacket.u8_hours);
-				outUint8(RMCPacket.u8_minutes);
-				WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
-				outUint8(RMCPacket.u8_seconds);
-				outUint8(RMCPacket.u8_valid);
-				outUint8(RMCPacket.position.latitude.u8_hemisphereIndicator);
-				outUint8(RMCPacket.position.latitude.u8_degrees);
-				WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
-				outUint8(RMCPacket.position.latitude.u8_minutes);
-				outUint8(RMCPacket.position.latitude.u8_seconds);
-				outUint8(RMCPacket.position.longitude.u8_hemisphereIndicator);
-				outUint8(RMCPacket.position.longitude.u8_degrees);
-				WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
-				outUint8(RMCPacket.position.longitude.u8_minutes);
-				outUint8(RMCPacket.position.longitude.u8_seconds);
-				outUint16(RMCPacket.u16_course);
-				WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
-				outString(newLine);*/
-				break;
-			default:
-				break;
-		}
-                writeString(uitoa(RMCPacket.position.latitude.u8_degrees));
-                display();
-                /*outString(psz_input);
-		outUint8(RMCPacket.u8_hours);
-		outUint8(RMCPacket.u8_minutes);
-		WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
-		outUint8(RMCPacket.u8_seconds);
-		outUint8(RMCPacket.u8_valid);
-		outUint8(RMCPacket.position.latitude.u8_hemisphereIndicator);
-		outUint8(RMCPacket.position.latitude.u8_degrees);
-		WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
-		outUint8(RMCPacket.position.latitude.u8_minutes);
-		outUint8(RMCPacket.position.latitude.u8_seconds);
-		outUint8(RMCPacket.position.longitude.u8_hemisphereIndicator);
-		outUint8(RMCPacket.position.longitude.u8_degrees);
-		WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
-		outUint8(RMCPacket.position.longitude.u8_minutes);
-		outUint8(RMCPacket.position.longitude.u8_seconds);
-		outUint16(RMCPacket.u16_course);
-		WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
-		outString(newLine);*/
-                DELAY_MS(10);
+            psz_input = sz_buffer;
+            inString(psz_input, 256);
+            switch(parsePacketType(psz_input)){
+                    case GPRMC:
+                            RMCPacket = parseRMCPacket(psz_input);/*
+                            outString(psz_input);
+                            outUint8(RMCPacket.u8_hours);
+                            outUint8(RMCPacket.u8_minutes);
+                            WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
+                            outUint8(RMCPacket.u8_seconds);
+                            outUint8(RMCPacket.u8_valid);
+                            outUint8(RMCPacket.position.latitude.u8_hemisphereIndicator);
+                            outUint8(RMCPacket.position.latitude.u8_degrees);
+                            WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
+                            outUint8(RMCPacket.position.latitude.u8_minutes);
+                            outUint8(RMCPacket.position.latitude.u8_seconds);
+                            outUint8(RMCPacket.position.longitude.u8_hemisphereIndicator);
+                            outUint8(RMCPacket.position.longitude.u8_degrees);
+                            WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
+                            outUint8(RMCPacket.position.longitude.u8_minutes);
+                            outUint8(RMCPacket.position.longitude.u8_seconds);
+                            outUint16(RMCPacket.u16_course);
+                            WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
+                            outString(newLine);*/
+                            break;
+                    default:
+                            break;
+            }
+            writeString(psz_latitude);
+            writeString(uitoa(RMCPacket.position.latitude.u8_degrees));
+            write(0xA7);
+            write(' ');
+            writeString(uitoa(RMCPacket.position.latitude.u8_minutes));
+            write(96);
+            write(' ');
+            writeString(uitoa(RMCPacket.position.latitude.u8_seconds));
+            write(34);
+            write('\n');
+            writeString(psz_longitude);
+            writeString(uitoa(RMCPacket.position.longitude.u8_degrees));
+            write(0xA7);
+            write(' ');
+            writeString(uitoa(RMCPacket.position.longitude.u8_minutes));
+            write(96);
+            write(' ');
+            writeString(uitoa(RMCPacket.position.longitude.u8_seconds));
+            write(34);
+            write('\n');
+            writeString(psz_time);
+            writeString(uitoa(RMCPacket.u8_hours));
+            write(':');
+            writeString(uitoa(RMCPacket.u8_minutes));
+            write(':');
+            writeString(uitoa(RMCPacket.u8_seconds));
+            display();
+            /*outString(psz_input);
+            outUint8(RMCPacket.u8_hours);
+            outUint8(RMCPacket.u8_minutes);
+            WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
+            outUint8(RMCPacket.u8_seconds);
+            outUint8(RMCPacket.u8_valid);
+            outUint8(RMCPacket.position.latitude.u8_hemisphereIndicator);
+            outUint8(RMCPacket.position.latitude.u8_degrees);
+            WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
+            outUint8(RMCPacket.position.latitude.u8_minutes);
+            outUint8(RMCPacket.position.latitude.u8_seconds);
+            outUint8(RMCPacket.position.longitude.u8_hemisphereIndicator);
+            outUint8(RMCPacket.position.longitude.u8_degrees);
+            WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
+            outUint8(RMCPacket.position.longitude.u8_minutes);
+            outUint8(RMCPacket.position.longitude.u8_seconds);
+            outUint16(RMCPacket.u16_course);
+            WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
+            outString(newLine);*/
+            DELAY_MS(10);
 	};
 }
