@@ -45,6 +45,7 @@ int main(void){
         const char psz_latitude[11] = "Latitude: ";
         const char psz_longitude[12] = "Longitude: ";
         const char psz_time[7] = "Time: ";
+        const char psz_course[9] = "Coursr: ";
 	char sz_buffer[256];
 	char *psz_input;
 	psz_input = sz_buffer; 
@@ -60,26 +61,7 @@ int main(void){
             inString(psz_input, 256);
             switch(parsePacketType(psz_input)){
                     case GPRMC:
-                            RMCPacket = parseRMCPacket(psz_input);/*
-                            outString(psz_input);
-                            outUint8(RMCPacket.u8_hours);
-                            outUint8(RMCPacket.u8_minutes);
-                            WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
-                            outUint8(RMCPacket.u8_seconds);
-                            outUint8(RMCPacket.u8_valid);
-                            outUint8(RMCPacket.position.latitude.u8_hemisphereIndicator);
-                            outUint8(RMCPacket.position.latitude.u8_degrees);
-                            WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
-                            outUint8(RMCPacket.position.latitude.u8_minutes);
-                            outUint8(RMCPacket.position.latitude.u8_seconds);
-                            outUint8(RMCPacket.position.longitude.u8_hemisphereIndicator);
-                            outUint8(RMCPacket.position.longitude.u8_degrees);
-                            WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
-                            outUint8(RMCPacket.position.longitude.u8_minutes);
-                            outUint8(RMCPacket.position.longitude.u8_seconds);
-                            outUint16(RMCPacket.u16_course);
-                            WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
-                            outString(newLine);*/
+                            RMCPacket = parseRMCPacket(psz_input);
                             break;
                     default:
                             break;
@@ -110,6 +92,9 @@ int main(void){
             writeString(uitoa(RMCPacket.u8_minutes));
             write(':');
             writeString(uitoa(RMCPacket.u8_seconds));
+            write('\n');
+            writeString(psz_course);
+            writeString(uitoa(RMCPacket.u16_course));
             display();
             /*outString(psz_input);
             outUint8(RMCPacket.u8_hours);
