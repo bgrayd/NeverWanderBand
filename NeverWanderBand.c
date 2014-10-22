@@ -17,12 +17,9 @@ int main(void) {
   clearDisplay();
   setTextColor(1);
   setTextSize(1);
-  char *newLine = "It is working! But not really.";
-  writeString(newLine);
-  display();
-  DELAY_MS(10000);
-  clearDisplay();
-  //drawFastVLine(64, 32, 10, 1)
+//  char *newLine = "It is working! But not really.";
+//  writeString(newLine);
+
   //ssd1306_command(0xA3);
   //ssd1306_command(0x2F);
   //display();
@@ -30,6 +27,38 @@ int main(void) {
   while(1){
 	//ssd1306_command(0x2F);
 	//DELAY_MS(10);
+  drawArrowN();
+  display();
+  clearDisplay();
+  DELAY_MS(2000);
+  drawArrowNE();
+  display();
+  clearDisplay();
+  DELAY_MS(2000);	
+  drawArrowE();
+  display();
+  clearDisplay();
+  DELAY_MS(2000);
+  drawArrowSE();
+  display();
+  clearDisplay();
+  DELAY_MS(2000);
+  drawArrowS();
+  display();
+  clearDisplay();
+  DELAY_MS(2000);
+  drawArrowSW();
+  display();
+  clearDisplay();
+  DELAY_MS(2000);
+  drawArrowW();
+  display();
+  clearDisplay();
+  DELAY_MS(2000);
+  drawArrowNW();
+  display();
+  clearDisplay();
+  DELAY_MS(2000);
     doHeartbeat();
   };
-}
+};

@@ -496,3 +496,436 @@ void drawChar(int16_t x, int16_t y, unsigned char c,
     }
   }
 }
+
+
+//possible error with the swap!!!!!!!!!!
+void drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color) {
+  int16_t temp1;
+  int16_t temp2;
+  int16_t steep = abs(y1 - y0) > abs(x1 - x0);
+  if (steep) {
+    //swap(x0, y0);
+    //swap(x1, y1);
+    x0 = temp1;
+    y0 = temp2;
+    y0 = temp1;
+    x0 = temp2;
+
+    x1 = temp1;
+    y1 = temp2;
+    y1 = temp1;
+    x1 = temp2;
+  }
+
+  if (x0 > x1) {
+    //swap(x0, x1);
+    //swap(y0, y1);
+    x0 = temp1;
+    x1 = temp2;
+    x0 = temp1;
+    x1 = temp2;
+
+    y0 = temp1;
+    y1 = temp2;
+    y0 = temp1;
+    y1 = temp2;
+  }
+
+  int16_t dx, dy;
+  dx = x1 - x0;
+  dy = abs(y1 - y0);
+
+  int16_t err = dx / 2;
+  int16_t ystep;
+
+  if (y0 < y1) {
+    ystep = 1;
+  } else {
+    ystep = -1;
+  }
+
+  for (; x0<=x1; x0++) {
+    if (steep) {
+      drawPixel(y0, x0, color);
+    } else {
+      drawPixel(x0, y0, color);
+    }
+    err -= dy;
+    if (err < 0) {
+      y0 += ystep;
+      err += dx;
+    }
+  }
+}
+
+void drawFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color) {
+  // Update in subclasses if desired!
+  drawLine(x, y, x+w-1, y, color);
+}
+
+void drawArrowNE(void){
+	drawLine(64, 32, 120, 9, 1);
+    drawLine(64, 33, 120, 10, 1);
+    drawLine(64, 31, 120, 8, 1);
+    
+	drawPixel(120,7,1);
+	drawPixel(119,7,1);
+	drawPixel(118,7,1);
+	drawPixel(117,7,1);
+	drawPixel(116,7,1);
+	drawPixel(115,7,1);
+	drawPixel(114,7,1);
+	drawPixel(113,7,1);
+
+	drawPixel(120,8,1);
+	drawPixel(119,8,1);
+	drawPixel(118,8,1);
+	drawPixel(117,8,1);
+	drawPixel(116,8,1);
+	drawPixel(115,8,1);
+	drawPixel(114,8,1);
+
+	drawPixel(120,9,1);
+	drawPixel(119,9,1);
+	drawPixel(118,9,1);
+	drawPixel(117,9,1);
+	drawPixel(116,9,1);
+	drawPixel(115,9,1);
+
+	drawPixel(120,10,1);
+	drawPixel(119,10,1);
+	drawPixel(118,10,1);
+	drawPixel(117,10,1);
+	drawPixel(116,10,1);
+
+	drawPixel(120,11,1);
+	drawPixel(119,11,1);
+	drawPixel(118,11,1);
+	drawPixel(117,11,1);
+
+	drawPixel(120,12,1);
+	drawPixel(119,12,1);
+	drawPixel(118,12,1);
+
+	drawPixel(120,13,1);
+	drawPixel(119,13,1);
+
+	drawPixel(120,14,1);
+}
+
+void drawArrowN(void){
+  drawFastVLine(64, 6, 31, 1);
+  drawFastVLine(65, 6, 31, 1);
+  drawFastVLine(63, 6, 31, 1);
+  drawPixel(65, 5, 1);
+  drawPixel(65, 6, 1);
+  drawPixel(65, 7, 1);
+  drawPixel(65, 8, 1);
+  drawPixel(65, 9, 1);
+  drawPixel(66, 6, 1);
+  drawPixel(66, 7, 1);
+  drawPixel(66, 8, 1);
+  drawPixel(66, 9, 1);
+  drawPixel(67, 7, 1);
+  drawPixel(67, 8, 1);
+  drawPixel(67, 9, 1);
+  drawPixel(68, 8, 1);
+  drawPixel(68, 9, 1);
+  drawPixel(69, 9, 1);
+  drawPixel(63, 5, 1);
+  drawPixel(63, 6, 1);
+  drawPixel(63, 7, 1);
+  drawPixel(63, 8, 1);
+  drawPixel(63, 9, 1);
+  drawPixel(62, 7, 1);
+  drawPixel(62, 7, 1);
+  drawPixel(62, 8, 1);
+  drawPixel(62, 9, 1);
+  drawPixel(61, 7, 1);
+  drawPixel(61, 8, 1);
+  drawPixel(61, 9, 1);
+  drawPixel(60, 8, 1);
+  drawPixel(60, 9, 1);
+  drawPixel(59, 9, 1);
+  drawPixel(64, 5, 1);
+  drawPixel(62, 6, 1);
+}
+
+void drawArrowE(void){
+	drawFastHLine(64, 32, 48, 1);
+    drawFastHLine(64, 31, 48, 1);
+	drawFastHLine(64, 33, 48, 1);
+
+	drawPixel(112, 28, 1);
+    drawPixel(112, 29, 1);
+    drawPixel(112, 30, 1);
+    drawPixel(112, 31, 1);
+    drawPixel(112, 32, 1);
+    drawPixel(112, 33, 1);
+    drawPixel(112, 34, 1);
+    drawPixel(112, 35, 1);
+    drawPixel(112, 36, 1);
+
+    drawPixel(113, 29, 1);
+    drawPixel(113, 30, 1);
+    drawPixel(113, 31, 1);
+    drawPixel(113, 32, 1);
+    drawPixel(113, 33, 1);
+    drawPixel(113, 34, 1);
+    drawPixel(113, 35, 1);
+
+    drawPixel(114, 30, 1);
+    drawPixel(114, 31, 1);
+    drawPixel(114, 32, 1);
+    drawPixel(114, 33, 1);
+    drawPixel(114, 34, 1);
+
+    drawPixel(115, 31, 1);
+    drawPixel(115, 32, 1);
+    drawPixel(115, 33, 1);
+	
+	drawPixel(116, 32, 1);
+}
+
+void drawArrowS(void){
+	drawFastVLine(63, 32, 24, 1);
+    drawFastVLine(64, 32, 24, 1);
+    drawFastVLine(65, 32, 24, 1);
+
+	drawPixel(60, 56, 1);   
+	drawPixel(61, 56, 1);  
+	drawPixel(62, 56, 1);  
+	drawPixel(63, 56, 1);  
+	drawPixel(64, 56, 1);  
+	drawPixel(65, 56, 1);  
+	drawPixel(66, 56, 1);  
+	drawPixel(67, 56, 1);  
+	drawPixel(68, 56, 1); 
+
+	drawPixel(61, 57, 1);  
+	drawPixel(62, 57, 1);  
+	drawPixel(63, 57, 1);  
+	drawPixel(64, 57, 1);  
+	drawPixel(65, 57, 1);  
+	drawPixel(66, 57, 1);  
+	drawPixel(67, 57, 1);
+
+	drawPixel(62, 58, 1);  
+	drawPixel(63, 58, 1);  
+	drawPixel(64, 58, 1);  
+	drawPixel(65, 58, 1);  
+	drawPixel(66, 58, 1);  
+
+	drawPixel(63, 59, 1);  
+	drawPixel(64, 59, 1);  
+	drawPixel(65, 59, 1); 
+
+	drawPixel(64, 60, 1);   
+}
+
+void drawArrowW(void){
+	drawFastHLine(16, 32, 48, 1);
+    drawFastHLine(16, 31, 48, 1);
+	drawFastHLine(16, 33, 48, 1);
+
+	drawPixel(15, 28, 1);
+    drawPixel(15, 29, 1);
+    drawPixel(15, 30, 1);
+    drawPixel(15, 31, 1);
+    drawPixel(15, 32, 1);
+    drawPixel(15, 33, 1);
+    drawPixel(15, 34, 1);
+    drawPixel(15, 35, 1);
+    drawPixel(15, 36, 1);
+
+    drawPixel(14, 29, 1);
+    drawPixel(14, 30, 1);
+    drawPixel(14, 31, 1);
+    drawPixel(14, 32, 1);
+    drawPixel(14, 33, 1);
+    drawPixel(14, 34, 1);
+    drawPixel(14, 35, 1);
+
+    drawPixel(13, 30, 1);
+    drawPixel(13, 31, 1);
+    drawPixel(13, 32, 1);
+    drawPixel(13, 33, 1);
+    drawPixel(13, 34, 1);
+
+    drawPixel(12, 31, 1);
+    drawPixel(12, 32, 1);
+    drawPixel(12, 33, 1);
+
+    drawPixel(11, 32, 1);
+}
+
+void drawArrowSE(void){
+
+	drawLine(64, 32, 120, 56, 1);
+    drawLine(64, 33, 120, 57, 1);
+    drawLine(64, 31, 120, 55, 1);
+    
+	drawPixel(121,59,1);
+	drawPixel(120,59,1);
+	drawPixel(119,59,1);
+	drawPixel(118,59,1);
+	drawPixel(117,59,1);
+	drawPixel(116,59,1);
+	drawPixel(115,59,1);
+	drawPixel(114,59,1);
+
+	drawPixel(121,58,1);
+	drawPixel(120,58,1);
+	drawPixel(119,58,1);
+	drawPixel(118,58,1);
+	drawPixel(117,58,1);
+	drawPixel(116,58,1);
+	drawPixel(115,58,1);
+
+	drawPixel(121,57,1);
+	drawPixel(120,57,1);
+	drawPixel(119,57,1);
+	drawPixel(118,57,1);
+	drawPixel(117,57,1);
+	drawPixel(116,57,1);
+
+	drawPixel(121,56,1);
+	drawPixel(120,56,1);
+	drawPixel(119,56,1);
+	drawPixel(118,56,1);
+	drawPixel(117,56,1);
+
+	drawPixel(121,55,1);
+	drawPixel(120,55,1);
+	drawPixel(119,55,1);
+	drawPixel(118,55,1);
+
+	drawPixel(121,54,1);
+	drawPixel(120,54,1);
+	drawPixel(119,54,1);
+
+	drawPixel(121,53,1);
+	drawPixel(120,53,1);
+
+	drawPixel(121,52,1);
+}
+
+void drawArrowSW(void){
+    drawLine(8, 57, 64, 33, 1);
+	drawLine(8, 56, 64, 32, 1);
+	drawLine(8, 55, 64, 31, 1);
+    
+	drawPixel(4,54,1);
+	drawPixel(4,55,1);
+	drawPixel(4,56,1);
+	drawPixel(4,57,1);
+	drawPixel(4,58,1);
+	drawPixel(4,59,1);
+	drawPixel(4,60,1);
+	drawPixel(4,53,1);
+	drawPixel(4,52,1);
+
+	drawPixel(5,54,1);
+	drawPixel(5,55,1);
+	drawPixel(5,56,1);
+	drawPixel(5,57,1);
+	drawPixel(5,58,1);
+	drawPixel(5,59,1);
+	drawPixel(5,60,1);
+	drawPixel(5,53,1);
+
+	drawPixel(6,54,1);
+	drawPixel(6,55,1);
+	drawPixel(6,56,1);
+	drawPixel(6,57,1);
+	drawPixel(6,58,1);
+	drawPixel(6,59,1);
+	drawPixel(6,60,1);
+
+	drawPixel(7,55,1);
+	drawPixel(7,56,1);
+	drawPixel(7,57,1);
+	drawPixel(7,58,1);
+	drawPixel(7,59,1);
+	drawPixel(7,60,1);
+
+	drawPixel(8,56,1);
+	drawPixel(8,57,1);
+	drawPixel(8,58,1);
+	drawPixel(8,59,1);
+	drawPixel(8,60,1);
+
+	drawPixel(9,57,1);
+	drawPixel(9,58,1);
+	drawPixel(9,59,1);
+	drawPixel(9,60,1);
+
+	drawPixel(10,58,1);
+	drawPixel(10,59,1);
+	drawPixel(10,60,1);
+
+	drawPixel(11,59,1);
+	drawPixel(11,60,1);
+
+	drawPixel(12,60,1);
+}
+
+void drawArrowNW(void){
+    drawLine(8, 7, 64, 33, 1);
+	drawLine(8, 6, 64, 32, 1);
+	drawLine(8, 5, 64, 31, 1);
+    
+	drawPixel(4,2,1);
+	drawPixel(4,3,1);
+	drawPixel(4,4,1);
+	drawPixel(4,5,1);
+	drawPixel(4,6,1);
+	drawPixel(4,7,1);
+	drawPixel(4,8,1);
+	drawPixel(4,9,1);
+	drawPixel(4,10,1);
+
+	drawPixel(5,2,1);
+	drawPixel(5,3,1);
+	drawPixel(5,4,1);
+	drawPixel(5,5,1);
+	drawPixel(5,6,1);
+	drawPixel(5,7,1);
+	drawPixel(5,8,1);
+	drawPixel(5,9,1);
+
+	drawPixel(6,2,1);
+	drawPixel(6,3,1);
+	drawPixel(6,4,1);
+	drawPixel(6,5,1);
+	drawPixel(6,6,1);
+	drawPixel(6,7,1);
+	drawPixel(6,8,1);
+
+	drawPixel(7,2,1);
+	drawPixel(7,3,1);
+	drawPixel(7,4,1);
+	drawPixel(7,5,1);
+	drawPixel(7,6,1);
+	drawPixel(7,7,1);
+
+	drawPixel(8,2,1);
+	drawPixel(8,3,1);
+	drawPixel(8,4,1);
+	drawPixel(8,5,1);
+	drawPixel(8,6,1);
+
+	drawPixel(9,2,1);
+	drawPixel(9,3,1);
+	drawPixel(9,4,1);
+	drawPixel(9,5,1);
+
+	drawPixel(10,2,1);
+	drawPixel(10,3,1);
+	drawPixel(10,4,1);
+
+	drawPixel(11,2,1);
+	drawPixel(11,3,1);
+
+	drawPixel(12,2,1);
+}
