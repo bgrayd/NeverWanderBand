@@ -18,3 +18,10 @@ CND_ARTIFACT_PATH_pic24H=dist/pic24H/production/NeverWanderBand.X.production.hex
 CND_PACKAGE_DIR_pic24H=${CND_DISTDIR}/pic24H/package
 CND_PACKAGE_NAME_pic24H=neverwanderband.x.tar
 CND_PACKAGE_PATH_pic24H=${CND_DISTDIR}/pic24H/package/neverwanderband.x.tar
+# pic24HJ64 configuration
+CND_ARTIFACT_DIR_pic24HJ64=dist/pic24HJ64/production
+CND_ARTIFACT_NAME_pic24HJ64=NeverWanderBand.X.production.hex
+CND_ARTIFACT_PATH_pic24HJ64=dist/pic24HJ64/production/NeverWanderBand.X.production.hex
+CND_PACKAGE_DIR_pic24HJ64=${CND_DISTDIR}/pic24HJ64/package
+CND_PACKAGE_NAME_pic24HJ64=neverwanderband.x.tar
+CND_PACKAGE_PATH_pic24HJ64=${CND_DISTDIR}/pic24HJ64/package/neverwanderband.x.tar
