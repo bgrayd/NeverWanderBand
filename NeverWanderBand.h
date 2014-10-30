@@ -70,32 +70,7 @@ int16_t calcAngleDegrees(st_gpsPosition position1, st_gpsPosition position2);
 *@i16_angle: angle to point to, in degrees, between -180 and 180
 *@return: nothing
 *********************************************************/
-void giveAngleDegrees(int16_t i16_angle){
-	if (i16_angle >= -23 && i16_angle <= 23){
-		drawArrowN();
-	else if ((i16_angle > 23 && i16_angle <= 68){
-		drawArrowNE();
-	}
-	else if ((i16_angle > 68 && i16_angle <= 113){
-		drawArrowE();
-	}
-	else if ((i16_angle > 113 && i16_angle <= 158){
-		drawArrowSE();
-	}
-	else if ((i16_angle > 158 || i16_angle <= -158){
-		drawArrowS();
-	}
-	else if ((i16_angle >= -68 && i16_angle < -23){
-		drawArrowNW();
-	}
-	else if ((i16_angle >= -113 && i16_angle < -68){
-		drawArrowW();
-	}
-	else if ((i16_angle > -158 && i16_angle < -113){
-		drawArrowSW();
-	}
-	} 
-}
+void giveAngleDegrees(int16_t i16_angle);
 
 /*********************************************************
 *printCharacters
@@ -103,18 +78,14 @@ void giveAngleDegrees(int16_t i16_angle){
 *@ch_letters: array of characters to be printed, null terminated
 *@return:none
 *********************************************************/
-void printCharacters(char* ch_letters, uint16_t color, unit16_t size){
-	writeString(ch_letters);
-}
+void printCharacters(char* ch_letters, uint16_t color, unit16_t size);
 
 /*********************************************************
 *clearScreen
 *clears the screen
 *@return:none
 *********************************************************/
-void clearScreen(){
-	clearDisplay();
-}
+void clearScreen();
 
 
 /*********************************************************
@@ -122,16 +93,13 @@ void clearScreen(){
 *will refresh screen and display whatevers in the buffer
 *@return:none
 *********************************************************/
-void updateScreen(){
-	display();
-}
+void updateScreen();
 
 /*********************************************************
 *resetCursor
 *resets cursor to 0,0
 *@return:none
 *********************************************************/
-void resetCursor(){
-}
+void resetCursor();
 
 #endif  //_NEVERWANDERBAND_H_
