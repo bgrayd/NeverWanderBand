@@ -1,5 +1,5 @@
-#ifndef _ADAFRUIT_GPS_H
-#define _ADAFRUIT_GPS_H
+#ifndef _ADAFRUIT_GPS_H_
+#define _ADAFRUIT_GPS_H_
 
 #include "pic24_all.h"
 #include "NeverWanderBand.h"
@@ -46,4 +46,4 @@ _RMCPacket parseRMCPacket(char* psz_s);
 
 void configRMC1Hz();
 
-#endif
+#endif //_ADAFRUIT_GPS_H_
