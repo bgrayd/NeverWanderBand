@@ -1,3 +1,4 @@
 *.o
 NeverWanderBandMain.map
 NeverWanderBandMain.cof
+*.d
