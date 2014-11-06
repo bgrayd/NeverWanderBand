@@ -71,7 +71,7 @@ int16_t calcAngleDegrees(st_gpsPosition position1, st_gpsPosition position2);
 *@i16_angle: angle to point to, in degrees, between -180 and 180
 *@return: nothing
 *********************************************************/
-void displayAngleDegrees(int16_t i16_angle);
+void giveAngleDegrees(int16_t i16_angle);
 
 /*********************************************************
 *printCharacters
@@ -79,7 +79,7 @@ void displayAngleDegrees(int16_t i16_angle);
 *@ch_letters: array of characters to be printed, null terminated
 *@return:none
 *********************************************************/
-void printCharacters(char* ch_letters);
+void printCharacters(char* ch_letters, uint16_t color, unit16_t size);
 
 /*********************************************************
 *clearScreen
@@ -88,4 +88,19 @@ void printCharacters(char* ch_letters);
 *********************************************************/
 void clearScreen();
 
-#endif
+
+/*********************************************************
+*updateScreen
+*will refresh screen and display whatevers in the buffer
+*@return:none
+*********************************************************/
+void updateScreen();
+
+/*********************************************************
+*resetCursor
+*resets cursor to 0,0
+*@return:none
+*********************************************************/
+void resetCursor();
+
+#endif  //_NEVERWANDERBAND_H_
