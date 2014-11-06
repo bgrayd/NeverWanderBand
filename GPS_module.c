@@ -26,6 +26,8 @@ _packetType_t parsePacketType(char* psz_s){
 
 _RMCPacket parseRMCPacket(char* psz_s){
 	_RMCPacket st_rmcPacket;
+        uint16_t u16_latCentiSec = 0;
+        uint16_t u16_lonCentiSec = 0;
 	
 	//I need to go back and change the magic number is defined constants
 	st_rmcPacket.u8_hours = ((*(psz_s+7)-48)*10 + (*(psz_s+8)-48));
@@ -37,12 +39,14 @@ _RMCPacket parseRMCPacket(char* psz_s){
 		st_rmcPacket.position.latitude.u8_hemisphereIndicator = 0;
 		st_rmcPacket.position.latitude.u8_degrees = 0;
 		st_rmcPacket.position.latitude.u8_minutes = 0;
-		st_rmcPacket.position.latitude.u8_seconds = 0;
+		st_rmcPacket.position.latitude.u8_centiSecondsMSB = 0;
+                st_rmcPacket.position.latitude.u8_centiSecondsLSB = 0;
 	
 		st_rmcPacket.position.longitude.u8_hemisphereIndicator = 0;
 		st_rmcPacket.position.longitude.u8_degrees = 0;
 		st_rmcPacket.position.longitude.u8_minutes = 0;
-		st_rmcPacket.position.longitude.u8_seconds = 0;
+		st_rmcPacket.position.longitude.u8_centiSecondsMSB = 0;
+                st_rmcPacket.position.longitude.u8_centiSecondsLSB = 0;
 		
 		st_rmcPacket.u16_course = 0;
 		
@@ -52,12 +56,16 @@ _RMCPacket parseRMCPacket(char* psz_s){
 	st_rmcPacket.position.latitude.u8_hemisphereIndicator = (*(psz_s+30))=='N';
 	st_rmcPacket.position.latitude.u8_degrees = ((*(psz_s+20)-48)*10 + (*(psz_s+21)-48));
 	st_rmcPacket.position.latitude.u8_minutes = ((*(psz_s+22)-48)*10 + (*(psz_s+23)-48));
-	st_rmcPacket.position.latitude.u8_seconds = ((*(psz_s+25)-48)*6 + (*(psz_s+26)-48)*6/10);
+	u16_latCentiSec = ((*(psz_s+25)-48)*600 + (*(psz_s+26)-48)*60 + (*(psz_s+27)-48)*6+(*(psz_s+28)-48)*6/10);
+        st_rmcPacket.position.latitude.u8_centiSecondsMSB = (u16_latCentiSec >> 8) & 0xFF;
+        st_rmcPacket.position.latitude.u8_centiSecondsLSB = u16_latCentiSec & 0xFF;
 	
 	st_rmcPacket.position.longitude.u8_hemisphereIndicator = (*(psz_s+43))=='E';
 	st_rmcPacket.position.longitude.u8_degrees = ((*(psz_s+32)-48)*100 + (*(psz_s+33)-48)*10 + (*(psz_s+34)-48));
 	st_rmcPacket.position.longitude.u8_minutes = ((*(psz_s+35)-48)*10 + (*(psz_s+36)-48));
-	st_rmcPacket.position.longitude.u8_seconds = ((*(psz_s+38)-48)*6 + (*(psz_s+39)-48)*6/10);
+	u16_lonCentiSec = ((*(psz_s+38)-48)*600 + (*(psz_s+39)-48)*60 + (*(psz_s+40)-48)*6 + (*(psz_s+41)-48)*6/10);
+        st_rmcPacket.position.longitude.u8_centiSecondsMSB = (u16_lonCentiSec >> 8) & 0xFF;
+        st_rmcPacket.position.longitude.u8_centiSecondsLSB = u16_lonCentiSec & 0xFF;
 	
 	uint8_t u8_counter = 43+2;
 	while(u8_counter <= 254){

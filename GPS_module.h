@@ -1,5 +1,5 @@
-#ifndef _ADAFRUIT_GPS_H
-#define _ADAFRUIT_GPS_H
+#ifndef _ADAFRUIT_GPS_H_
+#define _ADAFRUIT_GPS_H_
 
 #include "pic24_all.h"
 #include "NeverWanderBand.h"
@@ -48,4 +48,4 @@ void configRMC1Hz();
 
 char * uitoa(uint16_t u16_x);
 
-#endif
+#endif //_ADAFRUIT_GPS_H_

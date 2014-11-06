@@ -1,3 +1,8 @@
 *.o
 NeverWanderBandMain.map
+*.map
+*.cof
+*.map
+*.hex
 NeverWanderBandMain.cof
+*.d

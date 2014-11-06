@@ -5,7 +5,8 @@ typedef struct st_gpsCoordinate{
 	uint8_t u8_hemisphereIndicator;
 	uint8_t u8_degrees;
 	uint8_t u8_minutes;
-	uint8_t u8_seconds;
+	uint8_t u8_centiSecondsMSB;
+        uint8_t u8_centiSecondsLSB;
 } st_gpsCoordinate;
 
 //This is format of the data for transfering the positions between
