@@ -112,7 +112,12 @@ int main(void){
 	//printResetCause();       //print statement about what caused reset
 	outString(HELLO_MSG);
 	configRMC1Hz();
-        initScreen();
+        st_gpsPosition childGpsPosition;
+        while(1){
+            childGpsPosition = getGpsPosition();
+            transmitPosition(childGpsPosition);
+        }
+}
 #endif //CHILDBAND
 
 
