@@ -79,7 +79,7 @@ void giveAngleDegrees(int16_t i16_angle);
 *@ch_letters: array of characters to be printed, null terminated
 *@return:none
 *********************************************************/
-void printCharacters(char* ch_letters, uint16_t color, unit16_t size);
+void printCharacters(char* ch_letters, uint16_t color, uint16_t size);
 
 /*********************************************************
 *clearScreen

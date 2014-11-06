@@ -1,0 +1,24 @@
+build/default/production/_ext/1472/screen_module.o:  \
+../screen_module.c  \
+../glcdfont.c  \
+../screen_module.h  \
+../../../../../../ece3724/pic24_code_examples/lib/include/pic24_all.h  \
+../../../../../../ece3724/pic24_code_examples/lib/include/pic24_chip.h  \
+../../../../../../ece3724/pic24_code_examples/lib/include/pic24_libconfig.h  \
+../../../../../../ece3724/pic24_code_examples/lib/include/pic24_unittest.h  \
+../../../../../../ece3724/pic24_code_examples/lib/include/pic24_clockfreq.h  \
+../../../../../../ece3724/pic24_code_examples/lib/include/pic24_delay.h  \
+../../../../../../ece3724/pic24_code_examples/lib/include/pic24_util.h  \
+../../../../../../ece3724/pic24_code_examples/lib/include/pic24_ports.h  \
+../../../../../../ece3724/pic24_code_examples/lib/include/devices/pic24hj32gp202_ports.h  \
+../../../../../../ece3724/pic24_code_examples/lib/include/pic24_uart.h  \
+../../../../../../ece3724/pic24_code_examples/lib/include/pic24_serial.h  \
+../../../../../../ece3724/pic24_code_examples/lib/include/pic24_timer.h  \
+../../../../../../ece3724/pic24_code_examples/lib/include/pic24_i2c.h  \
+../../../../../../ece3724/pic24_code_examples/lib/include/pic24_spi.h  \
+../../../../../../ece3724/pic24_code_examples/lib/include/pic24_adc.h  \
+../../../../../../ece3724/pic24_code_examples/lib/include/pic24_dma.h  \
+../../../../../../ece3724/pic24_code_examples/lib/include/pic24_ecan.h  \
+../../../../../../ece3724/pic24_code_examples/lib/include/pic24_generic.h  \
+../../../../../../ece3724/pic24_code_examples/lib/include/pic24_flash.h  \
+../../../../../../ece3724/pic24_code_examples/lib/include/pic24_comparator.h 

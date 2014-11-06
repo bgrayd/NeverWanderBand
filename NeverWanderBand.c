@@ -274,8 +274,7 @@ int16_t getDirection(){
 };
 
 
-
-void printCharacters(char* ch_letters, uint16_t color, unit16_t size){
+void printCharacters(char* ch_letters, uint16_t color, uint16_t size){
     setTextColor(color);
     setTextSize(size);
 	writeString(ch_letters);
@@ -296,26 +295,27 @@ void resetCursor(){
 void giveAngleDegrees(int16_t i16_angle){
 	if (i16_angle >= -23 && i16_angle <= 23){
 		drawArrowN();
-	else if ((i16_angle > 23 && i16_angle <= 68){
+        }
+	else if (i16_angle > 23 && i16_angle <= 68){
 		drawArrowNE();
 	}
-	else if ((i16_angle > 68 && i16_angle <= 113){
+	else if (i16_angle > 68 && i16_angle <= 113){
 		drawArrowE();
 	}
-	else if ((i16_angle > 113 && i16_angle <= 158){
+	else if (i16_angle > 113 && i16_angle <= 158){
 		drawArrowSE();
 	}
-	else if ((i16_angle > 158 || i16_angle <= -158){
+	else if (i16_angle > 158 || i16_angle <= -158){
 		drawArrowS();
 	}
-	else if ((i16_angle >= -68 && i16_angle < -23){
+	else if (i16_angle >= -68 && i16_angle < -23){
 		drawArrowNW();
 	}
-	else if ((i16_angle >= -113 && i16_angle < -68){
+	else if (i16_angle >= -113 && i16_angle < -68){
 		drawArrowW();
 	}
-	else if ((i16_angle > -158 && i16_angle < -113){
+	else if (i16_angle > -158 && i16_angle < -113){
 		drawArrowSW();
 	}
-	} 
+	
 }
