@@ -11,5 +11,7 @@ int main(void) {
   configUART2(DEFAULT_BAUDRATE);
   printResetCause();       //print statement about what caused reset
   outString(HELLO_MSG);
+  char x[] = "are you getting this?";
+  outChar2(x);
   while(1){};
 }

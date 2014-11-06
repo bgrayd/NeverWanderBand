@@ -53,6 +53,7 @@
       </logicalFolder>
       <itemPath>../NeverWanderBand.c</itemPath>
       <itemPath>../xbee_transmitter.c</itemPath>
+      <itemPath>../Xbee_pic2transmitter.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

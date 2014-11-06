@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=C:/ece3724/pic24lib_all/lib/src/pic24_clockfreq.c C:/ece3724/pic24lib_all/lib/src/pic24_configbits.c C:/ece3724/pic24lib_all/lib/src/pic24_serial.c C:/ece3724/pic24lib_all/lib/src/pic24_uart.c C:/ece3724/pic24lib_all/lib/src/pic24_util.c C:/ece3724/pic24lib_all/lib/src/pic24_spi.c C:/ece3724/pic24lib_all/lib/src/pic24_i2c.c ../NeverWanderBand.c ../xbee_transmitter.c
+SOURCEFILES_QUOTED_IF_SPACED=C:/ece3724/pic24lib_all/lib/src/pic24_clockfreq.c C:/ece3724/pic24lib_all/lib/src/pic24_configbits.c C:/ece3724/pic24lib_all/lib/src/pic24_serial.c C:/ece3724/pic24lib_all/lib/src/pic24_uart.c C:/ece3724/pic24lib_all/lib/src/pic24_util.c C:/ece3724/pic24lib_all/lib/src/pic24_spi.c C:/ece3724/pic24lib_all/lib/src/pic24_i2c.c ../NeverWanderBand.c ../xbee_transmitter.c ../Xbee_pic2transmitter.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o ${OBJECTDIR}/_ext/1719179988/pic24_configbits.o ${OBJECTDIR}/_ext/1719179988/pic24_serial.o ${OBJECTDIR}/_ext/1719179988/pic24_uart.o ${OBJECTDIR}/_ext/1719179988/pic24_util.o ${OBJECTDIR}/_ext/1719179988/pic24_spi.o ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o ${OBJECTDIR}/_ext/1472/NeverWanderBand.o ${OBJECTDIR}/_ext/1472/xbee_transmitter.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o.d ${OBJECTDIR}/_ext/1719179988/pic24_configbits.o.d ${OBJECTDIR}/_ext/1719179988/pic24_serial.o.d ${OBJECTDIR}/_ext/1719179988/pic24_uart.o.d ${OBJECTDIR}/_ext/1719179988/pic24_util.o.d ${OBJECTDIR}/_ext/1719179988/pic24_spi.o.d ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o.d ${OBJECTDIR}/_ext/1472/NeverWanderBand.o.d ${OBJECTDIR}/_ext/1472/xbee_transmitter.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o ${OBJECTDIR}/_ext/1719179988/pic24_configbits.o ${OBJECTDIR}/_ext/1719179988/pic24_serial.o ${OBJECTDIR}/_ext/1719179988/pic24_uart.o ${OBJECTDIR}/_ext/1719179988/pic24_util.o ${OBJECTDIR}/_ext/1719179988/pic24_spi.o ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o ${OBJECTDIR}/_ext/1472/NeverWanderBand.o ${OBJECTDIR}/_ext/1472/xbee_transmitter.o ${OBJECTDIR}/_ext/1472/Xbee_pic2transmitter.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o.d ${OBJECTDIR}/_ext/1719179988/pic24_configbits.o.d ${OBJECTDIR}/_ext/1719179988/pic24_serial.o.d ${OBJECTDIR}/_ext/1719179988/pic24_uart.o.d ${OBJECTDIR}/_ext/1719179988/pic24_util.o.d ${OBJECTDIR}/_ext/1719179988/pic24_spi.o.d ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o.d ${OBJECTDIR}/_ext/1472/NeverWanderBand.o.d ${OBJECTDIR}/_ext/1472/xbee_transmitter.o.d ${OBJECTDIR}/_ext/1472/Xbee_pic2transmitter.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o ${OBJECTDIR}/_ext/1719179988/pic24_configbits.o ${OBJECTDIR}/_ext/1719179988/pic24_serial.o ${OBJECTDIR}/_ext/1719179988/pic24_uart.o ${OBJECTDIR}/_ext/1719179988/pic24_util.o ${OBJECTDIR}/_ext/1719179988/pic24_spi.o ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o ${OBJECTDIR}/_ext/1472/NeverWanderBand.o ${OBJECTDIR}/_ext/1472/xbee_transmitter.o
+OBJECTFILES=${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o ${OBJECTDIR}/_ext/1719179988/pic24_configbits.o ${OBJECTDIR}/_ext/1719179988/pic24_serial.o ${OBJECTDIR}/_ext/1719179988/pic24_uart.o ${OBJECTDIR}/_ext/1719179988/pic24_util.o ${OBJECTDIR}/_ext/1719179988/pic24_spi.o ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o ${OBJECTDIR}/_ext/1472/NeverWanderBand.o ${OBJECTDIR}/_ext/1472/xbee_transmitter.o ${OBJECTDIR}/_ext/1472/Xbee_pic2transmitter.o
 
 # Source Files
-SOURCEFILES=C:/ece3724/pic24lib_all/lib/src/pic24_clockfreq.c C:/ece3724/pic24lib_all/lib/src/pic24_configbits.c C:/ece3724/pic24lib_all/lib/src/pic24_serial.c C:/ece3724/pic24lib_all/lib/src/pic24_uart.c C:/ece3724/pic24lib_all/lib/src/pic24_util.c C:/ece3724/pic24lib_all/lib/src/pic24_spi.c C:/ece3724/pic24lib_all/lib/src/pic24_i2c.c ../NeverWanderBand.c ../xbee_transmitter.c
+SOURCEFILES=C:/ece3724/pic24lib_all/lib/src/pic24_clockfreq.c C:/ece3724/pic24lib_all/lib/src/pic24_configbits.c C:/ece3724/pic24lib_all/lib/src/pic24_serial.c C:/ece3724/pic24lib_all/lib/src/pic24_uart.c C:/ece3724/pic24lib_all/lib/src/pic24_util.c C:/ece3724/pic24lib_all/lib/src/pic24_spi.c C:/ece3724/pic24lib_all/lib/src/pic24_i2c.c ../NeverWanderBand.c ../xbee_transmitter.c ../Xbee_pic2transmitter.c
 
 
 CFLAGS=
@@ -142,6 +142,13 @@ ${OBJECTDIR}/_ext/1472/xbee_transmitter.o: ../xbee_transmitter.c  nbproject/Make
 	${MP_CC} $(MP_EXTRA_CC_PRE)  ../xbee_transmitter.c  -o ${OBJECTDIR}/_ext/1472/xbee_transmitter.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/xbee_transmitter.o.d"      -g -D__DEBUG   -omf=elf -O0 -I"../../lib/include" -I"../../../../../../ECE3724/pic24lib_all/lib/include" -I"../../../../../../ECE3724/pic24lib_all/lib/src" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/xbee_transmitter.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/_ext/1472/Xbee_pic2transmitter.o: ../Xbee_pic2transmitter.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1472 
+	@${RM} ${OBJECTDIR}/_ext/1472/Xbee_pic2transmitter.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/Xbee_pic2transmitter.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Xbee_pic2transmitter.c  -o ${OBJECTDIR}/_ext/1472/Xbee_pic2transmitter.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/Xbee_pic2transmitter.o.d"      -g -D__DEBUG   -omf=elf -O0 -I"../../lib/include" -I"../../../../../../ECE3724/pic24lib_all/lib/include" -I"../../../../../../ECE3724/pic24lib_all/lib/src" -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/Xbee_pic2transmitter.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
 ${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o: C:/ece3724/pic24lib_all/lib/src/pic24_clockfreq.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1719179988 
@@ -205,6 +212,13 @@ ${OBJECTDIR}/_ext/1472/xbee_transmitter.o: ../xbee_transmitter.c  nbproject/Make
 	@${RM} ${OBJECTDIR}/_ext/1472/xbee_transmitter.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  ../xbee_transmitter.c  -o ${OBJECTDIR}/_ext/1472/xbee_transmitter.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/xbee_transmitter.o.d"      -g -omf=elf -O0 -I"../../lib/include" -I"../../../../../../ECE3724/pic24lib_all/lib/include" -I"../../../../../../ECE3724/pic24lib_all/lib/src" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/xbee_transmitter.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/_ext/1472/Xbee_pic2transmitter.o: ../Xbee_pic2transmitter.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1472 
+	@${RM} ${OBJECTDIR}/_ext/1472/Xbee_pic2transmitter.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/Xbee_pic2transmitter.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Xbee_pic2transmitter.c  -o ${OBJECTDIR}/_ext/1472/Xbee_pic2transmitter.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/Xbee_pic2transmitter.o.d"      -g -omf=elf -O0 -I"../../lib/include" -I"../../../../../../ECE3724/pic24lib_all/lib/include" -I"../../../../../../ECE3724/pic24lib_all/lib/src" -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/Xbee_pic2transmitter.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 
