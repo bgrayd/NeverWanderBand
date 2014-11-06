@@ -10,7 +10,6 @@ int main(void) {
   configUART2(DEFAULT_BAUDRATE);
   printResetCause();       //print statement about what caused reset
   outString(HELLO_MSG);
-  //char y[] = outChar2(x);
-  //outChar2(x) = inChar2(z);
+  char y[] = inChar2();
   while(1){};
 }
