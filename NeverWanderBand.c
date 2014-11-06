@@ -1,4 +1,5 @@
 #include "pic24_all.h"
+#include <stdio.h>
 #include "NeverWanderBand.h"
 
 

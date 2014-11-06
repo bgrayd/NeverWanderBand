@@ -5,7 +5,7 @@
   <confs>
     <conf name="pic33" type="2">
       <platformToolSN></platformToolSN>
-      <languageToolchainDir>C:\Program Files (x86)\Microchip\xc16\v1.21\bin</languageToolchainDir>
+      <languageToolchainDir>C:\Program Files\Microchip\xc16\v1.20\bin</languageToolchainDir>
       <mdbdebugger version="1">
         <placeholder1>place holder 1</placeholder1>
         <placeholder2>place holder 2</placeholder2>
@@ -23,7 +23,7 @@
     </conf>
     <conf name="pic24H" type="2">
       <platformToolSN></platformToolSN>
-      <languageToolchainDir>C:\Program Files (x86)\Microchip\xc16\v1.21\bin</languageToolchainDir>
+      <languageToolchainDir>C:\Program Files\Microchip\xc16\v1.20\bin</languageToolchainDir>
       <mdbdebugger version="1">
         <placeholder1>place holder 1</placeholder1>
         <placeholder2>place holder 2</placeholder2>
@@ -41,7 +41,7 @@
     </conf>
     <conf name="pic24HJ64" type="2">
       <platformToolSN></platformToolSN>
-      <languageToolchainDir>C:\Program Files (x86)\Microchip\xc16\v1.21\bin</languageToolchainDir>
+      <languageToolchainDir>C:\Program Files\Microchip\xc16\v1.20\bin</languageToolchainDir>
       <mdbdebugger version="1">
         <placeholder1>place holder 1</placeholder1>
         <placeholder2>place holder 2</placeholder2>
