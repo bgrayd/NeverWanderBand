@@ -69,39 +69,51 @@ int main(void){
             writeString(psz_course);
             writeString(uitoa(RMCPacket.u16_course));
             display();
-            /*outString(psz_input);
-            outUint8(RMCPacket.u8_hours);
-            outUint8(RMCPacket.u8_minutes);
-            WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
-            outUint8(RMCPacket.u8_seconds);
-            outUint8(RMCPacket.u8_valid);
-            outUint8(RMCPacket.position.latitude.u8_hemisphereIndicator);
-            outUint8(RMCPacket.position.latitude.u8_degrees);
-            WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
-            outUint8(RMCPacket.position.latitude.u8_minutes);
-            outUint8(RMCPacket.position.latitude.u8_seconds);
-            outUint8(RMCPacket.position.longitude.u8_hemisphereIndicator);
-            outUint8(RMCPacket.position.longitude.u8_degrees);
-            WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
-            outUint8(RMCPacket.position.longitude.u8_minutes);
-            outUint8(RMCPacket.position.longitude.u8_seconds);
-            outUint16(RMCPacket.u16_course);
-            WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
-            outString(newLine);*/
             DELAY_MS(10);
 	};
 }
-#endif
-#endif
+#endif //CHILDBAND
+#endif //PARENTBAND
 
 
 #ifdef PARENTBAND
-
-#endif
+int main(void){
+	configClock();
+	configHeartbeat();
+	configDefaultUART(9600);
+	//printResetCause();       //print statement about what caused reset
+	outString(HELLO_MSG);
+	configRMC1Hz();
+        initScreen();
+        const char *meters = "m";
+        st_gpsPosition parentGpsPosition, childGpsPosition;
+        uint16_t u16_distance;
+        int16_t i16_angleNorth, i16_angleChild;
+        while(1){
+            parentGpsPosition = getGpsPosition();
+            childGpsPosition = receivePosition();
+            u16_distance = calcDistanceMeters(parentGpsPosition, childGpsPosition);
+            i16_angleNorth = getDirection();
+            i16_angleChild = calcAngleDegrees(parentGpsPosition, childGpsPosition);
+            clearScreen();
+            giveAngleDegrees(i16_angleNorth - i16_angleChild);
+            printCharacters(uitoa(u16_distance),1,1);
+            printCharacters(meters,1,1);
+            updateScreen();
+        }
+}
+#endif //PARENTBAND
 
 #ifdef CHILDBAND
-
-#endif
+int main(void){
+	configClock();
+	configHeartbeat();
+	configDefaultUART(9600);
+	//printResetCause();       //print statement about what caused reset
+	outString(HELLO_MSG);
+	configRMC1Hz();
+        initScreen();
+#endif //CHILDBAND
 
 
 #define PI 3.1415926535
@@ -215,6 +227,48 @@ int16_t calcAngleDegrees(st_gpsPosition position1, st_gpsPosition position2){
     int16_t i16_degDir = (int16_t)(d_radDir*180/PI);
     return i16_degDir;
 }
+
+
+/*********************************************************
+*getGpsPosition
+*gets the current position from the gps
+*@return: the current gps position
+*********************************************************/
+st_gpsPosition getGpsPosition(){
+    char sz_buffer[256];
+    char *psz_input;
+    psz_input = sz_buffer;
+    _packetType_t en_packetType;
+    _RMCPacket st_RMCPacket;
+    st_gpsPosition gpsPosition;
+    inString(psz_input, 256);
+    en_packetType = parsePacketType(psz_input);
+    if(en_packetType == GPRMC){
+        st_RMCPacket = parseRMCPacket(psz_input);
+        u16_course = st_RMCPacket.u16_course;
+        gpsPosition.latitude = st_RMCPacket.position.latitude;
+        gpsPosition.longitude = st_RMCPacket.position.longitude;
+    }
+    return gpsPosition;
+};
+
+/*********************************************************
+*getGpsDirection
+*gets the current direction from the gps
+*@return: the current direction of travel in degrees of -180 to 180
+*********************************************************/
+int16_t getDirection(){
+    int16_t i16_toBeReturned;
+    if(u16_course > 180){
+        i16_toBeReturned = u16_course -360;
+    }
+    else{
+        i16_toBeReturned = u16_course;
+    }
+    return i16_toBeReturned;
+};
+
+
 
 void printCharacters(char* ch_letters, uint16_t color, unit16_t size){
     setTextColor(color);

@@ -6,13 +6,13 @@
 
 # Macros
 TOP=`pwd`
-CND_CONF=default
+CND_CONF=pic24HJ32
 CND_DISTDIR=dist
 TMPDIR=build/${CND_CONF}/${IMAGE_TYPE}/tmp-packaging
 TMPDIRNAME=tmp-packaging
-OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/NeverWanderBandMain.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-OUTPUT_BASENAME=NeverWanderBandMain.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-PACKAGE_TOP_DIR=neverwanderbandmain.x/
+OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/NeverWanderBand.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+OUTPUT_BASENAME=NeverWanderBand.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+PACKAGE_TOP_DIR=neverwanderband.x/
 
 # Functions
 function checkReturnCode
@@ -57,15 +57,15 @@ mkdir -p ${TMPDIR}
 
 # Copy files and create directories and links
 cd "${TOP}"
-makeDirectory ${TMPDIR}/neverwanderbandmain.x/bin
+makeDirectory ${TMPDIR}/neverwanderband.x/bin
 copyFileToTmpDir "${OUTPUT_PATH}" "${TMPDIR}/${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}" 0755
 
 
 # Generate tar file
 cd "${TOP}"
-rm -f ${CND_DISTDIR}/${CND_CONF}/package/neverwanderbandmain.x.tar
+rm -f ${CND_DISTDIR}/${CND_CONF}/package/neverwanderband.x.tar
 cd ${TMPDIR}
-tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/package/neverwanderbandmain.x.tar *
+tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/package/neverwanderband.x.tar *
 checkReturnCode
 
 # Cleanup

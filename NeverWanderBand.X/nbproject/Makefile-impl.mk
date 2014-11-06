@@ -27,11 +27,11 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=NeverWanderBand.X
 
 # Active Configuration
-DEFAULTCONF=pic24H
+DEFAULTCONF=parent
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=pic33 pic24H 
+ALLCONFS=pic33 pic24HJ32 child parent 
 
 
 # build
@@ -46,14 +46,18 @@ ALLCONFS=pic33 pic24H
 # clobber
 .clobber-impl: .clobber-pre .depcheck-impl
 	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=pic33 clean
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=pic24H clean
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=pic24HJ32 clean
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=child clean
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=parent clean
 
 
 
 # all
 .all-impl: .all-pre .depcheck-impl
 	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=pic33 build
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=pic24H build
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=pic24HJ32 build
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=child build
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=parent build
 
 
 

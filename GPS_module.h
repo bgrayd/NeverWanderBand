@@ -23,6 +23,9 @@
 #define PMTK_SET_BAUD_57600 "$PMTK251,57600*2C\r\n"
 #define PMTK_SET_BAUD_9600 "$PMTK251,9600*17\r\n"
 
+
+uint16_t u16_course;
+
 typedef enum{
 	GPRMC,
 	GPGGA,
