@@ -94,6 +94,7 @@ int main(void){
 #endif
 #endif
 
+
 #ifdef PARENTBAND
 
 #endif
@@ -213,4 +214,49 @@ int16_t calcAngleDegrees(st_gpsPosition position1, st_gpsPosition position2){
     double d_radDir = atan2(sin(d_dLonRad)*cos(d_lat2),cos(d_lat1)*sin(d_lat2)-sin(d_lat1)*cos(d_lat2)*cos(d_dLonRad));
     int16_t i16_degDir = (int16_t)(d_radDir*180/PI);
     return i16_degDir;
+}
+
+void printCharacters(char* ch_letters, uint16_t color, unit16_t size){
+    setTextColor(color);
+    setTextSize(size);
+	writeString(ch_letters);
+}
+
+void clearScreen(){
+	clearDisplay();
+}
+
+void updateScreen(){
+	display();
+}
+
+void resetCursor(){
+	setCursor(0, 0);
+}
+
+void giveAngleDegrees(int16_t i16_angle){
+	if (i16_angle >= -23 && i16_angle <= 23){
+		drawArrowN();
+	else if ((i16_angle > 23 && i16_angle <= 68){
+		drawArrowNE();
+	}
+	else if ((i16_angle > 68 && i16_angle <= 113){
+		drawArrowE();
+	}
+	else if ((i16_angle > 113 && i16_angle <= 158){
+		drawArrowSE();
+	}
+	else if ((i16_angle > 158 || i16_angle <= -158){
+		drawArrowS();
+	}
+	else if ((i16_angle >= -68 && i16_angle < -23){
+		drawArrowNW();
+	}
+	else if ((i16_angle >= -113 && i16_angle < -68){
+		drawArrowW();
+	}
+	else if ((i16_angle > -158 && i16_angle < -113){
+		drawArrowSW();
+	}
+	} 
 }
