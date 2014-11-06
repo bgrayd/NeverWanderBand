@@ -85,11 +85,8 @@
           <linkerLibItems>
           </linkerLibItems>
         </linkerTool>
-        <archiverTool>
-        </archiverTool>
         <loading>
           <useAlternateLoadableFile>false</useAlternateLoadableFile>
-          <parseOnProdLoad>false</parseOnProdLoad>
           <alternateLoadableFile></alternateLoadableFile>
         </loading>
       </compileType>
@@ -107,8 +104,6 @@
             overriding="false">
         <C30>
         </C30>
-        <C30-AR>
-        </C30-AR>
         <C30-AS>
         </C30-AS>
         <C30-LD>
@@ -155,8 +150,6 @@
         <property key="use-cci" value="false"/>
         <property key="use-iar" value="false"/>
       </C30>
-      <C30-AR>
-      </C30-AR>
       <C30-AS>
         <property key="assembler-symbols" value=""/>
         <property key="expand-macros" value="false"/>
@@ -226,8 +219,6 @@
             overriding="false">
         <C30>
         </C30>
-        <C30-AR>
-        </C30-AR>
         <C30-AS>
         </C30-AS>
         <C30-LD>
@@ -316,11 +307,8 @@
           <linkerLibItems>
           </linkerLibItems>
         </linkerTool>
-        <archiverTool>
-        </archiverTool>
         <loading>
           <useAlternateLoadableFile>false</useAlternateLoadableFile>
-          <parseOnProdLoad>false</parseOnProdLoad>
           <alternateLoadableFile></alternateLoadableFile>
         </loading>
       </compileType>
@@ -338,8 +326,6 @@
             overriding="false">
         <C30>
         </C30>
-        <C30-AR>
-        </C30-AR>
         <C30-AS>
         </C30-AS>
         <C30-LD>
@@ -386,8 +372,6 @@
         <property key="use-cci" value="false"/>
         <property key="use-iar" value="false"/>
       </C30>
-      <C30-AR>
-      </C30-AR>
       <C30-AS>
         <property key="assembler-symbols" value=""/>
         <property key="expand-macros" value="false"/>
@@ -457,8 +441,6 @@
             overriding="false">
         <C30>
         </C30>
-        <C30-AR>
-        </C30-AR>
         <C30-AS>
         </C30-AS>
         <C30-LD>
@@ -471,8 +453,6 @@
             overriding="false">
         <C30>
         </C30>
-        <C30-AR>
-        </C30-AR>
         <C30-AS>
         </C30-AS>
         <C30-LD>
@@ -561,11 +541,8 @@
           <linkerLibItems>
           </linkerLibItems>
         </linkerTool>
-        <archiverTool>
-        </archiverTool>
         <loading>
           <useAlternateLoadableFile>false</useAlternateLoadableFile>
-          <parseOnProdLoad>false</parseOnProdLoad>
           <alternateLoadableFile></alternateLoadableFile>
         </loading>
       </compileType>
@@ -618,8 +595,6 @@
         <property key="use-cci" value="false"/>
         <property key="use-iar" value="false"/>
       </C30>
-      <C30-AR>
-      </C30-AR>
       <C30-AS>
         <property key="assembler-symbols" value=""/>
         <property key="expand-macros" value="false"/>
@@ -689,8 +664,6 @@
             overriding="false">
         <C30>
         </C30>
-        <C30-AR>
-        </C30-AR>
         <C30-AS>
         </C30-AS>
         <C30-LD>
@@ -703,8 +676,6 @@
             overriding="false">
         <C30>
         </C30>
-        <C30-AR>
-        </C30-AR>
         <C30-AS>
         </C30-AS>
         <C30-LD>
