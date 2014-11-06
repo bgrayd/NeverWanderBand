@@ -4,36 +4,8 @@
 #include "GPS_module.h"
 #include "math.h"
 
-/*
-//This is for testing different modules and will call the functions the way the parent or child will call them
-int main(void) {
-  configClock();
-  configHeartbeat();
-  configUART1(DEFAULT_BAUDRATE);
-  configUART2(DEFAULT_BAUDRATE);
-  printResetCause();       //print statement about what caused reset
-  outString(HELLO_MSG);
-  initScreen();
-  //ssd1306_command(0xA5);
-  display();
-  clearDisplay();
-  setTextColor(1);
-  setTextSize(2);
-  char *newLine = "It is working!!";
-  writeString(newLine);
-  display();
-  ssd1306_command(0x26);
-  ssd1306_command(0x2F);
-  display();
-  	
-  while(1){
-	ssd1306_command(0x2F);
-	DELAY_MS(10);
-    doHeartbeat();
-  };
-}
-}*/
-
+#ifndef PARENTBAND
+#ifndef CHILDBAND
 int main(void){
 	configClock();
 	configHeartbeat();
@@ -74,7 +46,7 @@ int main(void){
             writeString(uitoa(RMCPacket.position.latitude.u8_minutes));
             write(96);
             write(' ');
-            writeString(uitoa(RMCPacket.position.latitude.u8_seconds));
+            //writeString(uitoa(RMCPacket.position.latitude.u8_centiseconds));
             write(34);
             write('\n');
             writeString(psz_longitude);
@@ -84,7 +56,7 @@ int main(void){
             writeString(uitoa(RMCPacket.position.longitude.u8_minutes));
             write(96);
             write(' ');
-            writeString(uitoa(RMCPacket.position.longitude.u8_seconds));
+            //writeString(uitoa(RMCPacket.position.longitude.u8_seconds));
             write(34);
             write('\n');
             writeString(psz_time);
@@ -119,7 +91,16 @@ int main(void){
             DELAY_MS(10);
 	};
 }
+#endif
+#endif
 
+#ifdef PARENTBAND
+
+#endif
+
+#ifdef CHILDBAND
+
+#endif
 
 
 #define PI 3.1415926535
