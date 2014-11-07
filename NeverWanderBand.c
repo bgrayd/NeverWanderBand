@@ -11,8 +11,8 @@ int main(void) {
   configUART2(DEFAULT_BAUDRATE);
 
    //Defining Pins
-  CONFIG_RB10_AS_DIG_INPUT();           // RX pin must be digital input
-  CONFIG_U2RX_TO_RP(RB10_RP);           // U1RX <- RB12
+  CONFIG_RB12_AS_DIG_INPUT();           // RX pin must be digital input
+  CONFIG_U2RX_TO_RP(RB12_RP);           // U1RX <- RB12
   CONFIG_RB11_AS_DIG_OUTPUT();           // TX pin must be digital output
   CONFIG_U2TX_TO_RP(RB11_RP);            // U1TX -> RB11
 
@@ -20,10 +20,10 @@ int main(void) {
   outString(HELLO_MSG);
 
   char c_char;
-  c_char = inChar2();
-  outChar1(c_char);
+  c_char = inChar1();
+  outChar2(c_char);
   while(1)
-    {c_char = inChar2();
-        outChar1(c_char);
+    {c_char = inChar1();
+        outChar2(c_char);
     };
 }
