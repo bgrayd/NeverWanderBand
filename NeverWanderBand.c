@@ -9,9 +9,22 @@ int main(void) {
   configHeartbeat();
   configUART1(DEFAULT_BAUDRATE);
   configUART2(DEFAULT_BAUDRATE);
+
+  //Defining Pins
+  CONFIG_RB10_AS_DIG_INPUT();           // RX pin must be digital input
+  CONFIG_U1RX_TO_RP(RB10_RP);           // U1RX <- RB10
+  CONFIG_RB11_AS_DIG_OUTPUT();           // TX pin must be digital output
+  CONFIG_U1TX_TO_RP(RB11_RP);            // U1TX -> RB11
+
   printResetCause();       //print statement about what caused reset
   outString(HELLO_MSG);
-  char x[] = "are you getting this?";
-  outChar2(x);
-  while(1){};
+
+  char c_char;
+  c_char = inChar1();
+  outChar2(c_char);
+  while(1)
+    {c_char = inChar1();
+        outChar2(c_char);
+    };
+
 }
