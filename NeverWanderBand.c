@@ -11,10 +11,10 @@ int main(void) {
   configUART2(DEFAULT_BAUDRATE);
 
    //Defining Pins
-  CONFIG_RB12_AS_DIG_INPUT();           // RX pin must be digital input
-  CONFIG_U2RX_TO_RP(RB12_RP);           // U1RX <- RB12
-  CONFIG_RB11_AS_DIG_OUTPUT();           // TX pin must be digital output
-  CONFIG_U2TX_TO_RP(RB11_RP);            // U1TX -> RB11
+  CONFIG_RB8_AS_DIG_INPUT();           // RX pin must be digital input
+  CONFIG_U2RX_TO_RP(RB8_RP);           // U1RX <- RB12
+  CONFIG_RB9_AS_DIG_OUTPUT();           // TX pin must be digital output
+  CONFIG_U2TX_TO_RP(RB9_RP);            // U1TX -> RB11
 
   printResetCause();       //print statement about what caused reset
   outString(HELLO_MSG);
