@@ -17,6 +17,7 @@ int main(void) {
 
   printResetCause();       //print statement about what caused reset
   outString(HELLO_MSG);
+<<<<<<< HEAD
 
   char c_char;
   c_char = inChar2();
@@ -25,4 +26,8 @@ int main(void) {
     {c_char = inChar2();
         outChar1(c_char);
     };
+=======
+  char y[] = inChar2();
+  while(1){};
+>>>>>>> parent of f871598... Added char receive loop
 }
