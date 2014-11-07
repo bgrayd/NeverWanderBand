@@ -1,5 +1,6 @@
 #include "pic24_all.h"
 #include "NeverWanderBand.h"
+#include <stdio.h>
 
 
 //This is for testing different modules and will call the functions the way the parent or child will call them
