@@ -12,7 +12,7 @@ int main(void) {
 
   //Defining Pins
   CONFIG_RB10_AS_DIG_INPUT();           // RX pin must be digital input
-  CONFIG_U1RX_TO_RP(RB10_RP);           // U1RX <- RB10
+  CONFIG_U1RX_TO_RP(RB12_RP);           // U1RX <- RB12
   CONFIG_RB11_AS_DIG_OUTPUT();           // TX pin must be digital output
   CONFIG_U1TX_TO_RP(RB11_RP);            // U1TX -> RB11
 
