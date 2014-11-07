@@ -2,6 +2,7 @@
 #include "NeverWanderBand.h"
 #include "screen_module.h"
 #include "GPS_module.h"
+#include "transceiver_module.h"
 #include "math.h"
 
 #ifndef PARENTBAND
@@ -9,11 +10,12 @@
 int main(void){
 	configClock();
 	configHeartbeat();
-	configDefaultUART(9600);
+	configUART1(9600);
+        configUartXbee();
 	//printResetCause();       //print statement about what caused reset
 	outString(HELLO_MSG);
 	configRMC1Hz();
-        initScreen();
+        //initScreen();
 	//const char *newLine = "\n";
         const char psz_latitude[11] = "Latitude:";
         const char psz_longitude[12] = "Longitude:";
@@ -25,12 +27,11 @@ int main(void){
 	_RMCPacket RMCPacket;
         setTextColor(1);
         setTextSize(1);
-        write('h');
-        display();
+       // display();
 	while(1){
             clearDisplay();
             setCursor(0,0);
-            psz_input = sz_buffer;
+            /*psz_input = sz_buffer;
             inString(psz_input, 256);
             switch(parsePacketType(psz_input)){
                     case GPRMC:
@@ -54,12 +55,6 @@ int main(void){
             write('.');
             write(*(pc_seconds+2));
             write(*(pc_seconds+3));
-            /*char* c_centiseconds = uitoa(RMCPacket.position.latitude.u8_centiSecondsMSB<<8 + RMCPacket.position.latitude.u8_centiSecondsLSB);
-            write(c_centiseconds[0]);
-            write(c_centiseconds[1]);
-            write('.');
-            write(c_centiseconds[2]);
-            write(c_centiseconds[3]);*/
             write(34);
             write('\n');
             writeString(psz_longitude);
@@ -77,12 +72,6 @@ int main(void){
             write('.');
             write(*(pc_seconds+2));
             write(*(pc_seconds+3));
-            /*char* ac_centiseconds = uitoa(RMCPacket.position.longitude.u8_centiSecondsMSB<<8 + RMCPacket.position.longitude.u8_centiSecondsLSB);
-            write(ac_centiseconds[0]);
-            write(ac_centiseconds[1]);
-            write('.');
-            write(ac_centiseconds[2]);
-            write(ac_centiseconds[3]);*/
             write(34);
             write('\n');
             writeString(psz_time);
@@ -95,6 +84,11 @@ int main(void){
             writeString(psz_course);
             writeString(uitoa(RMCPacket.u16_course));
             display();
+            DELAY_MS(10);*/
+            //write(receiveUint8Xbee());
+            //display();
+            //sendUint8Xbee('1');
+            outChar1(receiveUint8Xbee());
             DELAY_MS(10);
 	};
 }

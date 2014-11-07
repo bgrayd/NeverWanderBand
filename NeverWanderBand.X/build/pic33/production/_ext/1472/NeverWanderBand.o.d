@@ -23,4 +23,5 @@ build/pic33/production/_ext/1472/NeverWanderBand.o:  \
  C:/ece3724/pic24lib_all/lib/include/pic24_comparator.h  \
  ../NeverWanderBand.h  \
 ../screen_module.h  \
-../GPS_module.h 
+../GPS_module.h  \
+ ../transceiver_module.h 
