@@ -1,4 +1,4 @@
-Microchip Technology Inc, vv3_31 (A) <
+Microchip Technology Inc, vv3_31 (A) c:AqAg
 
 Tool Name:
   c:\program files (x86)\microchip\mplab c30\bin\bin\..\bin/pic30-elf-ld.exe
@@ -115,9 +115,9 @@ Data Memory  [Origin = 0x800, Length = 0x800]
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
 .nbss                        0x800                   0             0xc  (12)
-_028fee00545bf21c            0x80c                   0             0x2  (2)
-_028feee0545bf21c            0x80e                   0             0x2  (2)
-_0287c2a0545bf21c            0x810                   0             0x2  (2)
+_027cee00545c0c03            0x80c                   0             0x2  (2)
+_027ceee0545c0c03            0x80e                   0             0x2  (2)
+_0274c2a0545c0c03            0x810                   0             0x2  (2)
 .nbss                        0x812                   0             0x2  (2)
 .data                        0x814                   0           0x410  (1040)
 .bss                         0xc24                   0            0x20  (32)
@@ -2013,19 +2013,19 @@ __c30_signature
                     0x0804                  _u32_heartbeatCount
  .nbss              0x0808          0x4 build/default/production/_ext/1270305794/pic24_clockfreq.o
 
-_028fee00545bf21c
+_027cee00545c0c03
                     0x080c          0x2
- _028fee00545bf21c
+ _027cee00545c0c03
                     0x080c          0x2 build/default/production/_ext/1270305794/pic24_util.o
 
-_028feee0545bf21c
+_027ceee0545c0c03
                     0x080e          0x2
- _028feee0545bf21c
+ _027ceee0545c0c03
                     0x080e          0x2 build/default/production/_ext/1270305794/pic24_util.o
 
-_0287c2a0545bf21c
+_0274c2a0545c0c03
                     0x0810          0x2
- _0287c2a0545bf21c
+ _0274c2a0545c0c03
                     0x0810          0x2 build/default/production/_ext/1270305794/pic24_util.o
                     0x0810                  _sz_lastTimeoutError
 
