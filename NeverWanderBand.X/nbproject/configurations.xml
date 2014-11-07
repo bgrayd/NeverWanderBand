@@ -37,8 +37,8 @@
                    displayName="Linker Files"
                    projectFiles="true">
       <itemPath>C:/ece3724/pic24lib_all/lib/lkr/p24HJ32GP202_bootldr.gld</itemPath>
-      <itemPath>C:/ece3724/pic24lib_all/lib/lkr/p33EP128MC502_bootldr.gld</itemPath>
       <itemPath>C:/ece3724/pic24lib_all/lib/lkr/p24HJ64GP502_bootldr.gld</itemPath>
+      <itemPath>C:/ece3724/pic24lib_all/lib/lkr/p33EP128GP502_bootldr.gld</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -493,19 +493,9 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="C:/ece3724/pic24lib_all/lib/lkr/p33EP128MC502_bootldr.gld"
+      <item path="C:/ece3724/pic24lib_all/lib/lkr/p33EP128GP502_bootldr.gld"
             ex="true"
             overriding="false">
-        <C30>
-        </C30>
-        <C30-AR>
-        </C30-AR>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
       </item>
       <Simulator>
         <property key="breakoptions.coreerrors" value="Ignore"/>
@@ -739,20 +729,6 @@
       </item>
       <item path="C:/ece3724/pic24lib_all/lib/lkr/p24HJ64GP502_bootldr.gld"
             ex="true"
-            overriding="false">
-        <C30>
-        </C30>
-        <C30-AR>
-        </C30-AR>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="C:/ece3724/pic24lib_all/lib/lkr/p33EP128MC502_bootldr.gld"
-            ex="false"
             overriding="false">
         <C30>
         </C30>
@@ -1009,19 +985,9 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="C:/ece3724/pic24lib_all/lib/lkr/p33EP128MC502_bootldr.gld"
+      <item path="C:/ece3724/pic24lib_all/lib/lkr/p33EP128GP502_bootldr.gld"
             ex="true"
             overriding="false">
-        <C30>
-        </C30>
-        <C30-AR>
-        </C30-AR>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
       </item>
       <Simulator>
         <property key="breakoptions.coreerrors" value="Ignore"/>

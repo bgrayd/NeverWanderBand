@@ -2,6 +2,9 @@
 #include "GPS_module.h"
 #include "NeverWanderBand.h"
 
+
+uint16_t u16_courseGlobal;
+
 char CalcCheckSum(char* psz_s, uint8_t u8_size){
 	char c_runChecksum;	//the running checksum
 	uint8_t u8_count = 2;
@@ -87,7 +90,7 @@ _RMCPacket parseRMCPacket(char* psz_s){
 		u8_counter++;
 	}	
 	
-	
+        u16_courseGlobal = st_rmcPacket.u16_course;
 	return st_rmcPacket;
 }	
 
@@ -117,4 +120,8 @@ char * uitoa(uint16_t u16_x) {
     au8_String[u8_digit] = 0;
 
     return au8_String;
+}
+
+uint16_t getCourse(){
+    return u16_courseGlobal;
 }

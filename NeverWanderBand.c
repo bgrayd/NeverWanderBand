@@ -46,7 +46,14 @@ int main(void){
             writeString(uitoa(RMCPacket.position.latitude.u8_minutes));
             write(96);
             write(' ');
-            //writeString(uitoa(RMCPacket.position.latitude.u8_centiseconds));
+            uint16_t u16_seconds = ((uint16_t)RMCPacket.position.latitude.u8_centiSecondsMSB<<8) + ((uint16_t)RMCPacket.position.latitude.u8_centiSecondsLSB);
+            writeString(uitoa(u16_seconds));
+            /*char* c_centiseconds = uitoa(RMCPacket.position.latitude.u8_centiSecondsMSB<<8 + RMCPacket.position.latitude.u8_centiSecondsLSB);
+            write(c_centiseconds[0]);
+            write(c_centiseconds[1]);
+            write('.');
+            write(c_centiseconds[2]);
+            write(c_centiseconds[3]);*/
             write(34);
             write('\n');
             writeString(psz_longitude);
@@ -56,7 +63,15 @@ int main(void){
             writeString(uitoa(RMCPacket.position.longitude.u8_minutes));
             write(96);
             write(' ');
+            u16_seconds = ((uint16_t)RMCPacket.position.longitude.u8_centiSecondsMSB<<8) + ((uint16_t)RMCPacket.position.longitude.u8_centiSecondsLSB);
+            writeString(uitoa(u16_seconds));
             //writeString(uitoa(RMCPacket.position.longitude.u8_seconds));
+            /*char* ac_centiseconds = uitoa(RMCPacket.position.longitude.u8_centiSecondsMSB<<8 + RMCPacket.position.longitude.u8_centiSecondsLSB);
+            write(ac_centiseconds[0]);
+            write(ac_centiseconds[1]);
+            write('.');
+            write(ac_centiseconds[2]);
+            write(ac_centiseconds[3]);*/
             write(34);
             write('\n');
             writeString(psz_time);
@@ -250,7 +265,7 @@ st_gpsPosition getGpsPosition(){
     en_packetType = parsePacketType(psz_input);
     if(en_packetType == GPRMC){
         st_RMCPacket = parseRMCPacket(psz_input);
-        u16_course = st_RMCPacket.u16_course;
+        //u16_course = st_RMCPacket.u16_course;
         gpsPosition.latitude = st_RMCPacket.position.latitude;
         gpsPosition.longitude = st_RMCPacket.position.longitude;
     }
@@ -263,14 +278,16 @@ st_gpsPosition getGpsPosition(){
 *@return: the current direction of travel in degrees of -180 to 180
 *********************************************************/
 int16_t getDirection(){
-    int16_t i16_toBeReturned;
+   int16_t i16_toBeReturned;
+   uint16_t u16_course;
+   u16_course = getCourse();
     if(u16_course > 180){
         i16_toBeReturned = u16_course -360;
     }
     else{
         i16_toBeReturned = u16_course;
     }
-    return i16_toBeReturned;
+    return i16_toBeReturned;// return 0;
 };
 
 
