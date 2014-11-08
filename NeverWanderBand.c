@@ -8,7 +8,7 @@ int main(void) {
   configClock();
   configHeartbeat();
   configUART1(DEFAULT_BAUDRATE);
-  configUART2(DEFAULT_BAUDRATE);
+  configUART2(9600);
 
    //Defining Pins
   CONFIG_RB8_AS_DIG_INPUT();           // RX pin must be digital input
@@ -20,10 +20,17 @@ int main(void) {
   outString(HELLO_MSG);
 
   char c_char;
+  printf("c_char/n");
+
   c_char = inChar1();
+  printf("c_char = inChar1()");
+
   outChar2(c_char);
-  while(1)
-    {c_char = inChar1();
-        outChar2(c_char);
+  printf("outChar2(c_char)");
+
+  while(1){
+      printf("I'm in the while loop");
+      c_char = inChar1();
+      outChar2(c_char);
     };
 }
