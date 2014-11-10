@@ -32,3 +32,10 @@ CND_ARTIFACT_PATH_parent=dist/parent/production/NeverWanderBand.X.production.hex
 CND_PACKAGE_DIR_parent=${CND_DISTDIR}/parent/package
 CND_PACKAGE_NAME_parent=neverwanderband.x.tar
 CND_PACKAGE_PATH_parent=${CND_DISTDIR}/parent/package/neverwanderband.x.tar
+# child_pic24HJ32 configuration
+CND_ARTIFACT_DIR_child_pic24HJ32=dist/child_pic24HJ32/production
+CND_ARTIFACT_NAME_child_pic24HJ32=NeverWanderBand.X.production.hex
+CND_ARTIFACT_PATH_child_pic24HJ32=dist/child_pic24HJ32/production/NeverWanderBand.X.production.hex
+CND_PACKAGE_DIR_child_pic24HJ32=${CND_DISTDIR}/child_pic24HJ32/package
+CND_PACKAGE_NAME_child_pic24HJ32=neverwanderband.x.tar
+CND_PACKAGE_PATH_child_pic24HJ32=${CND_DISTDIR}/child_pic24HJ32/package/neverwanderband.x.tar

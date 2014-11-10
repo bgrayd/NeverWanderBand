@@ -39,13 +39,13 @@ _RMCPacket parseRMCPacket(char* psz_s){
 	st_rmcPacket.u8_valid = (*(psz_s+18))=='A';
 	
 	if(st_rmcPacket.u8_valid == 0){
-		st_rmcPacket.position.latitude.u8_hemisphereIndicator = 0;
+		st_rmcPacket.position.latitude.u8_hemisphereIndicator = 2;
 		st_rmcPacket.position.latitude.u8_degrees = 0;
 		st_rmcPacket.position.latitude.u8_minutes = 0;
 		st_rmcPacket.position.latitude.u8_centiSecondsMSB = 0;
                 st_rmcPacket.position.latitude.u8_centiSecondsLSB = 0;
 	
-		st_rmcPacket.position.longitude.u8_hemisphereIndicator = 0;
+		st_rmcPacket.position.longitude.u8_hemisphereIndicator = 2;
 		st_rmcPacket.position.longitude.u8_degrees = 0;
 		st_rmcPacket.position.longitude.u8_minutes = 0;
 		st_rmcPacket.position.longitude.u8_centiSecondsMSB = 0;

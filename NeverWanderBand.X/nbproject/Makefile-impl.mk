@@ -27,11 +27,11 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=NeverWanderBand.X
 
 # Active Configuration
-DEFAULTCONF=pic33
+DEFAULTCONF=parent
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=pic33 pic24HJ32 child parent 
+ALLCONFS=pic33 pic24HJ32 child parent child_pic24HJ32 
 
 
 # build
@@ -49,6 +49,7 @@ ALLCONFS=pic33 pic24HJ32 child parent
 	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=pic24HJ32 clean
 	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=child clean
 	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=parent clean
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=child_pic24HJ32 clean
 
 
 
@@ -58,6 +59,7 @@ ALLCONFS=pic33 pic24HJ32 child parent
 	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=pic24HJ32 build
 	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=child build
 	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=parent build
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=child_pic24HJ32 build
 
 
 

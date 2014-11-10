@@ -102,18 +102,29 @@ int main(void){
 int main(void){
 	configClock();
 	configHeartbeat();
-	configDefaultUART(9600);
+	configUART1(9600);
+        configUartXbee();
 	//printResetCause();       //print statement about what caused reset
 	outString(HELLO_MSG);
 	configRMC1Hz();
         initScreen();
-        const char *meters = "m";
+        const char *meters = "meters";
+        const char *invalidParent = "Parent Invalid Location\n";
+        const char *invalidChild = "Child Invalid Location\n";
         st_gpsPosition parentGpsPosition, childGpsPosition;
         uint16_t u16_distance;
         int16_t i16_angleNorth, i16_angleChild;
         while(1){
             parentGpsPosition = getGpsPosition();
             childGpsPosition = receivePosition();
+            if((parentGpsPosition.latitude.u8_hemisphereIndicator == 2) ||\
+                    (parentGpsPosition.longitude.u8_hemisphereIndicator == 2)){
+                printCharacters(invalidParent,1,1);
+            }
+            if((childGpsPosition.latitude.u8_hemisphereIndicator == 2) ||\
+                    (childGpsPosition.longitude.u8_hemisphereIndicator == 2)){
+                printCharacters(invalidChild,1,1);
+            }
             u16_distance = calcDistanceMeters(parentGpsPosition, childGpsPosition);
             i16_angleNorth = getDirection();
             i16_angleChild = calcAngleDegrees(parentGpsPosition, childGpsPosition);
@@ -130,10 +141,11 @@ int main(void){
 int main(void){
 	configClock();
 	configHeartbeat();
-	configDefaultUART(9600);
+	configUART1(9600);
 	//printResetCause();       //print statement about what caused reset
 	outString(HELLO_MSG);
 	configRMC1Hz();
+        configUartXbee();
         st_gpsPosition childGpsPosition;
         while(1){
             childGpsPosition = getGpsPosition();
@@ -295,6 +307,49 @@ int16_t getDirection(){
         i16_toBeReturned = u16_course;
     }
     return i16_toBeReturned;// return 0;
+};
+
+/*********************************************************
+*transmitPosition
+*send the gps position
+*@gpsPosition: the position to transmit
+*@return: none
+*********************************************************/
+void transmitPosition(st_gpsPosition gpsPosition){
+    sendUint8Xbee(gpsPosition.latitude.u8_hemisphereIndicator);
+    sendUint8Xbee(gpsPosition.latitude.u8_degrees);
+    sendUint8Xbee(gpsPosition.latitude.u8_minutes);
+    sendUint8Xbee(gpsPosition.latitude.u8_centiSecondsMSB);
+    sendUint8Xbee(gpsPosition.latitude.u8_centiSecondsLSB);
+
+    sendUint8Xbee(gpsPosition.longitude.u8_hemisphereIndicator);
+    sendUint8Xbee(gpsPosition.longitude.u8_degrees);
+    sendUint8Xbee(gpsPosition.longitude.u8_minutes);
+    sendUint8Xbee(gpsPosition.longitude.u8_centiSecondsMSB);
+    sendUint8Xbee(gpsPosition.longitude.u8_centiSecondsLSB);
+};
+
+/*********************************************************
+*receivePosition
+*get the gps position sent to it
+*@return: the gps position transmitted
+*********************************************************/
+st_gpsPosition receivePosition(){
+    st_gpsPosition gpsPosition;
+
+    gpsPosition.latitude.u8_hemisphereIndicator = receiveUint8Xbee();
+    gpsPosition.latitude.u8_degrees = receiveUint8Xbee();
+    gpsPosition.latitude.u8_minutes = receiveUint8Xbee();
+    gpsPosition.latitude.u8_centiSecondsMSB = receiveUint8Xbee();
+    gpsPosition.latitude.u8_centiSecondsLSB = receiveUint8Xbee();
+
+    gpsPosition.longitude.u8_hemisphereIndicator = receiveUint8Xbee();
+    gpsPosition.longitude.u8_degrees = receiveUint8Xbee();
+    gpsPosition.longitude.u8_minutes = receiveUint8Xbee();
+    gpsPosition.longitude.u8_centiSecondsMSB = receiveUint8Xbee();
+    gpsPosition.longitude.u8_centiSecondsLSB = receiveUint8Xbee();
+
+    return gpsPosition;
 };
 
 
