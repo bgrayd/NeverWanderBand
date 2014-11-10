@@ -83,77 +83,77 @@ ${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o: C:/ece3724/pic24lib_all/lib/src/
 	@${MKDIR} ${OBJECTDIR}/_ext/1719179988 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_clockfreq.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_clockfreq.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1719179988/pic24_configbits.o: C:/ece3724/pic24lib_all/lib/src/pic24_configbits.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1719179988 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_configbits.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_configbits.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_configbits.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_configbits.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_configbits.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_configbits.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_configbits.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_configbits.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1719179988/pic24_configbits.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1719179988/pic24_serial.o: C:/ece3724/pic24lib_all/lib/src/pic24_serial.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1719179988 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_serial.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_serial.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_serial.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_serial.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_serial.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_serial.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_serial.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_serial.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1719179988/pic24_serial.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1719179988/pic24_uart.o: C:/ece3724/pic24lib_all/lib/src/pic24_uart.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1719179988 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_uart.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_uart.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_uart.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_uart.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_uart.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_uart.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_uart.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_uart.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1719179988/pic24_uart.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1719179988/pic24_util.o: C:/ece3724/pic24lib_all/lib/src/pic24_util.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1719179988 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_util.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_util.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_util.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_util.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_util.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_util.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_util.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_util.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1719179988/pic24_util.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1719179988/pic24_spi.o: C:/ece3724/pic24lib_all/lib/src/pic24_spi.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1719179988 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_spi.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_spi.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_spi.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_spi.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_spi.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_spi.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_spi.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_spi.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1719179988/pic24_spi.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o: C:/ece3724/pic24lib_all/lib/src/pic24_i2c.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1719179988 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_i2c.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_i2c.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_i2c.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_i2c.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1719179988/pic24_i2c.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1472/NeverWanderBand.o: ../NeverWanderBand.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1472 
 	@${RM} ${OBJECTDIR}/_ext/1472/NeverWanderBand.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1472/NeverWanderBand.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../NeverWanderBand.c  -o ${OBJECTDIR}/_ext/1472/NeverWanderBand.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/NeverWanderBand.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../NeverWanderBand.c  -o ${OBJECTDIR}/_ext/1472/NeverWanderBand.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/NeverWanderBand.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/NeverWanderBand.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1472/GPS_module.o: ../GPS_module.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1472 
 	@${RM} ${OBJECTDIR}/_ext/1472/GPS_module.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1472/GPS_module.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../GPS_module.c  -o ${OBJECTDIR}/_ext/1472/GPS_module.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/GPS_module.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../GPS_module.c  -o ${OBJECTDIR}/_ext/1472/GPS_module.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/GPS_module.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/GPS_module.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1472/screen_module.o: ../screen_module.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1472 
 	@${RM} ${OBJECTDIR}/_ext/1472/screen_module.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1472/screen_module.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../screen_module.c  -o ${OBJECTDIR}/_ext/1472/screen_module.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/screen_module.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../screen_module.c  -o ${OBJECTDIR}/_ext/1472/screen_module.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/screen_module.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/screen_module.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/924435145/transceiver_module.o: C:/Users/Billy/Documents/GitHub/NeverWanderBand/transceiver_module.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/924435145 
 	@${RM} ${OBJECTDIR}/_ext/924435145/transceiver_module.o.d 
 	@${RM} ${OBJECTDIR}/_ext/924435145/transceiver_module.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/Users/Billy/Documents/GitHub/NeverWanderBand/transceiver_module.c  -o ${OBJECTDIR}/_ext/924435145/transceiver_module.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/924435145/transceiver_module.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/Users/Billy/Documents/GitHub/NeverWanderBand/transceiver_module.c  -o ${OBJECTDIR}/_ext/924435145/transceiver_module.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/924435145/transceiver_module.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/924435145/transceiver_module.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 else
@@ -161,77 +161,77 @@ ${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o: C:/ece3724/pic24lib_all/lib/src/
 	@${MKDIR} ${OBJECTDIR}/_ext/1719179988 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_clockfreq.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_clockfreq.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1719179988/pic24_configbits.o: C:/ece3724/pic24lib_all/lib/src/pic24_configbits.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1719179988 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_configbits.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_configbits.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_configbits.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_configbits.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_configbits.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_configbits.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_configbits.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_configbits.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1719179988/pic24_configbits.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1719179988/pic24_serial.o: C:/ece3724/pic24lib_all/lib/src/pic24_serial.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1719179988 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_serial.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_serial.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_serial.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_serial.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_serial.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_serial.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_serial.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_serial.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1719179988/pic24_serial.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1719179988/pic24_uart.o: C:/ece3724/pic24lib_all/lib/src/pic24_uart.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1719179988 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_uart.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_uart.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_uart.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_uart.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_uart.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_uart.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_uart.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_uart.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1719179988/pic24_uart.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1719179988/pic24_util.o: C:/ece3724/pic24lib_all/lib/src/pic24_util.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1719179988 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_util.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_util.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_util.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_util.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_util.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_util.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_util.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_util.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1719179988/pic24_util.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1719179988/pic24_spi.o: C:/ece3724/pic24lib_all/lib/src/pic24_spi.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1719179988 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_spi.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_spi.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_spi.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_spi.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_spi.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_spi.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_spi.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_spi.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1719179988/pic24_spi.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o: C:/ece3724/pic24lib_all/lib/src/pic24_i2c.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1719179988 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_i2c.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_i2c.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_i2c.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_i2c.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1719179988/pic24_i2c.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1472/NeverWanderBand.o: ../NeverWanderBand.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1472 
 	@${RM} ${OBJECTDIR}/_ext/1472/NeverWanderBand.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1472/NeverWanderBand.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../NeverWanderBand.c  -o ${OBJECTDIR}/_ext/1472/NeverWanderBand.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/NeverWanderBand.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../NeverWanderBand.c  -o ${OBJECTDIR}/_ext/1472/NeverWanderBand.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/NeverWanderBand.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/NeverWanderBand.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1472/GPS_module.o: ../GPS_module.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1472 
 	@${RM} ${OBJECTDIR}/_ext/1472/GPS_module.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1472/GPS_module.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../GPS_module.c  -o ${OBJECTDIR}/_ext/1472/GPS_module.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/GPS_module.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../GPS_module.c  -o ${OBJECTDIR}/_ext/1472/GPS_module.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/GPS_module.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/GPS_module.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1472/screen_module.o: ../screen_module.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1472 
 	@${RM} ${OBJECTDIR}/_ext/1472/screen_module.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1472/screen_module.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../screen_module.c  -o ${OBJECTDIR}/_ext/1472/screen_module.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/screen_module.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../screen_module.c  -o ${OBJECTDIR}/_ext/1472/screen_module.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/screen_module.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/screen_module.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/924435145/transceiver_module.o: C:/Users/Billy/Documents/GitHub/NeverWanderBand/transceiver_module.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/924435145 
 	@${RM} ${OBJECTDIR}/_ext/924435145/transceiver_module.o.d 
 	@${RM} ${OBJECTDIR}/_ext/924435145/transceiver_module.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/Users/Billy/Documents/GitHub/NeverWanderBand/transceiver_module.c  -o ${OBJECTDIR}/_ext/924435145/transceiver_module.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/924435145/transceiver_module.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/Users/Billy/Documents/GitHub/NeverWanderBand/transceiver_module.c  -o ${OBJECTDIR}/_ext/924435145/transceiver_module.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/924435145/transceiver_module.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/924435145/transceiver_module.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif

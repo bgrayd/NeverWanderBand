@@ -139,7 +139,7 @@
         <property key="optimization-level" value="0"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
-        <property key="preprocessor-macros" value=""/>
+        <property key="preprocessor-macros" value="NUM_UART_MODS=2;UART2_RX_INTERRUPT"/>
         <property key="scalar-model" value="default"/>
         <property key="use-cci" value="false"/>
         <property key="use-iar" value="false"/>
@@ -752,6 +752,10 @@
         </C30-LD>
         <C30Global>
         </C30Global>
+      </item>
+      <item path="C:/ece3724/pic24lib_all/lib/lkr/p33EP128GP502_bootldr.gld"
+            ex="true"
+            overriding="false">
       </item>
       <Simulator>
         <property key="breakoptions.coreerrors" value="Ignore"/>

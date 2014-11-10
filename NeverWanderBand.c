@@ -87,8 +87,10 @@ int main(void){
             DELAY_MS(10);*/
             //write(receiveUint8Xbee());
             //display();
-            //sendUint8Xbee('1');
-            outChar1(receiveUint8Xbee());
+            sendUint8Xbee('1');
+            char c_temp;
+            c_temp = receiveUint8Xbee();
+            outChar1(c_temp);
             DELAY_MS(10);
 	};
 }
