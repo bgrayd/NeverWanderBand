@@ -15,7 +15,7 @@ int main(void){
 	//printResetCause();       //print statement about what caused reset
 	outString(HELLO_MSG);
 	configRMC1Hz();
-        //initScreen();
+        initScreen();
 	//const char *newLine = "\n";
         const char psz_latitude[11] = "Latitude:";
         const char psz_longitude[12] = "Longitude:";
