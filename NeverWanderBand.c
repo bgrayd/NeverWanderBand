@@ -114,6 +114,7 @@ int main(void){
         st_gpsPosition parentGpsPosition, childGpsPosition;
         uint16_t u16_distance;
         int16_t i16_angleNorth, i16_angleChild;
+        updateScreen();
         while(1){
             parentGpsPosition = getGpsPosition();
             childGpsPosition = receivePosition();

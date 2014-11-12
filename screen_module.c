@@ -77,8 +77,8 @@ void configSPI1(void) {
              SPI_MODE8_ON        | //8-bit mode
              MASTER_ENABLE_ON;     //master mode
 
-  CONFIG_SDO1_TO_RP(RB6_RP);      //use RP6 for SDO
-  //CONFIG_RB6_AS_DIG_PIN();   //Ensure that this is a digital pin
+  CONFIG_SDO1_TO_RP(RB8_RP);      //use RP6 for SDO
+  //CONFIG_RB8_AS_DIG_PIN();   //Ensure that this is a digital pin
   CONFIG_SCK1OUT_TO_RP(RB7_RP);   //use RP7 for SCLK
   //CONFIG_RB7_AS_DIG_PIN();   //Ensure that this is a digital pin
   CONFIG_RB5_AS_DIG_OUTPUT();      //use RP5 for RST                   needs to be carefully removed
@@ -506,13 +506,13 @@ void drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color) {
   if (steep) {
     //swap(x0, y0);
     //swap(x1, y1);
-    x0 = temp1;
-    y0 = temp2;
+    temp1 = x0;
+    temp2 = y0;
     y0 = temp1;
     x0 = temp2;
 
-    x1 = temp1;
-    y1 = temp2;
+    temp1 = x1;
+    temp2 = y1;
     y1 = temp1;
     x1 = temp2;
   }
@@ -520,15 +520,15 @@ void drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color) {
   if (x0 > x1) {
     //swap(x0, x1);
     //swap(y0, y1);
-    x0 = temp1;
-    x1 = temp2;
-    x0 = temp1;
-    x1 = temp2;
+    temp1 = x0;
+    temp2 = x1;
+    x0 = temp2;
+    x1 = temp1;
 
-    y0 = temp1;
-    y1 = temp2;
-    y0 = temp1;
-    y1 = temp2;
+    temp1 = y0;
+    temp2 = y1;
+    y0 = temp2;
+    y1 = temp1;
   }
 
   int16_t dx, dy;
