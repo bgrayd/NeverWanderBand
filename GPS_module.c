@@ -111,7 +111,7 @@ char * uitoa(uint16_t u16_x) {
     if (u16_x > 9999)
         au8_String[u8_digit++] = '0' + u16_x / 10000;
     if (u16_x > 999)
-        au8_String[u8_digit++] = '0' + u16_x / 1000;
+        au8_String[u8_digit++] = '0' + (u16_x % 10000) / 1000;
     if (u16_x > 99)
         au8_String[u8_digit++] = '0' + (u16_x % 1000) / 100;
     if (u16_x > 9)

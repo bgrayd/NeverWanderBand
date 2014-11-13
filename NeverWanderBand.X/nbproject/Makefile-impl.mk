@@ -27,7 +27,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=NeverWanderBand.X
 
 # Active Configuration
-DEFAULTCONF=parent
+DEFAULTCONF=child
 CONF=${DEFAULTCONF}
 
 # All Configurations

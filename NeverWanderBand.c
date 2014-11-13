@@ -116,6 +116,8 @@ int main(void){
         int16_t i16_angleNorth, i16_angleChild;
         updateScreen();
         while(1){
+            clearScreen();
+            resetCursor();
             parentGpsPosition = getGpsPosition();
             childGpsPosition = receivePosition();
             if((parentGpsPosition.latitude.u8_hemisphereIndicator == 2) ||\
@@ -129,10 +131,12 @@ int main(void){
             u16_distance = calcDistanceMeters(parentGpsPosition, childGpsPosition);
             i16_angleNorth = getDirection();
             i16_angleChild = calcAngleDegrees(parentGpsPosition, childGpsPosition);
-            clearScreen();
+            
             giveAngleDegrees(i16_angleNorth - i16_angleChild);
             printCharacters(uitoa(u16_distance),1,1);
             printCharacters(meters,1,1);
+            outString(uitoa(u16_distance));
+            outString(meters);
             updateScreen();
         }
 }
@@ -283,6 +287,7 @@ st_gpsPosition getGpsPosition(){
     st_gpsPosition gpsPosition;
     inString(psz_input, 256);
     en_packetType = parsePacketType(psz_input);
+    outString(psz_input);
     if(en_packetType == GPRMC){
         st_RMCPacket = parseRMCPacket(psz_input);
         //u16_course = st_RMCPacket.u16_course;
@@ -339,16 +344,37 @@ st_gpsPosition receivePosition(){
     st_gpsPosition gpsPosition;
 
     gpsPosition.latitude.u8_hemisphereIndicator = receiveUint8Xbee();
+    outChar1(';');
+    outString(uitoa(gpsPosition.latitude.u8_hemisphereIndicator));
+    outChar1(';');
     gpsPosition.latitude.u8_degrees = receiveUint8Xbee();
+    outString(uitoa(gpsPosition.latitude.u8_degrees));
+    outChar1(';');
     gpsPosition.latitude.u8_minutes = receiveUint8Xbee();
+    outString(uitoa(gpsPosition.latitude.u8_minutes));
+    outChar1(';');
     gpsPosition.latitude.u8_centiSecondsMSB = receiveUint8Xbee();
+    outString(uitoa(gpsPosition.latitude.u8_centiSecondsMSB));
+    outChar1(';');
     gpsPosition.latitude.u8_centiSecondsLSB = receiveUint8Xbee();
+    outString(uitoa(gpsPosition.latitude.u8_centiSecondsLSB));
+    outChar1(';');
 
     gpsPosition.longitude.u8_hemisphereIndicator = receiveUint8Xbee();
+    outString(uitoa(gpsPosition.longitude.u8_hemisphereIndicator));
+    outChar1(';');
     gpsPosition.longitude.u8_degrees = receiveUint8Xbee();
+    outString(uitoa(gpsPosition.longitude.u8_degrees));
+    outChar1(';');
     gpsPosition.longitude.u8_minutes = receiveUint8Xbee();
+    outString(uitoa(gpsPosition.longitude.u8_minutes));
+    outChar1(';');
     gpsPosition.longitude.u8_centiSecondsMSB = receiveUint8Xbee();
+    outString(uitoa(gpsPosition.longitude.u8_centiSecondsMSB));
+    outChar1(';');
     gpsPosition.longitude.u8_centiSecondsLSB = receiveUint8Xbee();
+    outString(uitoa(gpsPosition.longitude.u8_centiSecondsLSB));
+    outChar1(';');
 
     return gpsPosition;
 };

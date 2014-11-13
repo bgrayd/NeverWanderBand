@@ -12,8 +12,11 @@ void configUartXbee(){
 
 void sendUint8Xbee(uint8_t u8_toBeSent){
     outChar2(u8_toBeSent);
+    outChar1(uitoa(u8_toBeSent));
+    outChar1(';');
 }
 
 uint8_t receiveUint8Xbee(){
+
     return inChar2();
 }
