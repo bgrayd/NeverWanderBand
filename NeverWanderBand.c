@@ -104,9 +104,10 @@ int main(void){
 	configHeartbeat();
 	configUART1(9600);
         configUartXbee();
+        configRMC1Hz();
+        configChildRMC1Hz();
 	//printResetCause();       //print statement about what caused reset
 	outString(HELLO_MSG);
-	configRMC1Hz();
         initScreen();
         const char *meters = "meters";
         const char *invalidParent = "Parent Invalid Location\n";
@@ -128,7 +129,7 @@ int main(void){
             }
             //printf("(%f;%f)",parentGpsPosition.f_latitudeDegrees,parentGpsPosition.f_latitude);
             u16_distance = calcDistanceMeters(parentGpsPosition, childGpsPosition);
-            //i16_angleNorth = getDirection();
+            i16_angleNorth = 0;//getDirection();
             i16_angleChild = calcAngleDegrees(parentGpsPosition, childGpsPosition);
             
             giveAngleDegrees(i16_angleNorth - i16_angleChild);
@@ -220,23 +221,24 @@ uint16_t calcDistanceMeters(st_gpsData position1, st_gpsData position2){
 
     return (uint16_t)u32_dis;*/
 
-    double f_distCalc=0;
+    /*double f_distCalc=0;
     double f_distCalc2=0;
     double f_distLat=0;
     double f_distLon=0;
     double f_lat1;
     double f_lat2;
-
+    outChar1('[');
     outString(uitoa(position1.f_longitude-position2.f_longitude));
+    outChar1(']');
 
-    f_distLat=radians*(position2.f_latitudeDegrees/10000000.0 - position1.f_latitudeDegrees/10000000.0);
-    f_lat1=radians*(position1.f_latitudeDegrees/10000000.0);
-    f_lat2=radians*(position2.f_latitudeDegrees/10000000.0);
-    f_distLon=radians*((position2.f_longitudeDegrees/10000000.0)-(position1.f_longitudeDegrees/10000000.0));
+    f_distLat=radians*(position2.f_latitude - position1.f_latitude);
+    f_lat1=radians*(position1.f_latitude);
+    f_lat2=radians*(position2.f_latitude);
+    f_distLon=radians*((position2.f_longitude)-(position1.f_longitude));
 
     f_distCalc = (sin(f_distLat/2.0)*sin(f_distLat/2.0));
-    f_distCalc2= cos(position1.f_latitudeDegrees/10000000.0);
-    f_distCalc2*=cos(position2.f_latitudeDegrees/10000000.0);
+    f_distCalc2= cos(position1.f_latitude);
+    f_distCalc2*=cos(position2.f_latitude);
     f_distCalc2*=sin(f_distLon/2.0);
     f_distCalc2*=sin(f_distLon/2.0);
     f_distCalc +=f_distCalc2;
@@ -244,19 +246,28 @@ uint16_t calcDistanceMeters(st_gpsData position1, st_gpsData position2){
     f_distCalc=(2*atan2(sqrt(f_distCalc),sqrt(1.0-f_distCalc)));
 
     f_distCalc*=6371000.0; //Converting to meters
-    outChar1('f');
+
     uint16_t u16_toBeReturned = ((uint16_t)f_distCalc);
-    return u16_toBeReturned;
+    return u16_toBeReturned;*/
+
+    double d_diffLat = position1.f_latitude-position2.f_latitude;
+    double d_diffLon = position1.f_longitude-position2.f_longitude;
+
+    d_diffLat *= 111194.9267;  //meters per degree latititude for Starkville
+    d_diffLon *= 92774.9406;   //meters per degree longitude for Starkville
+
+    double d_calc = d_diffLat*d_diffLat + d_diffLon*d_diffLon;
+    d_calc = sqrt(d_calc);
+
+    uint16_t toBeReturned = ((uint16_t)d_calc);
+
+    return toBeReturned;
 
     
-    /*double d_lat1 = ((double)position1.latitude.u8_degrees + ((double)position1.latitude.u8_minutes)/60 +((double)((uint16_t)position1.latitude.u8_centiSecondsMSB<<8) + position1.latitude.u8_centiSecondsLSB)/360000) * PI /180;
-    double d_lon1 = ((double)position1.longitude.u8_degrees + ((double)position1.longitude.u8_minutes)/60 +((double)((uint16_t)position1.longitude.u8_centiSecondsMSB<<8) + position1.longitude.u8_centiSecondsLSB)/360000) * PI /180;
-    double d_lat2 = ((double)position2.latitude.u8_degrees + ((double)position2.latitude.u8_minutes)/60 +((double)((uint16_t)position2.latitude.u8_centiSecondsMSB<<8) + position2.latitude.u8_centiSecondsLSB)/360000) * PI /180;
-    double d_lon2 = ((double)position2.longitude.u8_degrees + ((double)position2.longitude.u8_minutes)/60 +((double)((uint16_t)position2.longitude.u8_centiSecondsMSB<<8) + position2.longitude.u8_centiSecondsLSB)/360000) * PI /180;
-    d_lat1 = position1.latitude.u8_hemisphereIndicator ? d_lat1 : -d_lat1;
-    d_lon1 = position1.longitude.u8_hemisphereIndicator ? d_lon1 : -d_lon1;
-    d_lat2 = position2.latitude.u8_hemisphereIndicator ? d_lat2 : -d_lat2;
-    d_lon2 = position2.longitude.u8_hemisphereIndicator ? d_lon2 : -d_lon2;
+    /*double d_lat1 = ((position1.f_latitude * PI) / 180.0);
+    double d_lon1 = ((position1.f_longitude * PI) /180.0);
+    double d_lat2 = ((position2.f_latitude * PI) / 180.0);
+    double d_lon2 = ((position2.f_longitude * PI) /180.0);
 
     double d_dist = acos(sin(d_lat1)*sin(d_lat2)+cos(d_lat1)*cos(d_lat2)*cos(d_lon2-d_lon1))*6371000;
 
@@ -274,13 +285,20 @@ uint16_t calcDistanceMeters(st_gpsData position1, st_gpsData position2){
 *********************************************************/
 int16_t calcAngleDegrees(st_gpsData position1, st_gpsData position2){
 
-    //double d_sinDLon = sin(position1.)
+    double d_sinDLon = sin((position2.f_longitude - position1.f_longitude)*PI/180.0);
+    double d_cosLat2 = cos((position2.f_latitude)*PI/180.0);
+
+    double d_cosLat1 = cos((position1.f_latitude)*PI/180.0);
+    double d_sinLat2 = sin((position2.f_latitude)*PI/180.0);
+    double d_sinLat1 = sin((position1.f_latitude)*PI/180.0);
+    double d_cosDLon = cos((position2.f_longitude - position1.f_longitude)*PI/180.0);
+
+    double d_radDir = atan2(d_sinDLon*d_cosLat2, d_cosLat1*d_sinLat2 - d_sinLat1*d_cosLat2*d_cosDLon);
 
     //double d_radDir = atan2(sin(d_dLonRad)*cos(d_lat2),cos(d_lat1)*sin(d_lat2)-sin(d_lat1)*cos(d_lat2)*cos(d_dLonRad));
-    //int16_t i16_degDir = (int16_t)(d_radDir*180/PI);
-    //return i16_degDir;
-    //printf("(%f;%f)",position1.f_latitudeDegrees,position1.f_latitude);
-    return 1;
+    int16_t i16_degDir = (int16_t)(d_radDir*180/PI);
+    return i16_degDir;
+//    return 1;
 }
 
 
@@ -294,8 +312,8 @@ st_gpsData getParentGpsPosition(){
     char *psz_input;
     psz_input = sz_buffer;
     st_gpsData gpsPosition;
-    inString(psz_input, 256);
-    //outString(psz_input);
+    getParentPacket(psz_input, 256);
+    outString(psz_input);
     gpsPosition = parseGpsPacket(psz_input);
     f_angle = gpsPosition.f_angle;
     return gpsPosition;

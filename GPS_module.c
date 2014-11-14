@@ -35,7 +35,7 @@ uint8_t parseHex(char c) {
 }
 
 
-st_gpsData parseGpsPacket(char *nmea) {
+/*st_gpsData parseGpsPacket(char *nmea) {
     st_gpsData gpsData;
     // do checksum check
     // first look if we even have one
@@ -80,7 +80,7 @@ st_gpsData parseGpsPacket(char *nmea) {
             gpsData.f_latitude = degree / 100000 + minutes * 0.000006F;
             gpsData.f_latitudeDegrees = (gpsData.f_latitude-100*((int)gpsData.f_latitude/100))/60.0;
             gpsData.f_latitudeDegrees += ((int)gpsData.f_latitude/100);
-            }
+        }
 
         p = strchr(p, ',')+1;
         if (',' != *p)
@@ -209,10 +209,93 @@ st_gpsData parseGpsPacket(char *nmea) {
 
         p = strchr(p, ',')+1;
         // we dont parse the remaining, yet!
-        return;
+        return gpsData;
     }
 
     return;
+}*/
+
+st_gpsData parseGpsPacket(char *psz_s){
+    st_gpsData gpsData;
+
+    if((*(psz_s+1)=='G')&&(*(psz_s+2)=='P')&&(*(psz_s+3)=='R')&&(*(psz_s+4)=='M')&&(*(psz_s+5)=='C')){
+        //I need to go back and change the magic number is defined constants
+        gpsData.u8_hours = ((*(psz_s+7)-48)*10 + (*(psz_s+8)-48));
+        gpsData.u8_minutes = ((*(psz_s+9)-48)*10 + (*(psz_s+10)-48));
+        gpsData.u8_seconds = ((*(psz_s+11)-48)*10 + (*(psz_s+12)-48));
+        gpsData.u8_valid = (*(psz_s+18))=='A';
+
+        if(gpsData.u8_valid == 0){
+            gpsData.f_latitude = 0;
+            gpsData.f_longitude = 0;
+
+            return gpsData;
+        }
+
+        st_gpsCoordinate latitude, longitude;
+
+        latitude.u8_hemisphereIndicator = (*(psz_s+30))=='N';
+        latitude.u8_degrees = ((*(psz_s+20)-48)*10 + (*(psz_s+21)-48));
+        latitude.u8_minutes = ((*(psz_s+22)-48)*10 + (*(psz_s+23)-48));
+        gpsData.f_latitude = ((*(psz_s+25)-48)*600 + (*(psz_s+26)-48)*60 + (*(psz_s+27)-48)*6+(*(psz_s+28)-48)*6/10);   //centiseconds
+        outChar1('(');
+        outString(uitoa(latitude.u8_degrees));
+        outChar1(',');
+        outString(uitoa(latitude.u8_minutes));
+        outChar1(',');
+        outString(uitoa(gpsData.f_latitude/100));
+        outChar1(';');
+
+
+        gpsData.f_latitude = ((gpsData.f_latitude/100.0)/60.0);                                                         //minutes
+        gpsData.f_latitude += latitude.u8_minutes;                                                                      //minutes
+        gpsData.f_latitude = (gpsData.f_latitude/60.0);                                                                 //degrees
+        gpsData.f_latitude += latitude.u8_degrees;                                                                      //degrees
+        gpsData.f_latitude *= (latitude.u8_hemisphereIndicator) ? 1:-1;                                                 //degrees
+
+        longitude.u8_hemisphereIndicator = (*(psz_s+43))=='E';
+        longitude.u8_degrees = ((*(psz_s+32)-48)*100 + (*(psz_s+33)-48)*10 + (*(psz_s+34)-48));
+        longitude.u8_minutes = ((*(psz_s+35)-48)*10 + (*(psz_s+36)-48));
+        gpsData.f_longitude = ((*(psz_s+38)-48)*600 + (*(psz_s+39)-48)*60 + (*(psz_s+40)-48)*6+(*(psz_s+41)-48)*6/10);   //centiseconds
+
+        outString(uitoa(longitude.u8_degrees));
+        outChar1(',');
+        outString(uitoa(longitude.u8_minutes));
+        outChar1(',');
+        outString(uitoa(gpsData.f_longitude/100));
+        outChar1(')');
+
+        gpsData.f_longitude = ((gpsData.f_longitude/100.0)/60.0);                                                         //minutes
+        gpsData.f_longitude += longitude.u8_minutes;                                                                      //minutes
+        gpsData.f_longitude = (gpsData.f_longitude/60.0);                                                                 //degrees
+        gpsData.f_longitude += longitude.u8_degrees;                                                                      //degrees
+        gpsData.f_longitude *= (longitude.u8_hemisphereIndicator) ? 1:-1;                                                 //degrees
+
+
+        uint8_t u8_counter = 43+2;
+        while(u8_counter <= 254){
+            //loop past the speed over ground
+            if(*(psz_s + u8_counter) == ',')
+                break;
+            u8_counter++;
+        }
+        u8_counter++;
+
+        gpsData.f_angle = 0;
+
+        //the course has a varying length of whole numbers and a decimal
+        while(u8_counter <=254){
+            if(*(psz_s + u8_counter) == '.')
+                break;
+            gpsData.f_angle *= 10;
+            gpsData.f_angle += (*(psz_s + u8_counter)-48);
+            u8_counter++;
+        }
+
+        return gpsData;
+    }
+
+    return gpsData;
 }
 
 void configRMC1Hz(){

@@ -14,10 +14,11 @@ typedef struct st_gpsCoordinate{
 typedef struct st_gpsData{
     uint8_t u8_valid;
     char c_lat, c_lon;
-    float f_latitude, f_longitude;
+    double f_latitude, f_longitude;
     int32_t i32_latitudeFixed, i32_longitudeFixed;
     float f_latitudeDegrees, f_longitudeDegrees;
     float f_angle;
+    uint8_t u8_hours, u8_minutes, u8_seconds;
 } st_gpsData;
 
 
