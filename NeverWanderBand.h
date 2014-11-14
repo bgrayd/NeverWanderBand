@@ -11,18 +11,29 @@ typedef struct st_gpsCoordinate{
 
 //This is format of the data for transfering the positions between
 //	the modules
-typedef struct st_gpsPosition{
-	st_gpsCoordinate latitude;
-	st_gpsCoordinate longitude;
-} st_gpsPosition;
+typedef struct st_gpsData{
+    uint8_t u8_valid;
+    char c_lat, c_lon;
+    float f_latitude, f_longitude;
+    int32_t i32_latitudeFixed, i32_longitudeFixed;
+    float f_latitudeDegrees, f_longitudeDegrees;
+    float f_angle;
+} st_gpsData;
 
 
 /*********************************************************
-*getGpsPosition
+*getParentGpsPosition
 *gets the current position from the gps
 *@return: the current gps position
 *********************************************************/
-st_gpsPosition getGpsPosition();
+st_gpsData getParentGpsPosition();
+
+/*********************************************************
+*getChildGpsPosition
+*gets the current position from the Child gps from the xbee
+*@return: the current gps position
+*********************************************************/
+st_gpsData getChildGpsPosition();
 
 /*********************************************************
 *getGpsDirection
@@ -31,20 +42,6 @@ st_gpsPosition getGpsPosition();
 *********************************************************/
 int16_t getDirection();
 
-/*********************************************************
-*transmitPosition
-*send the gps position
-*@gpsPosition: the position to transmit
-*@return: none
-*********************************************************/
-void transmitPosition(st_gpsPosition gpsPosition);
-
-/*********************************************************
-*receivePosition
-*get the gps position sent to it
-*@return: the gps position transmitted
-*********************************************************/
-st_gpsPosition receivePosition();
 
 /*********************************************************
 *calcDistanceMeters
@@ -53,7 +50,7 @@ st_gpsPosition receivePosition();
 *@position2: the second gps position
 *@return: the distance between the two points in meters
 *********************************************************/
-uint16_t calcDistanceMeters(st_gpsPosition position1, st_gpsPosition position2);
+uint16_t calcDistanceMeters(st_gpsData position1, st_gpsData position2);
 
 /*********************************************************
 *calcAngleDegrees
@@ -63,7 +60,7 @@ uint16_t calcDistanceMeters(st_gpsPosition position1, st_gpsPosition position2);
 *@position2: the second gps position
 *@return: degrees in the a range of -180 to 180
 *********************************************************/
-int16_t calcAngleDegrees(st_gpsPosition position1, st_gpsPosition position2);
+int16_t calcAngleDegrees(st_gpsData position1, st_gpsData position2);
 
 /*********************************************************
 *displayAngleDegrees
@@ -102,5 +99,7 @@ void updateScreen();
 *@return:none
 *********************************************************/
 void resetCursor();
+
+static float f_angle;
 
 #endif  //_NEVERWANDERBAND_H_

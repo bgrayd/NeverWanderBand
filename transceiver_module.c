@@ -12,11 +12,33 @@ void configUartXbee(){
 
 void sendUint8Xbee(uint8_t u8_toBeSent){
     outChar2(u8_toBeSent);
-    outChar1(uitoa(u8_toBeSent));
-    outChar1(';');
 }
 
 uint8_t receiveUint8Xbee(){
-
     return inChar2();
+}
+
+void getChildPacket(char* psz_buff, uint16_t u16_maxCount){
+  uint8_t u8_c;
+  uint16_t u16_i;
+
+  if (!u16_maxCount) return 0;
+  u16_i = 0;
+  for (u16_i = 0; u16_i < u16_maxCount; u16_i++) {
+    u8_c = receiveUint8Xbee();
+    if (u8_c == '\n' ||u8_c == '\r' ) break; //terminate loop
+    *psz_buff = u8_c; //save character
+    psz_buff++;
+  }
+
+  *psz_buff = 0;
+  return(u16_i);
+}
+
+void transmitChildCommand(char *psz_s){
+    while (*psz_s) {
+        if (*psz_s == '\n') sendUint8Xbee(0x0D);
+        sendUint8Xbee(*psz_s);
+        psz_s++;
+    }
 }

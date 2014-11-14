@@ -3,7 +3,7 @@
 #include "screen_module.h"
 #include "GPS_module.h"
 #include "transceiver_module.h"
-#include "math.h"
+#include <math.h>
 
 #ifndef PARENTBAND
 #ifndef CHILDBAND
@@ -111,25 +111,24 @@ int main(void){
         const char *meters = "meters";
         const char *invalidParent = "Parent Invalid Location\n";
         const char *invalidChild = "Child Invalid Location\n";
-        st_gpsPosition parentGpsPosition, childGpsPosition;
+        st_gpsData parentGpsPosition, childGpsPosition;
         uint16_t u16_distance;
         int16_t i16_angleNorth, i16_angleChild;
         updateScreen();
         while(1){
             clearScreen();
             resetCursor();
-            parentGpsPosition = getGpsPosition();
-            childGpsPosition = receivePosition();
-            if((parentGpsPosition.latitude.u8_hemisphereIndicator == 2) ||\
-                    (parentGpsPosition.longitude.u8_hemisphereIndicator == 2)){
+            parentGpsPosition = getParentGpsPosition();
+            childGpsPosition = getChildGpsPosition();
+            if(!parentGpsPosition.u8_valid){
                 printCharacters(invalidParent,1,1);
             }
-            if((childGpsPosition.latitude.u8_hemisphereIndicator == 2) ||\
-                    (childGpsPosition.longitude.u8_hemisphereIndicator == 2)){
+            if(!childGpsPosition.u8_valid){
                 printCharacters(invalidChild,1,1);
             }
+            //printf("(%f;%f)",parentGpsPosition.f_latitudeDegrees,parentGpsPosition.f_latitude);
             u16_distance = calcDistanceMeters(parentGpsPosition, childGpsPosition);
-            i16_angleNorth = getDirection();
+            //i16_angleNorth = getDirection();
             i16_angleChild = calcAngleDegrees(parentGpsPosition, childGpsPosition);
             
             giveAngleDegrees(i16_angleNorth - i16_angleChild);
@@ -161,6 +160,19 @@ int main(void){
 
 
 #define PI 3.1415926535
+//#define radians PI/180.0
+#define radians 0.01745329251
+
+
+
+void configChildRMC1Hz(){
+	//DELAY_MS(100);
+	const char *message = PMTK_SET_NEA_OUTPUT_RMCONLY;
+	const char *message2 = PMTK_SET_NMEA_UPDATE_1HZ;
+	transmitChildCommand(message);
+	transmitChildCommand(message2);
+}
+
 
 /*********************************************************
 *calcDistanceMeters
@@ -169,8 +181,8 @@ int main(void){
 *@position2: the second gps position
 *@return: the distance between the two points in meters
 *********************************************************/
-uint16_t calcDistanceMeters(st_gpsPosition position1, st_gpsPosition position2){
-    int16_t i16_dLatDeg = 0;
+uint16_t calcDistanceMeters(st_gpsData position1, st_gpsData position2){
+    /*int16_t i16_dLatDeg = 0;
     int16_t i16_dLatMin = 0;
     int32_t i32_dLatCSec = 0;
     int16_t i16_dLonDeg = 0;
@@ -206,7 +218,36 @@ uint16_t calcDistanceMeters(st_gpsPosition position1, st_gpsPosition position2){
     u32_dis = u32_lonDis*u32_lonDis + u32_latDis*u32_latDis;
     u32_dis = sqrt(u32_dis);
 
-    return (uint16_t)u32_dis;
+    return (uint16_t)u32_dis;*/
+
+    double f_distCalc=0;
+    double f_distCalc2=0;
+    double f_distLat=0;
+    double f_distLon=0;
+    double f_lat1;
+    double f_lat2;
+
+    outString(uitoa(position1.f_longitude-position2.f_longitude));
+
+    f_distLat=radians*(position2.f_latitudeDegrees/10000000.0 - position1.f_latitudeDegrees/10000000.0);
+    f_lat1=radians*(position1.f_latitudeDegrees/10000000.0);
+    f_lat2=radians*(position2.f_latitudeDegrees/10000000.0);
+    f_distLon=radians*((position2.f_longitudeDegrees/10000000.0)-(position1.f_longitudeDegrees/10000000.0));
+
+    f_distCalc = (sin(f_distLat/2.0)*sin(f_distLat/2.0));
+    f_distCalc2= cos(position1.f_latitudeDegrees/10000000.0);
+    f_distCalc2*=cos(position2.f_latitudeDegrees/10000000.0);
+    f_distCalc2*=sin(f_distLon/2.0);
+    f_distCalc2*=sin(f_distLon/2.0);
+    f_distCalc +=f_distCalc2;
+
+    f_distCalc=(2*atan2(sqrt(f_distCalc),sqrt(1.0-f_distCalc)));
+
+    f_distCalc*=6371000.0; //Converting to meters
+    outChar1('f');
+    uint16_t u16_toBeReturned = ((uint16_t)f_distCalc);
+    return u16_toBeReturned;
+
     
     /*double d_lat1 = ((double)position1.latitude.u8_degrees + ((double)position1.latitude.u8_minutes)/60 +((double)((uint16_t)position1.latitude.u8_centiSecondsMSB<<8) + position1.latitude.u8_centiSecondsLSB)/360000) * PI /180;
     double d_lon1 = ((double)position1.longitude.u8_degrees + ((double)position1.longitude.u8_minutes)/60 +((double)((uint16_t)position1.longitude.u8_centiSecondsMSB<<8) + position1.longitude.u8_centiSecondsLSB)/360000) * PI /180;
@@ -231,45 +272,15 @@ uint16_t calcDistanceMeters(st_gpsPosition position1, st_gpsPosition position2){
 *@position2: the second gps position
 *@return: degrees in the a range of -180 to 180
 *********************************************************/
-int16_t calcAngleDegrees(st_gpsPosition position1, st_gpsPosition position2){
-    int16_t i16_dLatDeg = 0;
-    int16_t i16_dLatMin = 0;
-    int32_t i32_dLatCSec = 0;
-    int16_t i16_dLonDeg = 0;
-    int16_t i16_dLonMin = 0;
-    int32_t i32_dLonCSec = 0;
+int16_t calcAngleDegrees(st_gpsData position1, st_gpsData position2){
 
-    uint16_t u16_tempcSecHolder = 0;
+    //double d_sinDLon = sin(position1.)
 
-    i16_dLatDeg = (int16_t)position1.latitude.u8_degrees - (int16_t)position2.latitude.u8_degrees;
-    i16_dLatMin = (int16_t)position1.latitude.u8_minutes - (int16_t)position2.latitude.u8_minutes;
-    i32_dLatCSec = (int32_t)(((uint16_t)position1.latitude.u8_centiSecondsMSB<<8) + position1.latitude.u8_centiSecondsLSB);
-    u16_tempcSecHolder = ((uint16_t)position2.latitude.u8_centiSecondsMSB<<8) + position2.latitude.u8_centiSecondsLSB;
-    i32_dLatCSec = i32_dLatCSec - ((int32_t) u16_tempcSecHolder);
-    i16_dLatMin += (i16_dLatDeg*60);
-    i32_dLatCSec += ((int32_t)(i16_dLatMin*60)*100);
-
-    i16_dLonDeg = (int16_t)position1.longitude.u8_degrees - (int16_t)position2.longitude.u8_degrees;
-    i16_dLonMin = (int16_t)position1.longitude.u8_minutes - (int16_t)position2.longitude.u8_minutes;
-    i32_dLonCSec = (int32_t)(((uint16_t)position1.longitude.u8_centiSecondsMSB<<8) + position1.longitude.u8_centiSecondsLSB);
-    u16_tempcSecHolder = ((uint16_t)position2.longitude.u8_centiSecondsMSB<<8) + position2.longitude.u8_centiSecondsLSB;
-    i32_dLonCSec = i32_dLonCSec - ((int32_t) u16_tempcSecHolder);
-    i16_dLonMin += (i16_dLonDeg*60);
-    i32_dLonCSec += ((int32_t)(i16_dLonMin*60)*100);
-
-    //double d_dLatRad = (((double) i32_dLatCSec)/360000) *PI/180;
-    double d_dLonRad = (((double) i32_dLonCSec)/360000) *PI/180;
-    double d_lat1 = ((double)position1.latitude.u8_degrees + ((double)position1.latitude.u8_minutes)/60 +((double)((uint16_t)position1.latitude.u8_centiSecondsMSB<<8) + position1.latitude.u8_centiSecondsLSB)/360000) * PI /180;
-    //double d_lon1 = ((double)position1.longitude.u8_degrees + ((double)position1.longitude.u8_minutes)/60 +((double)((uint16_t)position1.longitude.u8_centiSecondsMSB<<8) + position1.longitude.u8_centiSecondsLSB)/360000) * PI /180;
-    double d_lat2 = ((double)position2.latitude.u8_degrees + ((double)position2.latitude.u8_minutes)/60 +((double)((uint16_t)position2.latitude.u8_centiSecondsMSB<<8) + position2.latitude.u8_centiSecondsLSB)/360000) * PI /180;
-    //double d_lon2 = ((double)position2.longitude.u8_degrees + ((double)position2.longitude.u8_minutes)/60 +((double)((uint16_t)position2.longitude.u8_centiSecondsMSB<<8) + position2.longitude.u8_centiSecondsLSB)/360000) * PI /180;
-
-    d_lat1 = position1.latitude.u8_hemisphereIndicator ? d_lat1 : -d_lat1;
-    d_lat2 = position2.latitude.u8_hemisphereIndicator ? d_lat2 : -d_lat2;
-
-    double d_radDir = atan2(sin(d_dLonRad)*cos(d_lat2),cos(d_lat1)*sin(d_lat2)-sin(d_lat1)*cos(d_lat2)*cos(d_dLonRad));
-    int16_t i16_degDir = (int16_t)(d_radDir*180/PI);
-    return i16_degDir;
+    //double d_radDir = atan2(sin(d_dLonRad)*cos(d_lat2),cos(d_lat1)*sin(d_lat2)-sin(d_lat1)*cos(d_lat2)*cos(d_dLonRad));
+    //int16_t i16_degDir = (int16_t)(d_radDir*180/PI);
+    //return i16_degDir;
+    //printf("(%f;%f)",position1.f_latitudeDegrees,position1.f_latitude);
+    return 1;
 }
 
 
@@ -278,24 +289,34 @@ int16_t calcAngleDegrees(st_gpsPosition position1, st_gpsPosition position2){
 *gets the current position from the gps
 *@return: the current gps position
 *********************************************************/
-st_gpsPosition getGpsPosition(){
+st_gpsData getParentGpsPosition(){
     char sz_buffer[256];
     char *psz_input;
     psz_input = sz_buffer;
-    _packetType_t en_packetType;
-    _RMCPacket st_RMCPacket;
-    st_gpsPosition gpsPosition;
+    st_gpsData gpsPosition;
     inString(psz_input, 256);
-    en_packetType = parsePacketType(psz_input);
-    outString(psz_input);
-    if(en_packetType == GPRMC){
-        st_RMCPacket = parseRMCPacket(psz_input);
-        //u16_course = st_RMCPacket.u16_course;
-        gpsPosition.latitude = st_RMCPacket.position.latitude;
-        gpsPosition.longitude = st_RMCPacket.position.longitude;
-    }
+    //outString(psz_input);
+    gpsPosition = parseGpsPacket(psz_input);
+    f_angle = gpsPosition.f_angle;
     return gpsPosition;
 };
+
+
+/*********************************************************
+*getChildGpsPosition
+*gets the current position from the Child gps from the xbee
+*@return: the current gps position
+*********************************************************/
+st_gpsData getChildGpsPosition(){
+    char sz_buffer[256];
+    char *psz_input;
+    psz_input = sz_buffer;
+    st_gpsData gpsPosition;
+    getChildPacket(psz_input, 256);
+    outString(psz_input);
+    gpsPosition = parseGpsPacket(psz_input);
+    return gpsPosition;
+}
 
 /*********************************************************
 *getGpsDirection
@@ -305,7 +326,7 @@ st_gpsPosition getGpsPosition(){
 int16_t getDirection(){
    int16_t i16_toBeReturned;
    uint16_t u16_course;
-   u16_course = getCourse();
+   //u16_course = getCourse();
     if(u16_course > 180){
         i16_toBeReturned = u16_course -360;
     }
@@ -313,70 +334,6 @@ int16_t getDirection(){
         i16_toBeReturned = u16_course;
     }
     return i16_toBeReturned;// return 0;
-};
-
-/*********************************************************
-*transmitPosition
-*send the gps position
-*@gpsPosition: the position to transmit
-*@return: none
-*********************************************************/
-void transmitPosition(st_gpsPosition gpsPosition){
-    sendUint8Xbee(gpsPosition.latitude.u8_hemisphereIndicator);
-    sendUint8Xbee(gpsPosition.latitude.u8_degrees);
-    sendUint8Xbee(gpsPosition.latitude.u8_minutes);
-    sendUint8Xbee(gpsPosition.latitude.u8_centiSecondsMSB);
-    sendUint8Xbee(gpsPosition.latitude.u8_centiSecondsLSB);
-
-    sendUint8Xbee(gpsPosition.longitude.u8_hemisphereIndicator);
-    sendUint8Xbee(gpsPosition.longitude.u8_degrees);
-    sendUint8Xbee(gpsPosition.longitude.u8_minutes);
-    sendUint8Xbee(gpsPosition.longitude.u8_centiSecondsMSB);
-    sendUint8Xbee(gpsPosition.longitude.u8_centiSecondsLSB);
-};
-
-/*********************************************************
-*receivePosition
-*get the gps position sent to it
-*@return: the gps position transmitted
-*********************************************************/
-st_gpsPosition receivePosition(){
-    st_gpsPosition gpsPosition;
-
-    gpsPosition.latitude.u8_hemisphereIndicator = receiveUint8Xbee();
-    outChar1(';');
-    outString(uitoa(gpsPosition.latitude.u8_hemisphereIndicator));
-    outChar1(';');
-    gpsPosition.latitude.u8_degrees = receiveUint8Xbee();
-    outString(uitoa(gpsPosition.latitude.u8_degrees));
-    outChar1(';');
-    gpsPosition.latitude.u8_minutes = receiveUint8Xbee();
-    outString(uitoa(gpsPosition.latitude.u8_minutes));
-    outChar1(';');
-    gpsPosition.latitude.u8_centiSecondsMSB = receiveUint8Xbee();
-    outString(uitoa(gpsPosition.latitude.u8_centiSecondsMSB));
-    outChar1(';');
-    gpsPosition.latitude.u8_centiSecondsLSB = receiveUint8Xbee();
-    outString(uitoa(gpsPosition.latitude.u8_centiSecondsLSB));
-    outChar1(';');
-
-    gpsPosition.longitude.u8_hemisphereIndicator = receiveUint8Xbee();
-    outString(uitoa(gpsPosition.longitude.u8_hemisphereIndicator));
-    outChar1(';');
-    gpsPosition.longitude.u8_degrees = receiveUint8Xbee();
-    outString(uitoa(gpsPosition.longitude.u8_degrees));
-    outChar1(';');
-    gpsPosition.longitude.u8_minutes = receiveUint8Xbee();
-    outString(uitoa(gpsPosition.longitude.u8_minutes));
-    outChar1(';');
-    gpsPosition.longitude.u8_centiSecondsMSB = receiveUint8Xbee();
-    outString(uitoa(gpsPosition.longitude.u8_centiSecondsMSB));
-    outChar1(';');
-    gpsPosition.longitude.u8_centiSecondsLSB = receiveUint8Xbee();
-    outString(uitoa(gpsPosition.longitude.u8_centiSecondsLSB));
-    outChar1(';');
-
-    return gpsPosition;
 };
 
 

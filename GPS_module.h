@@ -23,27 +23,7 @@
 #define PMTK_SET_BAUD_57600 "$PMTK251,57600*2C\r\n"
 #define PMTK_SET_BAUD_9600 "$PMTK251,9600*17\r\n"
 
-
-typedef enum{
-	GPRMC,
-	GPGGA,
-	INVALIDPACKET
-} _packetType_t;
-
-typedef struct _RMCPacket{
-	uint8_t u8_hours;
-	uint8_t u8_minutes;
-	uint8_t u8_seconds;
-	uint8_t u8_valid;
-	st_gpsPosition position;
-	uint16_t u16_course;
-} _RMCPacket;
-
-char CalcCheckSum(char* psz_s, uint8_t u8_size);
-
-_packetType_t parsePacketType(char* psz_s);
-
-_RMCPacket parseRMCPacket(char* psz_s);
+st_gpsData parseGpsPacket(char *nmea);
 
 void configRMC1Hz();
 
