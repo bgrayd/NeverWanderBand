@@ -113,14 +113,18 @@ int main(void){
         const char *invalidParent = "Parent Invalid Location\n";
         const char *invalidChild = "Child Invalid Location\n";
         st_gpsData parentGpsPosition, childGpsPosition;
+        gpsDataTuple st_gpsTuple;
         uint16_t u16_distance;
         int16_t i16_angleNorth, i16_angleChild;
         updateScreen();
         while(1){
             clearScreen();
             resetCursor();
-            parentGpsPosition = getParentGpsPosition();
-            childGpsPosition = getChildGpsPosition();
+            st_gpsTuple = getGpsPositions();
+            parentGpsPosition = st_gpsTuple.parentPosition;
+            childGpsPosition = st_gpsTuple.childPosition;
+//            parentGpsPosition = getParentGpsPosition();
+//            childGpsPosition = getChildGpsPosition();
             if(!parentGpsPosition.u8_valid){
                 printCharacters(invalidParent,1,1);
             }
@@ -301,6 +305,27 @@ int16_t calcAngleDegrees(st_gpsData position1, st_gpsData position2){
 //    return 1;
 }
 
+/*********************************************************
+*getGpsPositions
+*gets the current position from the gps
+*@return: the gps position of the parent and the child
+*********************************************************/
+gpsDataTuple getGpsPositions(){
+    gpsDataTuple st_gpsPositions;
+    char ac_parentBuffer[256];
+    char ac_childBuffer[256];
+
+    getParentPacket(ac_parentBuffer,256);
+    getChildPacket(ac_childBuffer,256);
+
+    st_gpsPositions.parentPosition = parseGpsPacket(ac_parentBuffer);
+    st_gpsPositions.childPosition = parseGpsPacket(ac_childBuffer);
+
+    f_angle = st_gpsPositions.parentPosition.f_angle;
+
+    return st_gpsPositions;
+}
+
 
 /*********************************************************
 *getGpsPosition
@@ -344,7 +369,7 @@ st_gpsData getChildGpsPosition(){
 int16_t getDirection(){
    int16_t i16_toBeReturned;
    uint16_t u16_course;
-   //u16_course = getCourse();
+   u16_course = f_angle;
     if(u16_course > 180){
         i16_toBeReturned = u16_course -360;
     }

@@ -29,6 +29,4 @@ void configRMC1Hz();
 
 char * uitoa(uint16_t u16_x);
 
-uint16_t getCourse();
-
 #endif //_ADAFRUIT_GPS_H_

@@ -13,14 +13,22 @@ typedef struct st_gpsCoordinate{
 //	the modules
 typedef struct st_gpsData{
     uint8_t u8_valid;
-    char c_lat, c_lon;
     double f_latitude, f_longitude;
-    int32_t i32_latitudeFixed, i32_longitudeFixed;
-    float f_latitudeDegrees, f_longitudeDegrees;
     float f_angle;
     uint8_t u8_hours, u8_minutes, u8_seconds;
 } st_gpsData;
 
+typedef struct gpsDataTuple{
+    st_gpsData parentPosition;
+    st_gpsData childPosition;
+} gpsDataTuple;
+
+/*********************************************************
+*getGpsPositions
+*gets the current position from the gps
+*@return: the gps position of the parent and the child
+*********************************************************/
+gpsDataTuple getGpsPositions();
 
 /*********************************************************
 *getParentGpsPosition
