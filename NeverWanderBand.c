@@ -108,6 +108,7 @@ int main(void){
         configChildRMC1Hz();
 	//printResetCause();       //print statement about what caused reset
 	outString(HELLO_MSG);
+        configAlerts();
         initScreen();
         const char *meters = "meters";
         const char *invalidParent = "Parent Invalid Location\n";
@@ -135,6 +136,13 @@ int main(void){
             u16_distance = calcDistanceMeters(parentGpsPosition, childGpsPosition);
             i16_angleNorth = 0;//getDirection();
             i16_angleChild = calcAngleDegrees(parentGpsPosition, childGpsPosition);
+
+            if(u16_distance > 50){
+                startAlerts();
+            }
+            else {
+                stopAlerts();
+            }
             
             giveAngleDegrees(i16_angleNorth - i16_angleChild);
             printCharacters(uitoa(u16_distance),1,1);
@@ -146,29 +154,8 @@ int main(void){
 }
 #endif //PARENTBAND
 
-#ifdef CHILDBAND
-int main(void){
-	configClock();
-	configHeartbeat();
-	configUART1(9600);
-	//printResetCause();       //print statement about what caused reset
-	outString(HELLO_MSG);
-	configRMC1Hz();
-        configUartXbee();
-        st_gpsPosition childGpsPosition;
-        while(1){
-            childGpsPosition = getGpsPosition();
-            transmitPosition(childGpsPosition);
-        }
-}
-#endif //CHILDBAND
-
 
 #define PI 3.1415926535
-//#define radians PI/180.0
-#define radians 0.01745329251
-
-
 
 void configChildRMC1Hz(){
 	//DELAY_MS(100);
@@ -326,40 +313,6 @@ gpsDataTuple getGpsPositions(){
     return st_gpsPositions;
 }
 
-
-/*********************************************************
-*getGpsPosition
-*gets the current position from the gps
-*@return: the current gps position
-*********************************************************/
-st_gpsData getParentGpsPosition(){
-    char sz_buffer[256];
-    char *psz_input;
-    psz_input = sz_buffer;
-    st_gpsData gpsPosition;
-    getParentPacket(psz_input, 256);
-    outString(psz_input);
-    gpsPosition = parseGpsPacket(psz_input);
-    f_angle = gpsPosition.f_angle;
-    return gpsPosition;
-};
-
-
-/*********************************************************
-*getChildGpsPosition
-*gets the current position from the Child gps from the xbee
-*@return: the current gps position
-*********************************************************/
-st_gpsData getChildGpsPosition(){
-    char sz_buffer[256];
-    char *psz_input;
-    psz_input = sz_buffer;
-    st_gpsData gpsPosition;
-    getChildPacket(psz_input, 256);
-    outString(psz_input);
-    gpsPosition = parseGpsPacket(psz_input);
-    return gpsPosition;
-}
 
 /*********************************************************
 *getGpsDirection

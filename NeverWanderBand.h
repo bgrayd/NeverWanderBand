@@ -30,19 +30,6 @@ typedef struct gpsDataTuple{
 *********************************************************/
 gpsDataTuple getGpsPositions();
 
-/*********************************************************
-*getParentGpsPosition
-*gets the current position from the gps
-*@return: the current gps position
-*********************************************************/
-st_gpsData getParentGpsPosition();
-
-/*********************************************************
-*getChildGpsPosition
-*gets the current position from the Child gps from the xbee
-*@return: the current gps position
-*********************************************************/
-st_gpsData getChildGpsPosition();
 
 /*********************************************************
 *getGpsDirection
