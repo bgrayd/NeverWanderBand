@@ -134,7 +134,7 @@ int main(void){
             }
             //printf("(%f;%f)",parentGpsPosition.f_latitudeDegrees,parentGpsPosition.f_latitude);
             u16_distance = calcDistanceMeters(parentGpsPosition, childGpsPosition);
-            i16_angleNorth = 0;//getDirection();
+            i16_angleNorth = getDirection();
             i16_angleChild = calcAngleDegrees(parentGpsPosition, childGpsPosition);
 
             if(u16_distance > 50){

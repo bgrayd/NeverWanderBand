@@ -3,8 +3,8 @@
 
 #define config_buzzer_pin() CONFIG_RB4_AS_DIG_OUTPUT()
 #define config_vibrat_pin() CONFIG_RA4_AS_DIG_OUTPUT()
-#define buzzer _LATB4
-#define vibrator _LATA4
+#define buzzer (_LATB4)
+#define vibrator (_LATA4)
 
 #define buzzEn 0x01
 #define vibrEn 0x02
@@ -18,7 +18,7 @@ static uint8_t u8_enabledAlerts;
 
 void _ISR _T3Interrupt (void) {
 	buzzer = !buzzer;
-	_T3IF = 0;                //clear T3 interrupt flag
+	_T3IF = 0;//clear T3 interrupt flag
 }
 
 void configTimer3(void) {
@@ -79,7 +79,7 @@ void startAlerts(){
 		startBuzzer();
 	}
 	if(((u8_enabledAlerts & vibrEn)>> shiftVibr) == 1){
-		startVibrator();
+            startVibrator();
 	}
 }
 
