@@ -22,7 +22,7 @@ void getChildPacket(char* psz_buff, uint16_t u16_maxCount){
   uint8_t u8_c;
   uint16_t u16_i;
 
-  if (!u16_maxCount) return 0;
+  if (!u16_maxCount) return;
   u16_i = 0;
   for (u16_i = 0; u16_i < u16_maxCount; u16_i++) {
     u8_c = receiveUint8Xbee();
@@ -32,7 +32,6 @@ void getChildPacket(char* psz_buff, uint16_t u16_maxCount){
   }
 
   *psz_buff = 0;
-  return(u16_i);
 }
 
 void transmitChildCommand(char *psz_s){
@@ -47,7 +46,7 @@ void getParentPacket(char* psz_buff, uint16_t u16_maxCount){
   uint8_t u8_c;
   uint16_t u16_i;
 
-  if (!u16_maxCount) return 0;
+  if (!u16_maxCount) return;
   u16_i = 0;
   for (u16_i = 0; u16_i < u16_maxCount; u16_i++) {
     u8_c = inChar1();
@@ -57,5 +56,4 @@ void getParentPacket(char* psz_buff, uint16_t u16_maxCount){
   }
 
   *psz_buff = 0;
-  return(u16_i);
 }

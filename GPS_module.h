@@ -26,6 +26,7 @@
 st_gpsData parseGpsPacket(char *nmea);
 
 void configRMC1Hz();
+void configRMC5Hz();
 
 char * uitoa(uint16_t u16_x);
 

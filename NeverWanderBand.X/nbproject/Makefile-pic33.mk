@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=C:/ece3724/pic24lib_all/lib/src/pic24_clockfreq.c C:/ece3724/pic24lib_all/lib/src/pic24_configbits.c C:/ece3724/pic24lib_all/lib/src/pic24_serial.c C:/ece3724/pic24lib_all/lib/src/pic24_uart.c C:/ece3724/pic24lib_all/lib/src/pic24_util.c C:/ece3724/pic24lib_all/lib/src/pic24_spi.c C:/ece3724/pic24lib_all/lib/src/pic24_i2c.c ../NeverWanderBand.c ../GPS_module.c ../screen_module.c C:/Users/Billy/Documents/GitHub/NeverWanderBand/transceiver_module.c
+SOURCEFILES_QUOTED_IF_SPACED=C:/ece3724/pic24lib_all/lib/src/pic24_clockfreq.c C:/ece3724/pic24lib_all/lib/src/pic24_configbits.c C:/ece3724/pic24lib_all/lib/src/pic24_serial.c C:/ece3724/pic24lib_all/lib/src/pic24_uart.c C:/ece3724/pic24lib_all/lib/src/pic24_util.c C:/ece3724/pic24lib_all/lib/src/pic24_spi.c C:/ece3724/pic24lib_all/lib/src/pic24_i2c.c C:/ece3724/pic24lib_all/lib/src/pic24_timer.c ../NeverWanderBand.c ../GPS_module.c ../screen_module.c C:/Users/Billy/Documents/GitHub/NeverWanderBand/transceiver_module.c C:/Users/Billy/Documents/GitHub/NeverWanderBand/alert_module.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o ${OBJECTDIR}/_ext/1719179988/pic24_configbits.o ${OBJECTDIR}/_ext/1719179988/pic24_serial.o ${OBJECTDIR}/_ext/1719179988/pic24_uart.o ${OBJECTDIR}/_ext/1719179988/pic24_util.o ${OBJECTDIR}/_ext/1719179988/pic24_spi.o ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o ${OBJECTDIR}/_ext/1472/NeverWanderBand.o ${OBJECTDIR}/_ext/1472/GPS_module.o ${OBJECTDIR}/_ext/1472/screen_module.o ${OBJECTDIR}/_ext/924435145/transceiver_module.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o.d ${OBJECTDIR}/_ext/1719179988/pic24_configbits.o.d ${OBJECTDIR}/_ext/1719179988/pic24_serial.o.d ${OBJECTDIR}/_ext/1719179988/pic24_uart.o.d ${OBJECTDIR}/_ext/1719179988/pic24_util.o.d ${OBJECTDIR}/_ext/1719179988/pic24_spi.o.d ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o.d ${OBJECTDIR}/_ext/1472/NeverWanderBand.o.d ${OBJECTDIR}/_ext/1472/GPS_module.o.d ${OBJECTDIR}/_ext/1472/screen_module.o.d ${OBJECTDIR}/_ext/924435145/transceiver_module.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o ${OBJECTDIR}/_ext/1719179988/pic24_configbits.o ${OBJECTDIR}/_ext/1719179988/pic24_serial.o ${OBJECTDIR}/_ext/1719179988/pic24_uart.o ${OBJECTDIR}/_ext/1719179988/pic24_util.o ${OBJECTDIR}/_ext/1719179988/pic24_spi.o ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o ${OBJECTDIR}/_ext/1719179988/pic24_timer.o ${OBJECTDIR}/_ext/1472/NeverWanderBand.o ${OBJECTDIR}/_ext/1472/GPS_module.o ${OBJECTDIR}/_ext/1472/screen_module.o ${OBJECTDIR}/_ext/924435145/transceiver_module.o ${OBJECTDIR}/_ext/924435145/alert_module.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o.d ${OBJECTDIR}/_ext/1719179988/pic24_configbits.o.d ${OBJECTDIR}/_ext/1719179988/pic24_serial.o.d ${OBJECTDIR}/_ext/1719179988/pic24_uart.o.d ${OBJECTDIR}/_ext/1719179988/pic24_util.o.d ${OBJECTDIR}/_ext/1719179988/pic24_spi.o.d ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o.d ${OBJECTDIR}/_ext/1719179988/pic24_timer.o.d ${OBJECTDIR}/_ext/1472/NeverWanderBand.o.d ${OBJECTDIR}/_ext/1472/GPS_module.o.d ${OBJECTDIR}/_ext/1472/screen_module.o.d ${OBJECTDIR}/_ext/924435145/transceiver_module.o.d ${OBJECTDIR}/_ext/924435145/alert_module.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o ${OBJECTDIR}/_ext/1719179988/pic24_configbits.o ${OBJECTDIR}/_ext/1719179988/pic24_serial.o ${OBJECTDIR}/_ext/1719179988/pic24_uart.o ${OBJECTDIR}/_ext/1719179988/pic24_util.o ${OBJECTDIR}/_ext/1719179988/pic24_spi.o ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o ${OBJECTDIR}/_ext/1472/NeverWanderBand.o ${OBJECTDIR}/_ext/1472/GPS_module.o ${OBJECTDIR}/_ext/1472/screen_module.o ${OBJECTDIR}/_ext/924435145/transceiver_module.o
+OBJECTFILES=${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o ${OBJECTDIR}/_ext/1719179988/pic24_configbits.o ${OBJECTDIR}/_ext/1719179988/pic24_serial.o ${OBJECTDIR}/_ext/1719179988/pic24_uart.o ${OBJECTDIR}/_ext/1719179988/pic24_util.o ${OBJECTDIR}/_ext/1719179988/pic24_spi.o ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o ${OBJECTDIR}/_ext/1719179988/pic24_timer.o ${OBJECTDIR}/_ext/1472/NeverWanderBand.o ${OBJECTDIR}/_ext/1472/GPS_module.o ${OBJECTDIR}/_ext/1472/screen_module.o ${OBJECTDIR}/_ext/924435145/transceiver_module.o ${OBJECTDIR}/_ext/924435145/alert_module.o
 
 # Source Files
-SOURCEFILES=C:/ece3724/pic24lib_all/lib/src/pic24_clockfreq.c C:/ece3724/pic24lib_all/lib/src/pic24_configbits.c C:/ece3724/pic24lib_all/lib/src/pic24_serial.c C:/ece3724/pic24lib_all/lib/src/pic24_uart.c C:/ece3724/pic24lib_all/lib/src/pic24_util.c C:/ece3724/pic24lib_all/lib/src/pic24_spi.c C:/ece3724/pic24lib_all/lib/src/pic24_i2c.c ../NeverWanderBand.c ../GPS_module.c ../screen_module.c C:/Users/Billy/Documents/GitHub/NeverWanderBand/transceiver_module.c
+SOURCEFILES=C:/ece3724/pic24lib_all/lib/src/pic24_clockfreq.c C:/ece3724/pic24lib_all/lib/src/pic24_configbits.c C:/ece3724/pic24lib_all/lib/src/pic24_serial.c C:/ece3724/pic24lib_all/lib/src/pic24_uart.c C:/ece3724/pic24lib_all/lib/src/pic24_util.c C:/ece3724/pic24lib_all/lib/src/pic24_spi.c C:/ece3724/pic24lib_all/lib/src/pic24_i2c.c C:/ece3724/pic24lib_all/lib/src/pic24_timer.c ../NeverWanderBand.c ../GPS_module.c ../screen_module.c C:/Users/Billy/Documents/GitHub/NeverWanderBand/transceiver_module.c C:/Users/Billy/Documents/GitHub/NeverWanderBand/alert_module.c
 
 
 CFLAGS=
@@ -128,6 +128,13 @@ ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o: C:/ece3724/pic24lib_all/lib/src/pic24_
 	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_i2c.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_i2c.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1719179988/pic24_i2c.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/_ext/1719179988/pic24_timer.o: C:/ece3724/pic24lib_all/lib/src/pic24_timer.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1719179988 
+	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_timer.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_timer.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_timer.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_timer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_timer.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1719179988/pic24_timer.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 ${OBJECTDIR}/_ext/1472/NeverWanderBand.o: ../NeverWanderBand.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1472 
 	@${RM} ${OBJECTDIR}/_ext/1472/NeverWanderBand.o.d 
@@ -155,6 +162,13 @@ ${OBJECTDIR}/_ext/924435145/transceiver_module.o: C:/Users/Billy/Documents/GitHu
 	@${RM} ${OBJECTDIR}/_ext/924435145/transceiver_module.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/Users/Billy/Documents/GitHub/NeverWanderBand/transceiver_module.c  -o ${OBJECTDIR}/_ext/924435145/transceiver_module.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/924435145/transceiver_module.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/924435145/transceiver_module.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/_ext/924435145/alert_module.o: C:/Users/Billy/Documents/GitHub/NeverWanderBand/alert_module.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/924435145 
+	@${RM} ${OBJECTDIR}/_ext/924435145/alert_module.o.d 
+	@${RM} ${OBJECTDIR}/_ext/924435145/alert_module.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/Users/Billy/Documents/GitHub/NeverWanderBand/alert_module.c  -o ${OBJECTDIR}/_ext/924435145/alert_module.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/924435145/alert_module.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/_ext/924435145/alert_module.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 else
 ${OBJECTDIR}/_ext/1719179988/pic24_clockfreq.o: C:/ece3724/pic24lib_all/lib/src/pic24_clockfreq.c  nbproject/Makefile-${CND_CONF}.mk
@@ -206,6 +220,13 @@ ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o: C:/ece3724/pic24lib_all/lib/src/pic24_
 	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_i2c.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_i2c.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_i2c.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1719179988/pic24_i2c.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/_ext/1719179988/pic24_timer.o: C:/ece3724/pic24lib_all/lib/src/pic24_timer.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1719179988 
+	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_timer.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1719179988/pic24_timer.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/ece3724/pic24lib_all/lib/src/pic24_timer.c  -o ${OBJECTDIR}/_ext/1719179988/pic24_timer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1719179988/pic24_timer.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1719179988/pic24_timer.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 ${OBJECTDIR}/_ext/1472/NeverWanderBand.o: ../NeverWanderBand.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1472 
 	@${RM} ${OBJECTDIR}/_ext/1472/NeverWanderBand.o.d 
@@ -234,6 +255,13 @@ ${OBJECTDIR}/_ext/924435145/transceiver_module.o: C:/Users/Billy/Documents/GitHu
 	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/Users/Billy/Documents/GitHub/NeverWanderBand/transceiver_module.c  -o ${OBJECTDIR}/_ext/924435145/transceiver_module.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/924435145/transceiver_module.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/924435145/transceiver_module.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/_ext/924435145/alert_module.o: C:/Users/Billy/Documents/GitHub/NeverWanderBand/alert_module.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/924435145 
+	@${RM} ${OBJECTDIR}/_ext/924435145/alert_module.o.d 
+	@${RM} ${OBJECTDIR}/_ext/924435145/alert_module.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  C:/Users/Billy/Documents/GitHub/NeverWanderBand/alert_module.c  -o ${OBJECTDIR}/_ext/924435145/alert_module.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/924435145/alert_module.o.d"      -mno-eds-warn  -g -omf=elf -I"C:/ece3724/pic24lib_all/lib/include" -I"C:/ece3724/pic24lib_all/lib/lkr" -I"C:/ece3724/pic24lib_all/lib/src" -O0 -I"../../lib/include" -DNUM_UART_MODS=2 -DUART2_RX_INTERRUPT -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/_ext/924435145/alert_module.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 endif
 
 # ------------------------------------------------------------------------------------
@@ -253,12 +281,12 @@ endif
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 dist/${CND_CONF}/${IMAGE_TYPE}/NeverWanderBand.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk    C:/ece3724/pic24lib_all/lib/lkr/p33EP128GP502_bootldr.gld
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_CC} $(MP_EXTRA_LD_PRE)  -o dist/${CND_CONF}/${IMAGE_TYPE}/NeverWanderBand.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}      -mcpu=$(MP_PROCESSOR_OPTION)        -D__DEBUG   -omf=elf -Wl,--local-stack,--defsym=__MPLAB_BUILD=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,,$(MP_LINKER_FILE_OPTION),--stack=16,--check-sections,--data-init,--pack-data,--handles,--isr,--no-gc-sections,--fill-upper=0,--stackguard=16,--no-force-link,--smart-io,--report-mem$(MP_EXTRA_LD_POST) 
+	${MP_CC} $(MP_EXTRA_LD_PRE)  -o dist/${CND_CONF}/${IMAGE_TYPE}/NeverWanderBand.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}      -mcpu=$(MP_PROCESSOR_OPTION)        -D__DEBUG   -omf=elf -Wl,--local-stack,--defsym=__MPLAB_BUILD=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,,$(MP_LINKER_FILE_OPTION),--stack=16,--check-sections,--data-init,--pack-data,--handles,--isr,--no-gc-sections,--fill-upper=0,--stackguard=16,--no-force-link,--smart-io,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--report-mem$(MP_EXTRA_LD_POST) 
 	
 else
 dist/${CND_CONF}/${IMAGE_TYPE}/NeverWanderBand.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   C:/ece3724/pic24lib_all/lib/lkr/p33EP128GP502_bootldr.gld
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_CC} $(MP_EXTRA_LD_PRE)  -o dist/${CND_CONF}/${IMAGE_TYPE}/NeverWanderBand.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}      -mcpu=$(MP_PROCESSOR_OPTION)        -omf=elf -Wl,--local-stack,--defsym=__MPLAB_BUILD=1,$(MP_LINKER_FILE_OPTION),--stack=16,--check-sections,--data-init,--pack-data,--handles,--isr,--no-gc-sections,--fill-upper=0,--stackguard=16,--no-force-link,--smart-io,--report-mem$(MP_EXTRA_LD_POST) 
+	${MP_CC} $(MP_EXTRA_LD_PRE)  -o dist/${CND_CONF}/${IMAGE_TYPE}/NeverWanderBand.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}      -mcpu=$(MP_PROCESSOR_OPTION)        -omf=elf -Wl,--local-stack,--defsym=__MPLAB_BUILD=1,$(MP_LINKER_FILE_OPTION),--stack=16,--check-sections,--data-init,--pack-data,--handles,--isr,--no-gc-sections,--fill-upper=0,--stackguard=16,--no-force-link,--smart-io,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--report-mem$(MP_EXTRA_LD_POST) 
 	${MP_CC_DIR}\\xc16-bin2hex dist/${CND_CONF}/${IMAGE_TYPE}/NeverWanderBand.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX} -a  -omf=elf  
 	
 endif

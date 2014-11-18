@@ -14,7 +14,7 @@ typedef struct st_gpsCoordinate{
 typedef struct st_gpsData{
     uint8_t u8_valid;
     double f_latitude, f_longitude;
-    float f_angle;
+    uint16_t u16_angle;
     uint8_t u8_hours, u8_minutes, u8_seconds;
 } st_gpsData;
 
@@ -96,6 +96,6 @@ void updateScreen();
 *********************************************************/
 void resetCursor();
 
-static float f_angle;
+static uint16_t u16_angle;
 
 #endif  //_NEVERWANDERBAND_H_

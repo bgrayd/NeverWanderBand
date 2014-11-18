@@ -31,9 +31,9 @@ int main(void){
 	while(1){
             clearDisplay();
             setCursor(0,0);
-            /*psz_input = sz_buffer;
+            psz_input = sz_buffer;
             inString(psz_input, 256);
-            switch(parsePacketType(psz_input)){
+            /*switch(parsePacketType(psz_input)){
                     case GPRMC:
                             RMCPacket = parseRMCPacket(psz_input);
                             break;
@@ -85,11 +85,6 @@ int main(void){
             writeString(uitoa(RMCPacket.u16_course));
             display();
             DELAY_MS(10);*/
-            //write(receiveUint8Xbee());
-            //display();
-            sendUint8Xbee('1');
-            char c_temp;
-            c_temp = receiveUint8Xbee();
             outChar1(c_temp);
             DELAY_MS(10);
 	};
@@ -104,8 +99,8 @@ int main(void){
 	configHeartbeat();
 	configUART1(9600);
         configUartXbee();
-        configRMC1Hz();
-        configChildRMC1Hz();
+        configRMC5Hz();
+        configChildRMC5Hz();
 	//printResetCause();       //print statement about what caused reset
 	outString(HELLO_MSG);
         configAlerts();
@@ -124,32 +119,34 @@ int main(void){
             st_gpsTuple = getGpsPositions();
             parentGpsPosition = st_gpsTuple.parentPosition;
             childGpsPosition = st_gpsTuple.childPosition;
-//            parentGpsPosition = getParentGpsPosition();
-//            childGpsPosition = getChildGpsPosition();
+
             if(!parentGpsPosition.u8_valid){
                 printCharacters(invalidParent,1,1);
             }
             if(!childGpsPosition.u8_valid){
                 printCharacters(invalidChild,1,1);
             }
-            //printf("(%f;%f)",parentGpsPosition.f_latitudeDegrees,parentGpsPosition.f_latitude);
+
             u16_distance = calcDistanceMeters(parentGpsPosition, childGpsPosition);
             i16_angleNorth = getDirection();
             i16_angleChild = calcAngleDegrees(parentGpsPosition, childGpsPosition);
 
-            if(u16_distance > 50){
-                startAlerts();
-            }
-            else {
-                stopAlerts();
+            if(u16_distance <= 17222){
+                if(u16_distance > 50){
+                    startAlerts();
+                }
+                else {
+                    stopAlerts();
+                }
+
+                giveAngleDegrees(i16_angleNorth - i16_angleChild);
+                printCharacters(uitoa(u16_distance),1,1);
+                printCharacters(meters,1,1);
+                outString(uitoa(u16_distance));
+                outString(meters);
+                updateScreen();
             }
             
-            giveAngleDegrees(i16_angleNorth - i16_angleChild);
-            printCharacters(uitoa(u16_distance),1,1);
-            printCharacters(meters,1,1);
-            outString(uitoa(u16_distance));
-            outString(meters);
-            updateScreen();
         }
 }
 #endif //PARENTBAND
@@ -158,22 +155,21 @@ int main(void){
 #define PI 3.1415926535
 
 void configChildRMC1Hz(){
-	//DELAY_MS(100);
 	const char *message = PMTK_SET_NEA_OUTPUT_RMCONLY;
 	const char *message2 = PMTK_SET_NMEA_UPDATE_1HZ;
 	transmitChildCommand(message);
 	transmitChildCommand(message2);
 }
 
+void configChildRMC5Hz(){
+	const char *message = PMTK_SET_NEA_OUTPUT_RMCONLY;
+	const char *message2 = PMTK_SET_NMEA_UPDATE_5HZ;
+	transmitChildCommand(message);
+	transmitChildCommand(message2);
+}
 
-/*********************************************************
-*calcDistanceMeters
-*calculates the distance between two gps positions in meters
-*@position1: the first gps position
-*@position2: the second gps position
-*@return: the distance between the two points in meters
-*********************************************************/
-uint16_t calcDistanceMeters(st_gpsData position1, st_gpsData position2){
+
+uint16_t calcDistanceMetersInternal(st_gpsData position1, st_gpsData position2){
     /*int16_t i16_dLatDeg = 0;
     int16_t i16_dLatMin = 0;
     int32_t i32_dLatCSec = 0;
@@ -254,7 +250,7 @@ uint16_t calcDistanceMeters(st_gpsData position1, st_gpsData position2){
 
     return toBeReturned;
 
-    
+
     /*double d_lat1 = ((position1.f_latitude * PI) / 180.0);
     double d_lon1 = ((position1.f_longitude * PI) /180.0);
     double d_lat2 = ((position2.f_latitude * PI) / 180.0);
@@ -265,6 +261,24 @@ uint16_t calcDistanceMeters(st_gpsData position1, st_gpsData position2){
     uint16_t u16_distance = (uint16_t)d_dist;
     return u16_distance;*/
 }
+
+/*********************************************************
+*calcDistanceMeters
+*calculates the distance between two gps positions in meters
+*@position1: the first gps position
+*@position2: the second gps position
+*@return: the distance between the two points in meters
+*********************************************************/
+uint16_t calcDistanceMeters(st_gpsData position1, st_gpsData position2){
+    uint16_t u16_firstReturn = calcDistanceMetersInternal(position1, position2);
+    uint16_t u16_secondReturn = calcDistanceMetersInternal(position1, position2);
+
+    if(u16_firstReturn != u16_secondReturn){
+        return calcDistanceMeters(position1, position2);
+    }
+    return u16_firstReturn;
+}
+
 
 /*********************************************************
 *calcAngleDegrees
@@ -286,10 +300,8 @@ int16_t calcAngleDegrees(st_gpsData position1, st_gpsData position2){
 
     double d_radDir = atan2(d_sinDLon*d_cosLat2, d_cosLat1*d_sinLat2 - d_sinLat1*d_cosLat2*d_cosDLon);
 
-    //double d_radDir = atan2(sin(d_dLonRad)*cos(d_lat2),cos(d_lat1)*sin(d_lat2)-sin(d_lat1)*cos(d_lat2)*cos(d_dLonRad));
     int16_t i16_degDir = (int16_t)(d_radDir*180/PI);
     return i16_degDir;
-//    return 1;
 }
 
 /*********************************************************
@@ -308,7 +320,7 @@ gpsDataTuple getGpsPositions(){
     st_gpsPositions.parentPosition = parseGpsPacket(ac_parentBuffer);
     st_gpsPositions.childPosition = parseGpsPacket(ac_childBuffer);
 
-    f_angle = st_gpsPositions.parentPosition.f_angle;
+    u16_angle = st_gpsPositions.parentPosition.u16_angle;
 
     return st_gpsPositions;
 }
@@ -322,14 +334,14 @@ gpsDataTuple getGpsPositions(){
 int16_t getDirection(){
    int16_t i16_toBeReturned;
    uint16_t u16_course;
-   u16_course = f_angle;
+   u16_course = u16_angle;
     if(u16_course > 180){
         i16_toBeReturned = u16_course -360;
     }
     else{
         i16_toBeReturned = u16_course;
     }
-    return i16_toBeReturned;// return 0;
+    return i16_toBeReturned;
 };
 
 

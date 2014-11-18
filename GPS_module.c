@@ -5,6 +5,26 @@
 #include "stdlib.h"
 
 
+char * uitoa(uint16_t u16_x) {
+    static uint8_t au8_String[8];
+    static uint8_t u8_digit;
+
+    u8_digit = 0;
+    if (u16_x > 9999)
+        au8_String[u8_digit++] = '0' + u16_x / 10000;
+    if (u16_x > 999)
+        au8_String[u8_digit++] = '0' + (u16_x % 10000) / 1000;
+    if (u16_x > 99)
+        au8_String[u8_digit++] = '0' + (u16_x % 1000) / 100;
+    if (u16_x > 9)
+        au8_String[u8_digit++] = '0' + (u16_x % 100) / 10;
+    au8_String[u8_digit++] = '0' + (u16_x % 10);
+    au8_String[u8_digit] = 0;
+
+    return au8_String;
+}
+
+
 char CalcCheckSum(char* psz_s, uint8_t u8_size){
 	char c_runChecksum;	//the running checksum
 	uint8_t u8_count = 2;
@@ -238,14 +258,6 @@ st_gpsData parseGpsPacket(char *psz_s){
         latitude.u8_degrees = ((*(psz_s+20)-48)*10 + (*(psz_s+21)-48));
         latitude.u8_minutes = ((*(psz_s+22)-48)*10 + (*(psz_s+23)-48));
         gpsData.f_latitude = ((*(psz_s+25)-48)*600 + (*(psz_s+26)-48)*60 + (*(psz_s+27)-48)*6+(*(psz_s+28)-48)*6/10);   //centiseconds
-        outChar1('(');
-        outString(uitoa(latitude.u8_degrees));
-        outChar1(',');
-        outString(uitoa(latitude.u8_minutes));
-        outChar1(',');
-        outString(uitoa(gpsData.f_latitude/100));
-        outChar1(';');
-
 
         gpsData.f_latitude = ((gpsData.f_latitude/100.0)/60.0);                                                         //minutes
         gpsData.f_latitude += latitude.u8_minutes;                                                                      //minutes
@@ -257,13 +269,6 @@ st_gpsData parseGpsPacket(char *psz_s){
         longitude.u8_degrees = ((*(psz_s+32)-48)*100 + (*(psz_s+33)-48)*10 + (*(psz_s+34)-48));
         longitude.u8_minutes = ((*(psz_s+35)-48)*10 + (*(psz_s+36)-48));
         gpsData.f_longitude = ((*(psz_s+38)-48)*600 + (*(psz_s+39)-48)*60 + (*(psz_s+40)-48)*6+(*(psz_s+41)-48)*6/10);   //centiseconds
-
-        outString(uitoa(longitude.u8_degrees));
-        outChar1(',');
-        outString(uitoa(longitude.u8_minutes));
-        outChar1(',');
-        outString(uitoa(gpsData.f_longitude/100));
-        outChar1(')');
 
         gpsData.f_longitude = ((gpsData.f_longitude/100.0)/60.0);                                                         //minutes
         gpsData.f_longitude += longitude.u8_minutes;                                                                      //minutes
@@ -281,16 +286,21 @@ st_gpsData parseGpsPacket(char *psz_s){
         }
         u8_counter++;
 
-        gpsData.f_angle = 0;
+        gpsData.u16_angle = 0;
 
         //the course has a varying length of whole numbers and a decimal
         while(u8_counter <=254){
             if(*(psz_s + u8_counter) == '.')
                 break;
-            gpsData.f_angle *= 10;
-            gpsData.f_angle += (*(psz_s + u8_counter)-48);
+            else if(*(psz_s + u8_counter) == ',')
+                break;
+            gpsData.u16_angle *= 10;
+            gpsData.u16_angle += (*(psz_s + u8_counter)-48);
             u8_counter++;
         }
+        outChar1('[');
+        outString(uitoa(gpsData.u16_angle));
+        outChar1(']');
 
         return gpsData;
     }
@@ -299,28 +309,15 @@ st_gpsData parseGpsPacket(char *psz_s){
 }
 
 void configRMC1Hz(){
-	//DELAY_MS(100);
 	const char *message = PMTK_SET_NEA_OUTPUT_RMCONLY;
 	const char *message2 = PMTK_SET_NMEA_UPDATE_1HZ;
 	outString(message);
 	outString(message2);
 }
 
-char * uitoa(uint16_t u16_x) {
-    static uint8_t au8_String[8];
-    static uint8_t u8_digit;
-
-    u8_digit = 0;
-    if (u16_x > 9999)
-        au8_String[u8_digit++] = '0' + u16_x / 10000;
-    if (u16_x > 999)
-        au8_String[u8_digit++] = '0' + (u16_x % 10000) / 1000;
-    if (u16_x > 99)
-        au8_String[u8_digit++] = '0' + (u16_x % 1000) / 100;
-    if (u16_x > 9)
-        au8_String[u8_digit++] = '0' + (u16_x % 100) / 10;
-    au8_String[u8_digit++] = '0' + (u16_x % 10);
-    au8_String[u8_digit] = 0;
-
-    return au8_String;
+void configRMC5Hz(){
+	const char *message = PMTK_SET_NEA_OUTPUT_RMCONLY;
+	const char *message2 = PMTK_SET_NMEA_UPDATE_5HZ;
+	outString(message);
+	outString(message2);
 }
