@@ -13,7 +13,7 @@ typedef struct st_gpsCoordinate{
 //	the modules
 typedef struct st_gpsData{
     uint8_t u8_valid;
-    double f_latitude, f_longitude;
+    st_gpsCoordinate st_latitude, st_longitude;
     uint16_t u16_angle;
     uint8_t u8_hours, u8_minutes, u8_seconds;
 } st_gpsData;
