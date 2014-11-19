@@ -30,6 +30,4 @@ void configRMC5Hz();
 
 char * uitoa(uint16_t u16_x);
 
-int16_t normalizeAngle(int16_t i16_degrees);
-
 #endif //_ADAFRUIT_GPS_H_

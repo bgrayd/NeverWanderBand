@@ -237,7 +237,6 @@ uint8_t parseHex(char c) {
 
 st_gpsData parseGpsPacket(char *psz_s){
     st_gpsData gpsData;
-    uint16_t u16_latCentiSec, u16_lonCentiSec;
 
     if((*(psz_s+1)=='G')&&(*(psz_s+2)=='P')&&(*(psz_s+3)=='R')&&(*(psz_s+4)=='M')&&(*(psz_s+5)=='C')){
         //I need to go back and change the magic number is defined constants
@@ -247,34 +246,35 @@ st_gpsData parseGpsPacket(char *psz_s){
         gpsData.u8_valid = (*(psz_s+18))=='A';
 
         if(gpsData.u8_valid == 0){
-            gpsData.st_latitude.u8_degrees = 0;
-            gpsData.st_latitude.u8_minutes = 0;
-            gpsData.st_latitude.u8_centiSecondsMSB = 0;
-            gpsData.st_latitude.u8_centiSecondsLSB = 0;
-
-            gpsData.st_longitude.u8_degrees = 0;
-            gpsData.st_longitude.u8_minutes = 0;
-            gpsData.st_longitude.u8_centiSecondsMSB = 0;
-            gpsData.st_longitude.u8_centiSecondsLSB = 0;
+            gpsData.f_latitude = 0;
+            gpsData.f_longitude = 0;
 
             return gpsData;
         }
 
-//        outString(psz_s);
-        gpsData.st_latitude.u8_hemisphereIndicator = (*(psz_s+30))=='N';
-        gpsData.st_latitude.u8_degrees = ((*(psz_s+20)-48)*10 + (*(psz_s+21)-48));
-        gpsData.st_latitude.u8_minutes = ((*(psz_s+22)-48)*10 + (*(psz_s+23)-48));
-        u16_latCentiSec = ((*(psz_s+25)-48)*600 + (*(psz_s+26)-48)*60 + (*(psz_s+27)-48)*6+(*(psz_s+28)-48)*6/10);
-        gpsData.st_latitude.u8_centiSecondsMSB = (u16_latCentiSec >> 8) & 0xFF;
-        gpsData.st_latitude.u8_centiSecondsLSB = u16_latCentiSec & 0xFF;
+        st_gpsCoordinate latitude, longitude;
 
+        latitude.u8_hemisphereIndicator = (*(psz_s+30))=='N';
+        latitude.u8_degrees = ((*(psz_s+20)-48)*10 + (*(psz_s+21)-48));
+        latitude.u8_minutes = ((*(psz_s+22)-48)*10 + (*(psz_s+23)-48));
+        gpsData.f_latitude = ((*(psz_s+25)-48)*600 + (*(psz_s+26)-48)*60 + (*(psz_s+27)-48)*6+(*(psz_s+28)-48)*6/10);   //centiseconds
 
-        gpsData.st_longitude.u8_hemisphereIndicator = (*(psz_s+43))=='E';
-        gpsData.st_longitude.u8_degrees = ((*(psz_s+32)-48)*100 + (*(psz_s+33)-48)*10 + (*(psz_s+34)-48));
-        gpsData.st_longitude.u8_minutes = ((*(psz_s+35)-48)*10 + (*(psz_s+36)-48));
-        u16_lonCentiSec = ((*(psz_s+38)-48)*600 + (*(psz_s+39)-48)*60 + (*(psz_s+40)-48)*6+(*(psz_s+41)-48)*6/10);
-        gpsData.st_longitude.u8_centiSecondsMSB = (u16_lonCentiSec >> 8) & 0xFF;
-        gpsData.st_longitude.u8_centiSecondsLSB = u16_lonCentiSec & 0xFF;
+        gpsData.f_latitude = ((gpsData.f_latitude/100.0)/60.0);                                                         //minutes
+        gpsData.f_latitude += latitude.u8_minutes;                                                                      //minutes
+        gpsData.f_latitude = (gpsData.f_latitude/60.0);                                                                 //degrees
+        gpsData.f_latitude += latitude.u8_degrees;                                                                      //degrees
+        gpsData.f_latitude *= (latitude.u8_hemisphereIndicator) ? 1:-1;                                                 //degrees
+
+        longitude.u8_hemisphereIndicator = (*(psz_s+43))=='E';
+        longitude.u8_degrees = ((*(psz_s+32)-48)*100 + (*(psz_s+33)-48)*10 + (*(psz_s+34)-48));
+        longitude.u8_minutes = ((*(psz_s+35)-48)*10 + (*(psz_s+36)-48));
+        gpsData.f_longitude = ((*(psz_s+38)-48)*600 + (*(psz_s+39)-48)*60 + (*(psz_s+40)-48)*6+(*(psz_s+41)-48)*6/10);   //centiseconds
+
+        gpsData.f_longitude = ((gpsData.f_longitude/100.0)/60.0);                                                         //minutes
+        gpsData.f_longitude += longitude.u8_minutes;                                                                      //minutes
+        gpsData.f_longitude = (gpsData.f_longitude/60.0);                                                                 //degrees
+        gpsData.f_longitude += longitude.u8_degrees;                                                                      //degrees
+        gpsData.f_longitude *= (longitude.u8_hemisphereIndicator) ? 1:-1;                                                 //degrees
 
 
         uint8_t u8_counter = 43+2;
@@ -302,21 +302,6 @@ st_gpsData parseGpsPacket(char *psz_s){
         outString(uitoa(gpsData.u16_angle));
         outChar1(']');
 
-
-        outUint8Decimal( gpsData.st_latitude.u8_degrees);
-    outChar(167);
-    outUint8Decimal( gpsData.st_latitude.u8_minutes);
-    outChar('"');
-    outUint16Decimal(( gpsData.st_latitude.u8_centiSecondsMSB<<8)| gpsData.st_latitude.u8_centiSecondsLSB);
-    outChar('\n');
-
-    outUint8Decimal( gpsData.st_longitude.u8_degrees);
-    outChar(167);
-    outUint8Decimal( gpsData.st_longitude.u8_minutes);
-    outChar('"');
-    outUint16Decimal(( gpsData.st_longitude.u8_centiSecondsMSB<<8)| gpsData.st_longitude.u8_centiSecondsLSB);
-    outChar('\n');
-
         return gpsData;
     }
 
@@ -335,22 +320,4 @@ void configRMC5Hz(){
 	const char *message2 = PMTK_SET_NMEA_UPDATE_5HZ;
 	outString(message);
 	outString(message2);
-}
-
-int16_t normalizeAngle(int16_t i16_degrees){
-    int16_t i16_toBeReturned;
-
-    if(i16_degrees > 180){
-        i16_toBeReturned = i16_degrees - 360;
-    }
-
-    else if(i16_degrees < -180){
-        i16_toBeReturned = i16_degrees + 360;
-    }
-
-    else{
-        i16_toBeReturned = i16_degrees;
-    }
-
-    return  i16_toBeReturned;
 }
