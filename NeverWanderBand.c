@@ -117,6 +117,9 @@ int main(void){
             clearScreen();
             resetCursor();
             st_gpsTuple = getGpsPositions();
+
+            u16_angle = 0;
+
             parentGpsPosition = st_gpsTuple.parentPosition;
             childGpsPosition = st_gpsTuple.childPosition;
 
@@ -131,7 +134,7 @@ int main(void){
             i16_angleNorth = getDirection();
             i16_angleChild = calcAngleDegrees(parentGpsPosition, childGpsPosition);
 
-            if(u16_distance <= 17222){
+            if(u16_distance <= 65535){
                 if(u16_distance > 50){
                     startAlerts();
                 }
@@ -311,8 +314,8 @@ int16_t calcAngleDegrees(st_gpsData position1, st_gpsData position2){
 *********************************************************/
 gpsDataTuple getGpsPositions(){
     gpsDataTuple st_gpsPositions;
-    char ac_parentBuffer[256];
-    char ac_childBuffer[256];
+    char ac_parentBuffer[256] = "$GPRMC,2213014.82,A,3326.1376,N,08847.2406,W,0,90.0,A*75";
+    char ac_childBuffer[256] = "$GPRMC,2213014.82,A,3326.1376,N,08847.3406,W,0,,A*75";
 
     getParentPacket(ac_parentBuffer,256);
     getChildPacket(ac_childBuffer,256);
