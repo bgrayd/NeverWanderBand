@@ -103,4 +103,6 @@ void updateScreen();
 *********************************************************/
 void resetCursor();
 
+static uint16_t u16_direction;
+
 #endif  //_NEVERWANDERBAND_H_

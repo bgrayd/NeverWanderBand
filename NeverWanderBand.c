@@ -2,6 +2,8 @@
 #include "NeverWanderBand.h"
 #include "screen_module.h"
 #include "GPS_module.h"
+#include "transceiver_module.h"
+#include "alert_module.h"
 #include "math.h"
 
 #ifndef PARENTBAND
@@ -107,11 +109,13 @@ int main(void){
 	configClock();
 	configHeartbeat();
 	configDefaultUART(9600);
+        configUartXbee();
 	//printResetCause();       //print statement about what caused reset
 	outString(HELLO_MSG);
 	configRMC1Hz();
+        configChildRMC1Hz();
         initScreen();
-        const char *meters = "m";
+        const char *meters = " m";
         st_gpsPosition parentGpsPosition, childGpsPosition;
         uint16_t u16_distance;
         int16_t i16_angleNorth, i16_angleChild;
@@ -122,7 +126,7 @@ int main(void){
             i16_angleNorth = getDirection();
             i16_angleChild = calcAngleDegrees(parentGpsPosition, childGpsPosition);
             clearScreen();
-            giveAngleDegrees(i16_angleNorth - i16_angleChild);
+            giveAngleDegrees(normalizeAngle(i16_angleNorth - i16_angleChild));
             printCharacters(uitoa(u16_distance),1,1);
             printCharacters(meters,1,1);
             updateScreen();
@@ -259,6 +263,18 @@ int16_t calcAngleDegrees(st_gpsPosition position1, st_gpsPosition position2){
     return i16_degDir;
 }
 
+int16_t normalizeAngle(int16_t i16_angle){
+    int16_t i16_toBeReturned;
+    if(i16_angle > 180){
+        i16_toBeReturned = i16_angle -360;
+    }
+    else{
+        i16_toBeReturned = i16_angle;
+    }
+    return i16_toBeReturned;
+
+}
+
 
 /*********************************************************
 *getGpsPosition
@@ -276,7 +292,7 @@ st_gpsPosition getGpsPosition(){
     en_packetType = parsePacketType(psz_input);
     if(en_packetType == GPRMC){
         st_RMCPacket = parseRMCPacket(psz_input);
-        //u16_course = st_RMCPacket.u16_course;
+        u16_direction = st_RMCPacket.u16_course;
         gpsPosition.latitude = st_RMCPacket.position.latitude;
         gpsPosition.longitude = st_RMCPacket.position.longitude;
     }
@@ -284,21 +300,44 @@ st_gpsPosition getGpsPosition(){
 };
 
 /*********************************************************
+*receivePosition
+*get the gps position sent to it
+*@return: the gps position transmitted
+*********************************************************/
+st_gpsPosition receivePosition(){
+    char sz_buffer[256];
+    char *psz_input;
+    psz_input = sz_buffer;
+    _packetType_t en_packetType;
+    _RMCPacket st_RMCPacket;
+    st_gpsPosition gpsPosition;
+    getChildPacket(psz_input, 256);
+    en_packetType = parsePacketType(psz_input);
+    if(en_packetType == GPRMC){
+        st_RMCPacket = parseRMCPacket(psz_input);
+        gpsPosition.latitude = st_RMCPacket.position.latitude;
+        gpsPosition.longitude = st_RMCPacket.position.longitude;
+    }
+    return gpsPosition;
+
+}
+
+/*********************************************************
 *getGpsDirection
 *gets the current direction from the gps
 *@return: the current direction of travel in degrees of -180 to 180
 *********************************************************/
 int16_t getDirection(){
-   int16_t i16_toBeReturned;
-   uint16_t u16_course;
-   u16_course = getCourse();
+    int16_t i16_toBeReturned;
+    uint16_t u16_course;
+    u16_course = u16_direction;
     if(u16_course > 180){
         i16_toBeReturned = u16_course -360;
     }
     else{
         i16_toBeReturned = u16_course;
     }
-    return i16_toBeReturned;// return 0;
+    return i16_toBeReturned;
 };
 
 
@@ -346,4 +385,11 @@ void giveAngleDegrees(int16_t i16_angle){
 		drawArrowSW();
 	}
 	
+}
+
+void configChildRMC1Hz(){
+	const char *message = PMTK_SET_NEA_OUTPUT_RMCONLY;
+	const char *message2 = PMTK_SET_NMEA_UPDATE_1HZ;
+	transmitChildCommand(message);
+	transmitChildCommand(message2);
 }
