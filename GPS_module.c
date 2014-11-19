@@ -82,6 +82,8 @@ _RMCPacket parseRMCPacket(char* psz_s){
 	while(u8_counter <=254){
 		if(*(psz_s + u8_counter) == '.')
 			break;
+                if(*(psz_s + u8_counter) == ',')
+			break;
 		st_rmcPacket.u16_course *= 10;
 		st_rmcPacket.u16_course += (*(psz_s + u8_counter)-48);
 		u8_counter++;
@@ -107,7 +109,7 @@ char * uitoa(uint16_t u16_x) {
     if (u16_x > 9999)
         au8_String[u8_digit++] = '0' + u16_x / 10000;
     if (u16_x > 999)
-        au8_String[u8_digit++] = '0' + u16_x / 1000;
+        au8_String[u8_digit++] = '0' + (u16_x % 10000) / 1000;
     if (u16_x > 99)
         au8_String[u8_digit++] = '0' + (u16_x % 1000) / 100;
     if (u16_x > 9)

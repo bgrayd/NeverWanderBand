@@ -106,45 +106,64 @@ int main(void){
 
 #ifdef PARENTBAND
 int main(void){
-	configClock();
-	configHeartbeat();
-	configDefaultUART(9600);
-        configUartXbee();
-	//printResetCause();       //print statement about what caused reset
-	outString(HELLO_MSG);
-	configRMC1Hz();
-        configChildRMC1Hz();
-        configAlerts();
-        initScreen();
-        const char *meters = " meters";
-        u8_alarmDistance = 50;
-        st_gpsPosition parentGpsPosition, childGpsPosition;
-        uint16_t u16_distance;
-        int16_t i16_angleNorth, i16_angleChild;
-        while(1){
-            parentGpsPosition = getGpsPosition();
-            childGpsPosition = receivePosition();
-            u16_distance = calcDistanceMeters(parentGpsPosition, childGpsPosition);
-            i16_angleNorth = getDirection();
-            i16_angleChild = calcAngleDegrees(parentGpsPosition, childGpsPosition);
-            clearScreen();
-            giveAngleDegrees(normalizeAngle(i16_angleNorth - i16_angleChild));
-            printCharacters(uitoa(u16_distance),1,1);
-            printCharacters(meters,1,1);
-            resetCursor();
-
-            if(u16_distance < 65535){
-                updateScreen();     //it has a problem with having a single packet with a crazy distance
-                if(u16_distance >= u8_alarmDistance){
-                    startAlerts();
-                }
-                else{
-                    stopAlerts();
-                }
+    uint16_t u16_lastDistance;
+    int16_t i16_lastAngle;
+    configClock();
+    configHeartbeat();
+    configDefaultUART(9600);
+    configUartXbee();
+    //printResetCause();       //print statement about what caused reset
+    outString(HELLO_MSG);
+    configRMC1Hz();
+    configChildRMC1Hz();
+    configAlerts();
+    initScreen();
+    const char *meters = " meters";
+    u8_alarmDistance = 50;
+    st_gpsPosition parentGpsPosition, childGpsPosition;
+    uint16_t u16_distance;
+    int16_t i16_angleNorth, i16_angleChild;
+    while(1){
+        parentGpsPosition = getGpsPosition();
+        childGpsPosition = receivePosition();
+        u16_distance = calcDistanceMeters(parentGpsPosition, childGpsPosition);
+        i16_angleNorth = getDirection();
+        i16_angleChild = calcAngleDegrees(parentGpsPosition, childGpsPosition);
+        clearScreen();
+        if(u16_distance == 0){
+            if(u16_lastDistance > 2){
+                giveAngleDegrees(i16_lastAngle);
+                printCharacters(uitoa(u16_lastDistance),1,1);
             }
 
-           
+            else{
+                giveAngleDegrees(normalizeAngle(i16_angleNorth - i16_angleChild));
+                printCharacters(uitoa(u16_distance),1,1);
+                i16_lastAngle = normalizeAngle(i16_angleNorth - i16_angleChild);
+                u16_lastDistance = u16_distance;
+            }
         }
+        else {
+            giveAngleDegrees(normalizeAngle(i16_angleNorth - i16_angleChild));
+            printCharacters(uitoa(u16_distance),1,1);
+            i16_lastAngle = normalizeAngle(i16_angleNorth - i16_angleChild);
+            u16_lastDistance = u16_distance;
+        }
+        printCharacters(meters,1,1);
+        resetCursor();
+
+        if(u16_distance < 65535){
+            updateScreen();     //it has a problem with having a single packet with a crazy distance
+            if(u16_distance >= u8_alarmDistance){
+                startAlerts();
+            }
+            else{
+                stopAlerts();
+            }
+        }
+
+
+    }
 }
 #endif //PARENTBAND
 
