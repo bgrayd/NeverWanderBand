@@ -133,7 +133,7 @@ int main(void){
             printCharacters(meters,1,1);
             resetCursor();
 
-            if(u16_distance < 1000){
+            if(u16_distance < 65535){
                 updateScreen();     //it has a problem with having a single packet with a crazy distance
                 if(u16_distance >= u8_alarmDistance){
                     startAlerts();

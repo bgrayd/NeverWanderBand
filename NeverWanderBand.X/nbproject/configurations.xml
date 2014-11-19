@@ -356,7 +356,8 @@
         <property key="optimization-level" value="0"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
-        <property key="preprocessor-macros" value="PARENTBAND;DEFAULT_UART=1"/>
+        <property key="preprocessor-macros"
+                  value="PARENTBAND;DEFAULT_UART=1;UART2_RX_INTERRUPT;UART1_RX_INTERRUPT;UART1_RX_FIFO_SIZE=256;UART2_RX_FIFO_SIZE=256"/>
         <property key="scalar-model" value="default"/>
         <property key="use-cci" value="false"/>
         <property key="use-iar" value="false"/>
