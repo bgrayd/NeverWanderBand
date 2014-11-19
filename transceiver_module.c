@@ -22,12 +22,7 @@ void getChildPacket(char* psz_buff, uint16_t u16_maxCount){
     uint8_t u8_c;
     uint16_t u16_i;
 
-    if (!u16_maxCount){
-        *psz_buff = 234;
-        psz_buff++;
-        *psz_buff = 0;
-        return;
-    }
+    if (!u16_maxCount) return;
     u16_i = 0;
     for (u16_i = 0; u16_i < u16_maxCount; u16_i++) {
         u8_c = inChar2();
@@ -35,8 +30,6 @@ void getChildPacket(char* psz_buff, uint16_t u16_maxCount){
         *psz_buff = u8_c; //save character
         psz_buff++;
     }
-    inChar2();
-    inChar2();
     *psz_buff = 0;
 }
 

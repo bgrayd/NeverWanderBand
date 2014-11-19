@@ -114,8 +114,10 @@ int main(void){
 	outString(HELLO_MSG);
 	configRMC1Hz();
         configChildRMC1Hz();
+        configAlerts();
         initScreen();
-        const char *meters = " m";
+        const char *meters = " meters";
+        u8_alarmDistance = 50;
         st_gpsPosition parentGpsPosition, childGpsPosition;
         uint16_t u16_distance;
         int16_t i16_angleNorth, i16_angleChild;
@@ -129,26 +131,22 @@ int main(void){
             giveAngleDegrees(normalizeAngle(i16_angleNorth - i16_angleChild));
             printCharacters(uitoa(u16_distance),1,1);
             printCharacters(meters,1,1);
-            updateScreen();
+            resetCursor();
+
+            if(u16_distance < 1000){
+                updateScreen();     //it has a problem with having a single packet with a crazy distance
+                if(u16_distance >= u8_alarmDistance){
+                    startAlerts();
+                }
+                else{
+                    stopAlerts();
+                }
+            }
+
+           
         }
 }
 #endif //PARENTBAND
-
-#ifdef CHILDBAND
-int main(void){
-	configClock();
-	configHeartbeat();
-	configDefaultUART(9600);
-	//printResetCause();       //print statement about what caused reset
-	outString(HELLO_MSG);
-	configRMC1Hz();
-        st_gpsPosition childGpsPosition;
-        while(1){
-            childGpsPosition = getGpsPosition();
-            transmitPosition(childGpsPosition);
-        }
-}
-#endif //CHILDBAND
 
 
 #define PI 3.1415926535
@@ -191,8 +189,8 @@ uint16_t calcDistanceMeters(st_gpsPosition position1, st_gpsPosition position2){
     uint32_t u32_dis = 0;
     u32_latDis = (i32_dLatCSec > 0) ? i32_dLatCSec : -i32_dLatCSec;
     u32_lonDis = (i32_dLonCSec > 0) ? i32_dLonCSec : -i32_dLonCSec;
-    u32_latDis *= .3102;
-    u32_lonDis *= .2680;
+    u32_latDis *= .3088;
+    u32_lonDis *= .2577;
 
     u32_dis = u32_lonDis*u32_lonDis + u32_latDis*u32_latDis;
     u32_dis = sqrt(u32_dis);
@@ -289,6 +287,7 @@ st_gpsPosition getGpsPosition(){
     _RMCPacket st_RMCPacket;
     st_gpsPosition gpsPosition;
     inString(psz_input, 256);
+    outString(psz_input);
     en_packetType = parsePacketType(psz_input);
     if(en_packetType == GPRMC){
         st_RMCPacket = parseRMCPacket(psz_input);
@@ -312,6 +311,10 @@ st_gpsPosition receivePosition(){
     _RMCPacket st_RMCPacket;
     st_gpsPosition gpsPosition;
     getChildPacket(psz_input, 256);
+    outChar('\n');
+    outChar('c');
+    outString(psz_input);
+    outChar('\n');
     en_packetType = parsePacketType(psz_input);
     if(en_packetType == GPRMC){
         st_RMCPacket = parseRMCPacket(psz_input);

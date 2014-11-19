@@ -104,5 +104,6 @@ void updateScreen();
 void resetCursor();
 
 static uint16_t u16_direction;
+static uint8_t u8_alarmDistance;
 
 #endif  //_NEVERWANDERBAND_H_
