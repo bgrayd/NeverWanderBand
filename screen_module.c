@@ -67,26 +67,31 @@
 #define SSD1306_VERTICAL_AND_RIGHT_HORIZONTAL_SCROLL 0x29
 #define SSD1306_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL 0x20
 
-static inline void CONFIG_BUTTON1(){
+static inline void CONFIG_BUTTON0(){
 	CONFIG_RB0_AS_DIG_INPUT();
-	ENABLE_RB0_PULLUP();
+	//ENABLE_RB0_PULLUP();
 	DELAY_US(1);
 }
 
 
-static inline void CONFIG_BUTTON2(){
+static inline void CONFIG_BUTTON1(){
 	CONFIG_RB1_AS_DIG_INPUT();
-	ENABLE_RB1_PULLUP();
+	//ENABLE_RB1_PULLUP();
         DELAY_US(1);
 }
 
 
 static inline void CONFIG_SWITCH1(){
 	CONFIG_RB14_AS_DIG_INPUT();
-	ENABLE_RB14_PULLUP();
+	//ENABLE_RB14_PULLUP();
 	DELAY_US(1);
 }
 
+void configUI(){
+    CONFIG_BUTTON0();
+    CONFIG_BUTTON1();
+    CONFIG_SWITCH1();
+}
 
 
 void configSPI1(void) {

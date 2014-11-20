@@ -5,10 +5,6 @@
 #include "transceiver_module.h"
 #include <math.h>
 
-#define CONFIGBUTTON0  CONFIG_RB0_AS_DIG_INPUT()
-#define CONFIGBUTTON1  CONFIG_RB1_AS_DIG_INPUT()
-#define CONFIGSW1      CONFIG_RB14_AS_DIG_INPUT()
-
 #ifndef PARENTBAND
 #ifndef CHILDBAND
 int main(void){
@@ -111,6 +107,7 @@ int main(void){
 	//printResetCause();       //print statement about what caused reset
 	outString(HELLO_MSG);
         configAlerts();
+        configUI();
         initScreen();
         const char *meters = "meters";
         const char *invalidParent = "Parent Invalid Location\n";

@@ -41,6 +41,7 @@ typedef struct screenData_t{
 static screenData_t screenData;
 
 void initScreen();
+void configUI();
 
 void display(void);
 void writeString(char* psz_s1);
