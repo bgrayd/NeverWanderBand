@@ -66,6 +66,8 @@ int16_t calcAngleDegrees(st_gpsData position1, st_gpsData position2);
 *********************************************************/
 void giveAngleDegrees(int16_t i16_angle);
 
+//void giveAngleWords(int16_t i16_angle);
+
 /*********************************************************
 *printCharacters
 *prints the characters passed to it

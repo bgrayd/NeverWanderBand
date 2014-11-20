@@ -96,6 +96,8 @@ enum states {
     proximity2, proximity3, proximity4,proximity5
 };
 
+uint16_t u16_alertDist;
+
 #ifdef PARENTBAND
 int main(void){
 	configClock();
@@ -118,7 +120,7 @@ int main(void){
         int16_t i16_angleNorth, i16_angleChild;
 
         enum states state = proximity2;
-	proximity20();
+        u16_alertDist = 20;
         updateScreen();
 
         while(1){
@@ -135,13 +137,19 @@ int main(void){
                                 display();
                             }
                         }
-                        if (BUTTON2_PRESSED) {
+                        else if (BUTTON2_PRESSED) {
                             DELAY_US(50);
                             if BUTTON2_RELEASED{
                                 invertDisplay(1);
+                                u16_alertDist = 20;
                                 DELAY_MS(500);
                                 invertDisplay(0);
                             }
+                        }
+                        else{
+                            clearDisplay();
+                            proximity20();
+                            display();
                         }
                     break;
 
@@ -149,20 +157,27 @@ int main(void){
                         if BUTTON1_PRESSED{
                             DELAY_US(50);
                             if BUTTON1_RELEASED{
-                            state = proximity4;
-                            clearDisplay();
-                            proximity40();
-                            display();
+                                state = proximity4;
+                                clearDisplay();
+                                proximity40();
+                                display();
                             }
                         }
-                        if BUTTON2_PRESSED{
+                        else if BUTTON2_PRESSED{
                             DELAY_US(50);
                             if BUTTON2_RELEASED {
                                 invertDisplay(1);
+                                u16_alertDist = 30;
                                 DELAY_MS(500);
                                 invertDisplay(0);
                             }
                         }
+                        else{
+                            clearDisplay();
+                            proximity30();
+                            display();
+                        }
+
                     break;
 
                     case proximity4:
@@ -175,13 +190,19 @@ int main(void){
                                 display();
                             }
                         }
-                        if BUTTON2_PRESSED{
+                        else if BUTTON2_PRESSED{
                             DELAY_US(50);
                             if BUTTON2_RELEASED{
                                 invertDisplay(1);
+                                u16_alertDist = 40;
                                 DELAY_MS(500);
                                 invertDisplay(0);
                             }
+                        }
+                        else{
+                            clearDisplay();
+                            proximity40();
+                            display();
                         }
                     break;
 
@@ -195,20 +216,26 @@ int main(void){
                                 display();
                             }
                         }
-                        if BUTTON2_PRESSED{
+                        else if BUTTON2_PRESSED{
                             DELAY_US(50);
                             if BUTTON2_RELEASED{
                                 invertDisplay(1);
+                                u16_alertDist = 50;
                                 DELAY_MS(500);
                                 invertDisplay(0);
                             }
                         }
+                        else{
+                            clearDisplay();
+                            proximity50();
+                            display();
+                        }
                     break;
 
                     default:
-                        state = proximity5;
+                        state = proximity2;
                         clearDisplay();
-                        proximity50();
+                        proximity20();
                         display();
                     break;
 
@@ -236,7 +263,7 @@ int main(void){
                 i16_angleChild = calcAngleDegrees(parentGpsPosition, childGpsPosition);
 
                 if(u16_distance <= 65535){
-                    if(u16_distance > 50){
+                    if(u16_distance > u16_alertDist){
                         startAlerts();
                     }
                     else {
@@ -526,6 +553,35 @@ void giveAngleDegrees(int16_t i16_angle){
 	
 }
 
+//void giveAngleWords(int16_t i16_angle){
+//        setTextSize(3);
+//        char ac_direction[3];
+//	if (i16_angle >= -23 && i16_angle <= 23){
+//            ac_direction = 'N';
+//        }
+//	else if (i16_angle > 23 && i16_angle <= 68){
+//		ac_direction = 'NE';
+//	}
+//	else if (i16_angle > 68 && i16_angle <= 113){
+//		ac_direction = 'E';
+//	}
+//	else if (i16_angle > 113 && i16_angle <= 158){
+//		ac_direction = 'SE';
+//	}
+//	else if (i16_angle > 158 || i16_angle <= -158){
+//		ac_direction = 'S';
+//	}
+//	else if (i16_angle >= -68 && i16_angle < -23){
+//		ac_direction = 'NW';
+//	}
+//	else if (i16_angle >= -113 && i16_angle < -68){
+//		ac_direction = 'W';
+//	}
+//	else if (i16_angle > -158 && i16_angle < -113){
+//		ac_direction = 'SW';
+//	}
+//        writeString(ac_direction);
+//}
 
 void flashingScreen(){ 			//flashes for 5 seconds
 	invertDisplay(1);
