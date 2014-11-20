@@ -24,18 +24,18 @@ int main(void) {
   //clearDisplay();
   //setTextColor(1);
   //setTextSize(1);
-  //char *newLine = "30 m";
+  char *newLine = "30 m";
   //ssd1306_command(0xA3);
   //ssd1306_command(0x2F);
   //display();
   
- 	//enum states { 
-  	//proximity2, proximity3, proximity4,proximity5
-//	};
+ 	enum states { 
+  	proximity2, proximity3, proximity4,proximity5
+	};
 
-	//enum states state = proximity2;
-	//proximity20();
-	//display();	
+	enum states state = proximity2;
+	proximity20();
+	display();	
 
 	while(1) {
 	if SWITCH1_UP { 
