@@ -99,8 +99,8 @@ int main(void){
 	configHeartbeat();
 	configUART1(9600);
         configUartXbee();
-        configRMC5Hz();
-        configChildRMC5Hz();
+        configRMC1Hz();
+        configChildRMC1Hz();
 	//printResetCause();       //print statement about what caused reset
 	outString(HELLO_MSG);
         configAlerts();
@@ -131,7 +131,7 @@ int main(void){
             }
 
             u16_distance = calcDistanceMeters(parentGpsPosition, childGpsPosition);
-            i16_angleNorth = getDirection();
+            i16_angleNorth = normalizeAngle(parentGpsPosition.u16_angle);
             i16_angleChild = calcAngleDegrees(parentGpsPosition, childGpsPosition);
 
             if(u16_distance <= 65535){
@@ -142,7 +142,23 @@ int main(void){
                     stopAlerts();
                 }
 
-                giveAngleDegrees(i16_angleNorth - i16_angleChild);
+                outChar('(');
+
+                if(i16_angleChild < 0) outChar('-');
+                outString(uitoa(i16_angleChild));
+                outChar(',');
+
+                if(i16_angleNorth < 0) outChar('-');
+                outString(uitoa(i16_angleNorth));
+                outChar(',');
+
+                if(normalizeAngle(i16_angleChild - i16_angleNorth) < 0) outChar('-');
+                outString(uitoa(normalizeAngle(i16_angleChild - i16_angleNorth)));
+
+
+                outChar(')');
+
+                giveAngleDegrees(normalizeAngle(i16_angleChild - i16_angleNorth));
                 printCharacters(uitoa(u16_distance),1,1);
                 printCharacters(meters,1,1);
                 outString(uitoa(u16_distance));
@@ -314,8 +330,8 @@ int16_t calcAngleDegrees(st_gpsData position1, st_gpsData position2){
 *********************************************************/
 gpsDataTuple getGpsPositions(){
     gpsDataTuple st_gpsPositions;
-    char ac_parentBuffer[256] = "$GPRMC,2213014.82,A,3326.1376,N,08847.2406,W,0,90.0,A*75";
-    char ac_childBuffer[256] = "$GPRMC,2213014.82,A,3326.1376,N,08847.3406,W,0,,A*75";
+    char ac_parentBuffer[256] = "$GPRMC,2213014.82,V,0,N,0,W,0,,,A*75";
+    char ac_childBuffer[256] = "$GPRMC,2213014.82,V,0,N,0,W,0,,,A*75";
 
     getParentPacket(ac_parentBuffer,256);
     getChildPacket(ac_childBuffer,256);
@@ -326,6 +342,21 @@ gpsDataTuple getGpsPositions(){
     u16_angle = st_gpsPositions.parentPosition.u16_angle;
 
     return st_gpsPositions;
+}
+
+int16_t normalizeAngle(int16_t i16_angle){
+   int16_t i16_toBeReturned;
+
+    if(i16_angle > 180){
+        i16_toBeReturned = i16_angle - 360;
+    }
+    if(i16_angle < -180){
+        i16_toBeReturned = i16_angle + 360;
+    }
+    else{
+        i16_toBeReturned = i16_angle;
+    }
+    return i16_toBeReturned;
 }
 
 

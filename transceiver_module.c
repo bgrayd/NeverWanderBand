@@ -21,15 +21,20 @@ uint8_t receiveUint8Xbee(){
 void getChildPacket(char* psz_buff, uint16_t u16_maxCount){
   uint8_t u8_c;
   uint16_t u16_i;
-
+  outChar('{');
   if (!u16_maxCount) return;
   u16_i = 0;
   for (u16_i = 0; u16_i < u16_maxCount; u16_i++) {
     u8_c = receiveUint8Xbee();
-    if (u8_c == '\n' ||u8_c == '\r' ) break; //terminate loop
+    if (u8_c == '\n' ) break; //terminate loop
+    if (u8_c == '\r' ) continue; //terminate loop
     *psz_buff = u8_c; //save character
+    outUint8(u8_c);
+    outChar(';');
     psz_buff++;
   }
+  outChar('}');
+  outChar('\n');
 
   *psz_buff = 0;
 }
@@ -48,12 +53,18 @@ void getParentPacket(char* psz_buff, uint16_t u16_maxCount){
 
   if (!u16_maxCount) return;
   u16_i = 0;
+  outChar('[');
   for (u16_i = 0; u16_i < u16_maxCount; u16_i++) {
     u8_c = inChar1();
-    if (u8_c == '\n' ||u8_c == '\r' ) break; //terminate loop
+    if (u8_c == '\n' ) break; //terminate loop
+    if (u8_c == '\r' ) continue; //terminate loop
     *psz_buff = u8_c; //save character
+    outUint8(u8_c);
+    outChar(';');
     psz_buff++;
   }
+  outChar(']');
+  outChar('\n');
 
   *psz_buff = 0;
 }
