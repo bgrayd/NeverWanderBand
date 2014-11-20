@@ -5,7 +5,8 @@ typedef struct st_gpsCoordinate{
 	uint8_t u8_hemisphereIndicator;
 	uint8_t u8_degrees;
 	uint8_t u8_minutes;
-	uint8_t u8_seconds;
+	uint8_t u8_centiSecondsMSB;
+        uint8_t u8_centiSecondsLSB;
 } st_gpsCoordinate;
 
 //This is format of the data for transfering the positions between
@@ -24,11 +25,11 @@ typedef struct st_gpsPosition{
 st_gpsPosition getGpsPosition();
 
 /*********************************************************
-*getGpsPosition
+*getGpsDirection
 *gets the current direction from the gps
-*@return: the current direction of travel in degrees
+*@return: the current direction of travel in degrees of -180 to 180
 *********************************************************/
-uint8_t getDirection();
+int16_t getDirection();
 
 /*********************************************************
 *transmitPosition
