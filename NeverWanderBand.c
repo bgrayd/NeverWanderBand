@@ -204,6 +204,14 @@ int main(void){
                             }
                         }
                     break;
+
+                    default:
+                        state = proximity5;
+                        clearDisplay();
+                        proximity50();
+                        display();
+                    break;
+
                 }
             }
             else{
