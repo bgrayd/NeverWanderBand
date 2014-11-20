@@ -5,6 +5,10 @@
 #include "transceiver_module.h"
 #include <math.h>
 
+#define CONFIGBUTTON0  CONFIG_RB0_AS_DIG_INPUT()
+#define CONFIGBUTTON1  CONFIG_RB1_AS_DIG_INPUT()
+#define CONFIGSW1      CONFIG_RB14_AS_DIG_INPUT()
+
 #ifndef PARENTBAND
 #ifndef CHILDBAND
 int main(void){
@@ -92,6 +96,9 @@ int main(void){
 #endif //CHILDBAND
 #endif //PARENTBAND
 
+enum states { 
+    proximity2, proximity3, proximity4,proximity5
+};
 
 #ifdef PARENTBAND
 int main(void){
@@ -112,60 +119,149 @@ int main(void){
         gpsDataTuple st_gpsTuple;
         uint16_t u16_distance;
         int16_t i16_angleNorth, i16_angleChild;
+
+        enum states state = proximity2;
+	proximity20();
         updateScreen();
+
         while(1){
-            clearScreen();
-            resetCursor();
-            st_gpsTuple = getGpsPositions();
 
-            u16_angle = 0;
+            if SWITCH1_UP {
+                switch(state) {
+                    case proximity2:
+                        if (BUTTON1_PRESSED) {
+                            DELAY_US(50);
+                            if (BUTTON1_RELEASED) {
+                                state = proximity3;
+                                clearDisplay();
+                                proximity30();
+                                display();
+                            }
+                        }
+                        if (BUTTON2_PRESSED) {
+                            DELAY_US(50);
+                            if BUTTON2_RELEASED{
+                                invertDisplay(1);
+                                DELAY_MS(500);
+                                invertDisplay(0);
+                            }
+                        }
+                    break;
 
-            parentGpsPosition = st_gpsTuple.parentPosition;
-            childGpsPosition = st_gpsTuple.childPosition;
+                    case proximity3:
+                        if BUTTON1_PRESSED{
+                            DELAY_US(50);
+                            if BUTTON1_RELEASED{
+                            state = proximity4;
+                            clearDisplay();
+                            proximity40();
+                            display();
+                            }
+                        }
+                        if BUTTON2_PRESSED{
+                            DELAY_US(50);
+                            if BUTTON2_RELEASED {
+                                invertDisplay(1);
+                                DELAY_MS(500);
+                                invertDisplay(0);
+                            }
+                        }
+                    break;
 
-            if(!parentGpsPosition.u8_valid){
-                printCharacters(invalidParent,1,1);
-            }
-            if(!childGpsPosition.u8_valid){
-                printCharacters(invalidChild,1,1);
-            }
+                    case proximity4:
+                        if BUTTON1_PRESSED{
+                            DELAY_US(50);
+                            if BUTTON1_RELEASED{
+                                state = proximity5;
+                                clearDisplay();
+                                proximity50();
+                                display();
+                            }
+                        }
+                        if BUTTON2_PRESSED{
+                            DELAY_US(50);
+                            if BUTTON2_RELEASED{
+                                invertDisplay(1);
+                                DELAY_MS(500);
+                                invertDisplay(0);
+                            }
+                        }
+                    break;
 
-            u16_distance = calcDistanceMeters(parentGpsPosition, childGpsPosition);
-            i16_angleNorth = normalizeAngle(parentGpsPosition.u16_angle);
-            i16_angleChild = calcAngleDegrees(parentGpsPosition, childGpsPosition);
-
-            if(u16_distance <= 65535){
-                if(u16_distance > 50){
-                    startAlerts();
+                    case proximity5:
+                        if BUTTON1_PRESSED{
+                            DELAY_US(50);
+                            if BUTTON1_RELEASED{
+                                state = proximity2;
+                                clearDisplay();
+                                proximity20();
+                                display();
+                            }
+                        }
+                        if BUTTON2_PRESSED{
+                            DELAY_US(50);
+                            if BUTTON2_RELEASED{
+                                invertDisplay(1);
+                                DELAY_MS(500);
+                                invertDisplay(0);
+                            }
+                        }
+                    break;
                 }
-                else {
-                    stopAlerts();
+            }
+            else{
+                clearScreen();
+                resetCursor();
+                st_gpsTuple = getGpsPositions();
+
+                u16_angle = 0;
+
+                parentGpsPosition = st_gpsTuple.parentPosition;
+                childGpsPosition = st_gpsTuple.childPosition;
+
+                if(!parentGpsPosition.u8_valid){
+                    printCharacters(invalidParent,1,1);
+                }
+                if(!childGpsPosition.u8_valid){
+                    printCharacters(invalidChild,1,1);
                 }
 
-                outChar('(');
+                u16_distance = calcDistanceMeters(parentGpsPosition, childGpsPosition);
+                i16_angleNorth = normalizeAngle(parentGpsPosition.u16_angle);
+                i16_angleChild = calcAngleDegrees(parentGpsPosition, childGpsPosition);
 
-                if(i16_angleChild < 0) outChar('-');
-                outString(uitoa(i16_angleChild));
-                outChar(',');
+                if(u16_distance <= 65535){
+                    if(u16_distance > 50){
+                        startAlerts();
+                    }
+                    else {
+                        stopAlerts();
+                    }
 
-                if(i16_angleNorth < 0) outChar('-');
-                outString(uitoa(i16_angleNorth));
-                outChar(',');
+                    outChar('(');
 
-                if(normalizeAngle(i16_angleChild - i16_angleNorth) < 0) outChar('-');
-                outString(uitoa(normalizeAngle(i16_angleChild - i16_angleNorth)));
+                    if(i16_angleChild < 0) outChar('-');
+                    outString(uitoa(i16_angleChild));
+                    outChar(',');
+
+                    if(i16_angleNorth < 0) outChar('-');
+                    outString(uitoa(i16_angleNorth));
+                    outChar(',');
+
+                    if(normalizeAngle(i16_angleChild - i16_angleNorth) < 0) outChar('-');
+                    outString(uitoa(normalizeAngle(i16_angleChild - i16_angleNorth)));
 
 
-                outChar(')');
+                    outChar(')');
 
-                giveAngleDegrees(normalizeAngle(i16_angleChild - i16_angleNorth));
-                printCharacters(uitoa(u16_distance),1,1);
-                printCharacters(meters,1,1);
-                outString(uitoa(u16_distance));
-                outString(meters);
-                updateScreen();
+                    giveAngleDegrees(normalizeAngle(i16_angleChild - i16_angleNorth));
+                    printCharacters(uitoa(u16_distance),1,1);
+                    printCharacters(meters,1,1);
+                    outString(uitoa(u16_distance));
+                    outString(meters);
+                    updateScreen();
+                }
             }
-            
         }
 }
 #endif //PARENTBAND
@@ -423,4 +519,19 @@ void giveAngleDegrees(int16_t i16_angle){
 		drawArrowSW();
 	}
 	
+}
+
+
+void flashingScreen(){ 			//flashes for 5 seconds
+	invertDisplay(1);
+	DELAY_MS(1000);
+	invertDisplay(0);
+	DELAY_MS(1000);
+	invertDisplay(1);
+	DELAY_MS(1000);
+	invertDisplay(0);
+	DELAY_MS(1000);
+	invertDisplay(1);
+	DELAY_MS(1000);
+	invertDisplay(0);
 }
