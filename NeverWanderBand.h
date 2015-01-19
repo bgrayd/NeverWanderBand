@@ -9,7 +9,7 @@ typedef struct st_gpsCoordinate{
         uint8_t u8_centiSecondsLSB;
 } st_gpsCoordinate;
 
-//This is format of the data for transfering the positions between
+//This is format of the data for transferring the positions between
 //	the modules
 typedef struct st_gpsData{
     uint8_t u8_valid;
