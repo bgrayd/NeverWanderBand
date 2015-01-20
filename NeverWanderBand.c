@@ -26,7 +26,9 @@ int main(void){
 	outString(HELLO_MSG);
 	configAlerts();
 	configUI();
+	configTimers();
 	clearFlags();
+	enableTimers();
 	initScreen();
 	const char *meters = "meters";
 	const char *invalidParent = "Parent Invalid Location\n";
@@ -220,6 +222,8 @@ int main(void){
 		while(parentPacketReady()){
 			getParentPacket(ac_parentBuffer,256);
 			resetParentPacketTimer();
+			u8_fParentTimeOut = 0;
+			
 			u8_fParseParent = 1;
 		}
 		
@@ -227,6 +231,8 @@ int main(void){
 		while(childPacketReady()){
 			getChildPacket(ac_childBuffer,256);
 			resetChildPacketTimer();
+			u8_fChildTimeOut = 0;
+			
 			u8_fParseChild = 1;
 		}
 		
@@ -238,8 +244,10 @@ int main(void){
 			if(parentGpsPosition.u8_valid){
 				u8_fRecalcNeeded = 1;
 				u8_fParentPacketInvalid = 0;
-				if(parentMoveCheck(parentGpsPosition))
+				if(parentMoveCheck(parentGpsPosition)){
 					resetParentMovedTimer();
+					u8_fParentStationary = 0;
+				}
 			}
 			else{
 				u8_fParentPacketInvalid = 1;

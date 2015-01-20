@@ -4,10 +4,14 @@
 #include "pic24_all.h"
 #include "NeverWanderBand.h"
 
-//these should set the timer counter to 0 --toChange
-#define resetParentPacketTimer()	1
-#define resetChildPacketTimer()		1
-#define resetParentMovedTimer()		1
+
+#define resetParentPacketTimer()	TMR2=0
+#define resetChildPacketTimer()		TMR5=0
+#define resetParentMovedTimer()		TMR4=0
+
+#define PARENTPACKETPERIODMS	2000
+#define CHILDPACKETPERIODMS		2000
+#define PARENTMOVEDPERIODMS		10000
 
 /*********************************************************
 *configTimers
@@ -37,12 +41,60 @@ void configTimerChildPacket();
 *********************************************************/
 void configTimerParentMoved();
 
-/*******************************
---toChange
-parentPacketTimer raises u8_fParentPacketTimeOut, u8_fScreenChange
-childPacketTimer raises u8_fChildPacketTimeOut, u8_fScreenChange
-parentMovedTimer raises u8_fParentStationary
-*******************************/
+/*********************************************************
+*enableTimers
+*enables all three timers
+*@return:none
+*********************************************************/
+void enableTimers();
 
+/*********************************************************
+*enableTimerParentPacket
+*enables the parent packet timeout timer
+*@return:none
+*********************************************************/
+void enableTimerParentPacket();
+
+/*********************************************************
+*enableTimerChildPacket
+*enables the child packet timeout timer
+*@return:none
+*********************************************************/
+void enableTimerChildPacket();
+
+/*********************************************************
+*enableTimerParentMoved
+*enables the parent moved timer
+*@return:none
+*********************************************************/
+void enableTimerParentMoved();
+
+/*********************************************************
+*disableTimers
+*disables all three timers
+*@return:none
+*********************************************************/
+void disableTimers();
+
+/*********************************************************
+*disableTimerParentPacket
+*disables the parent packet timeout timer
+*@return:none
+*********************************************************/
+void disableTimerParentPacket();
+
+/*********************************************************
+*disableTimerChildPacket
+*disables the child packet timeout timer
+*@return:none
+*********************************************************/
+void disableTimerChildPacket();
+
+/*********************************************************
+*disableTimerParentMoved
+*disables the parent moved timer
+*@return:none
+*********************************************************/
+void disableTimerParentMoved();
 
 #endif //__TIMERMODULE_H_
