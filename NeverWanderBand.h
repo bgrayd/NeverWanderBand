@@ -6,7 +6,7 @@ typedef struct st_gpsCoordinate{
 	uint8_t u8_degrees;
 	uint8_t u8_minutes;
 	uint8_t u8_centiSecondsMSB;
-        uint8_t u8_centiSecondsLSB;
+    uint8_t u8_centiSecondsLSB;
 } st_gpsCoordinate;
 
 //This is format of the data for transferring the positions between
@@ -22,6 +22,19 @@ typedef struct gpsDataTuple{
     st_gpsData parentPosition;
     st_gpsData childPosition;
 } gpsDataTuple;
+
+
+static uint8_t u8_fParseParent;			//flag saying a packet from the parent is ready to be parsed
+static uint8_t u8_fParseChild;			//flag saying a packet from the child is ready to be parsed
+static uint8_t u8_fRecalcNeeded;		//flag saying the distance and direction need updated, raised by the parsers
+static uint8_t u8_fRecalcDone;			//flag saying the distance and direction have been updated and to do applicable alerts and displays, raised by the math calcs
+static uint8_t u8_fScreenChange;		//flag saying the screen needs to be changed, raised by recalc and timeouts
+
+static uint8_t u8_fParentStationary;	//flag denoting that the parent position stopped changing, so the parent's course might be wrong
+static uint8_t u8_fParentPacketInvalid;	//flag denoting the parent packet is invalid, error
+static uint8_t u8_fChildPacketInvalid;	//flag denoting the child packet is invalid, error
+static uint8_t u8_fChildTimeOut;		//flag denoting a timeout waiting for the child packet, error
+static uint8_t u8_fParentTimeOut;		//flag denoting a timeout waiting for the parent packet, error
 
 /*********************************************************
 *getGpsPositions
@@ -97,6 +110,15 @@ void updateScreen();
 *@return:none
 *********************************************************/
 void resetCursor();
+
+/*********************************************************
+*parentMoveCheck
+*compares the current position of the parent with a previous
+*  one to determine if the angle is accurate
+*@parentPosition: the st_gpsData with the parent position
+*@return:0 for not having moved enough, 1 for having moved
+*********************************************************/
+uint8_t parentMoveCheck(st_gpsData parentPosition);
 
 static uint16_t u16_angle;
 
