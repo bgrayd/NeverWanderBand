@@ -294,6 +294,7 @@ int main(void){
 		//Something cause the screen to need to change outside of settings mode
 		if(u8_fScreenChange){
 			u8_fScreenChange = 0;
+                        clearScreen();
 			
 			//Did an error occur?
 			if(u8_fChildPacketInvalid || u8_fParentPacketInvalid || u8_fChildTimeOut || u8_fParentTimeOut){
