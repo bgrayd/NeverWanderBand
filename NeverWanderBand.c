@@ -295,10 +295,13 @@ int main(void){
 		if(u8_fScreenChange){
 			u8_fScreenChange = 0;
                         clearScreen();
+                        resetCursor();
 			
 			//Did an error occur?
 			if(u8_fChildPacketInvalid || u8_fParentPacketInvalid || u8_fChildTimeOut || u8_fParentTimeOut){
 				//print applicable error --toChange
+                            const char *errorMsg = "An Error has occured!!";
+                            printCharacters(errorMsg,1,1);
 			}
 			
 			//Did the parent stop moving (making their direction from the gps wrong)
