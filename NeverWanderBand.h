@@ -124,4 +124,6 @@ uint8_t parentMoveCheck(st_gpsData parentPosition);
 
 static uint16_t u16_angle;
 
+enum states settingsModeCycle(enum states state);
+
 #endif  //_NEVERWANDERBAND_H_

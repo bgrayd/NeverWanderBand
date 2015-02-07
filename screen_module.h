@@ -17,6 +17,8 @@
 #define SWITCH1_DOWN            (_RB14 == 0)
 #define SWITCH1_UP              (_RB14 == 1)
 
+#define SETTINGSMODE            SWITCH1_UP
+
 #define BUTTON1_PRESSED         (_RB0 == 0)
 #define BUTTON1_RELEASED	(_RB0 == 1)
 

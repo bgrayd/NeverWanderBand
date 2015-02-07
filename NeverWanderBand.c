@@ -59,177 +59,6 @@ int main(void){
 	u16_alertDist = 20;
 	updateScreen();
 
-	/*while(1){
-
-		if SWITCH1_UP {
-			switch(state) {
-				case proximity2:
-					if (BUTTON1_PRESSED) {
-						DELAY_US(50);
-						if (BUTTON1_RELEASED) {
-							state = proximity3;
-							clearDisplay();
-							proximity30();
-							display();
-						}
-					}
-					else if (BUTTON2_PRESSED) {
-						DELAY_US(50);
-						if BUTTON2_RELEASED{
-							invertDisplay(1);
-							u16_alertDist = 20;
-							DELAY_MS(500);
-							invertDisplay(0);
-						}
-					}
-					else{
-						clearDisplay();
-						proximity20();
-						display();
-					}
-				break;
-
-				case proximity3:
-					if BUTTON1_PRESSED{
-						DELAY_US(50);
-						if BUTTON1_RELEASED{
-							state = proximity4;
-							clearDisplay();
-							proximity40();
-							display();
-						}
-					}
-					else if BUTTON2_PRESSED{
-						DELAY_US(50);
-						if BUTTON2_RELEASED {
-							invertDisplay(1);
-							u16_alertDist = 30;
-							DELAY_MS(500);
-							invertDisplay(0);
-						}
-					}
-					else{
-						clearDisplay();
-						proximity30();
-						display();
-					}
-
-				break;
-
-				case proximity4:
-					if BUTTON1_PRESSED{
-						DELAY_US(50);
-						if BUTTON1_RELEASED{
-							state = proximity5;
-							clearDisplay();
-							proximity50();
-							display();
-						}
-					}
-					else if BUTTON2_PRESSED{
-						DELAY_US(50);
-						if BUTTON2_RELEASED{
-							invertDisplay(1);
-							u16_alertDist = 40;
-							DELAY_MS(500);
-							invertDisplay(0);
-						}
-					}
-					else{
-						clearDisplay();
-						proximity40();
-						display();
-					}
-				break;
-
-				case proximity5:
-					if BUTTON1_PRESSED{
-						DELAY_US(50);
-						if BUTTON1_RELEASED{
-							state = proximity2;
-							clearDisplay();
-							proximity20();
-							display();
-						}
-					}
-					else if BUTTON2_PRESSED{
-						DELAY_US(50);
-						if BUTTON2_RELEASED{
-							invertDisplay(1);
-							u16_alertDist = 50;
-							DELAY_MS(500);
-							invertDisplay(0);
-						}
-					}
-					else{
-						clearDisplay();
-						proximity50();
-						display();
-					}
-				break;
-
-				default:
-					state = proximity2;
-					clearDisplay();
-					proximity20();
-					display();
-				break;
-
-			}
-		}
-		else{
-			clearScreen();
-			resetCursor();
-			st_gpsTuple = getGpsPositions();
-
-			u16_angle = 0;
-
-			parentGpsPosition = st_gpsTuple.parentPosition;
-			childGpsPosition = st_gpsTuple.childPosition;
-
-			if(!parentGpsPosition.u8_valid){
-				printCharacters(invalidParent,1,1);
-			}
-			if(!childGpsPosition.u8_valid){
-				printCharacters(invalidChild,1,1);
-			}
-
-			u16_distance = calcDistanceMeters(parentGpsPosition, childGpsPosition);
-			i16_angleNorth = normalizeAngle(parentGpsPosition.u16_angle);
-			i16_angleChild = calcAngleDegrees(parentGpsPosition, childGpsPosition);
-
-			if(u16_distance <= 65535){
-				if(u16_distance > u16_alertDist){
-					startAlerts();
-				}
-				else {
-					stopAlerts();
-				}
-
-				outChar('(');
-
-				if(i16_angleChild < 0) outChar('-');
-				outString(uitoa(i16_angleChild));
-				outChar(',');
-
-				if(i16_angleNorth < 0) outChar('-');
-				outString(uitoa(i16_angleNorth));
-				outChar(',');
-
-				if(normalizeAngle(i16_angleChild - i16_angleNorth) < 0) outChar('-');
-				outString(uitoa(normalizeAngle(i16_angleChild - i16_angleNorth)));
-
-				outChar(')');
-
-				giveAngleDegrees(normalizeAngle(i16_angleChild - i16_angleNorth));
-				printCharacters(uitoa(u16_distance),1,1);
-				printCharacters(meters,1,1);
-				outString(uitoa(u16_distance));
-				outString(meters);
-				updateScreen();
-			}
-		}
-	}*/
 	while(1){
 		//check the parent UART buffer, getting all the packets and keeping the most recent
 		while(parentPacketReady()){
@@ -248,9 +77,13 @@ int main(void){
 			
 			u8_fParseChild = 1;
 		}
+
+		if(SETTINGSMODE){
+			state = settingsModeCycle(state);
+		}
 		
 		//Parse the new parent packet
-		if(u8_fParseParent){
+		if(u8_fParseParent && !SETTINGSMODE){
 			u8_fParseParent = 0;
 			parentGpsPosition = parseGpsPacket(ac_parentBuffer);
 			
@@ -268,7 +101,7 @@ int main(void){
 		}
 		
 		//Parse the new child packet
-		if(u8_fParseChild){
+		if(u8_fParseChild && !SETTINGSMODE){
 			u8_fParseChild = 0;
 			childGpsPosition = parseGpsPacket(ac_childBuffer);
 			
@@ -282,7 +115,7 @@ int main(void){
 		}
 		
 		//A position is new, recalculate the distance and direction
-		if(u8_fRecalcNeeded){
+		if(u8_fRecalcNeeded && !SETTINGSMODE){
 			u8_fRecalcNeeded = 0;
 			u8_fRecalcDone = 1;
 			
@@ -292,7 +125,7 @@ int main(void){
 		}
 		
 		//The recalculations were finished
-		if(u8_fRecalcDone){
+		if(u8_fRecalcDone && !SETTINGSMODE){
 			u8_fRecalcDone = 0;
 			u8_fScreenChange = 1;
 			
@@ -305,7 +138,7 @@ int main(void){
 		}
 		
 		//Something cause the screen to need to change outside of settings mode
-		if(u8_fScreenChange){
+		if(u8_fScreenChange && !SETTINGSMODE){
 			u8_fScreenChange = 0;
                         clearScreen();
                         resetCursor();
@@ -544,4 +377,121 @@ void flashingScreen(){ 			//flashes for 5 seconds
 	invertDisplay(1);
 	DELAY_MS(1000);
 	invertDisplay(0);
+}
+
+enum states settingsModeCycle(enum states state){
+	switch(state) {
+		case proximity2:
+			if (BUTTON1_PRESSED) {
+				DELAY_US(50);
+				if (BUTTON1_RELEASED) {
+					state = proximity3;
+					clearDisplay();
+					proximity30();
+					display();
+				}
+			}
+			else if (BUTTON2_PRESSED) {
+				DELAY_US(50);
+				if BUTTON2_RELEASED{
+					invertDisplay(1);
+					u16_alertDist = 20;
+					DELAY_MS(500);
+					invertDisplay(0);
+				}
+			}
+			else{
+				clearDisplay();
+				proximity20();
+				display();
+			}
+		break;
+	
+		case proximity3:
+			if BUTTON1_PRESSED{
+				DELAY_US(50);
+				if BUTTON1_RELEASED{
+					state = proximity4;
+					clearDisplay();
+					proximity40();
+					display();
+				}
+			}
+			else if BUTTON2_PRESSED{
+				DELAY_US(50);
+				if BUTTON2_RELEASED {
+					invertDisplay(1);
+					u16_alertDist = 30;
+					DELAY_MS(500);
+					invertDisplay(0);
+				}
+			}
+			else{
+				clearDisplay();
+				proximity30();
+				display();
+			}
+	
+		break;
+	
+		case proximity4:
+			if BUTTON1_PRESSED{
+				DELAY_US(50);
+				if BUTTON1_RELEASED{
+					state = proximity5;
+					clearDisplay();
+					proximity50();
+					display();
+				}
+			}
+			else if BUTTON2_PRESSED{
+				DELAY_US(50);
+				if BUTTON2_RELEASED{
+					invertDisplay(1);
+					u16_alertDist = 40;
+					DELAY_MS(500);
+					invertDisplay(0);
+				}
+			}
+			else{
+				clearDisplay();
+				proximity40();
+				display();
+			}
+		break;
+	
+		case proximity5:
+			if BUTTON1_PRESSED{
+				DELAY_US(50);
+				if BUTTON1_RELEASED{
+					state = proximity2;
+					clearDisplay();
+					proximity20();
+					display();
+				}
+			}
+			else if BUTTON2_PRESSED{
+				DELAY_US(50);
+				if BUTTON2_RELEASED{
+					invertDisplay(1);
+					u16_alertDist = 50;
+					DELAY_MS(500);
+					invertDisplay(0);
+				}
+			}
+			else{
+				clearDisplay();
+				proximity50();
+				display();
+			}
+		break;
+	
+		default:
+			state = proximity2;
+			clearDisplay();
+			proximity20();
+			display();
+		break;
+	}
+        return state;
 }
