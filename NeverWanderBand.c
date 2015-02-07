@@ -4,7 +4,20 @@
 #include "GPS_module.h"
 #include "transceiver_module.h"
 #include "timer_module.h"
+#include "alert_module.h"
 #include <math.h>
+
+uint8_t u8_fParseParent;			//flag saying a packet from the parent is ready to be parsed
+uint8_t u8_fParseChild;			//flag saying a packet from the child is ready to be parsed
+uint8_t u8_fRecalcNeeded;		//flag saying the distance and direction need updated, raised by the parsers
+uint8_t u8_fRecalcDone;			//flag saying the distance and direction have been updated and to do applicable alerts and displays, raised by the math calcs
+uint8_t u8_fScreenChange;		//flag saying the screen needs to be changed, raised by recalc and timeouts
+
+uint8_t u8_fParentStationary;            //flag denoting that the parent position stopped changing, so the parent's course might be wrong
+uint8_t u8_fParentPacketInvalid;	//flag denoting the parent packet is invalid, error
+uint8_t u8_fChildPacketInvalid;	//flag denoting the child packet is invalid, error
+uint8_t u8_fChildTimeOut;		//flag denoting a timeout waiting for the child packet, error
+uint8_t u8_fParentTimeOut;		//flag denoting a timeout waiting for the parent packet, error
 
 #define clearFlags() do{u8_fParseParent=0; u8_fParseChild=0; u8_fRecalcNeeded=0; u8_fRecalcDone=0; u8_fParentStationary=0;\
 						u8_fParentPacketInvalid=0; u8_fChildPacketInvalid=0; u8_fChildTimeOut=0; u8_fParentTimeOut=0; u8_fScreenChange = 0; }while(0)
@@ -283,7 +296,7 @@ int main(void){
 			u8_fRecalcDone = 0;
 			u8_fScreenChange = 1;
 			
-			if(u16_distance > u16_alertDist){
+			if((u16_distance > u16_alertDist)&&(!ERROROCCURRED)){
 				startAlerts();
 			}
 			else {
@@ -298,7 +311,7 @@ int main(void){
                         resetCursor();
 			
 			//Did an error occur?
-			if(u8_fChildPacketInvalid || u8_fParentPacketInvalid || u8_fChildTimeOut || u8_fParentTimeOut){
+			if(ERROROCCURRED){
 				//print applicable error --toChange
                             const char *errorMsg = "An Error has occured!!";
                             printCharacters(errorMsg,1,1);
@@ -319,6 +332,7 @@ int main(void){
 				printCharacters(meters,1,1);
 				updateScreen();
 			}
+                        updateScreen();
 		}
 		
 	}

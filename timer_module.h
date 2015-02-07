@@ -5,13 +5,13 @@
 #include "NeverWanderBand.h"
 
 
-#define resetParentPacketTimer()	TMR2=0
+#define resetParentPacketTimer()	TMR3=0
 #define resetChildPacketTimer()		TMR5=0
 #define resetParentMovedTimer()		TMR4=0
 
-#define PARENTPACKETPERIODMS	2000
-#define CHILDPACKETPERIODMS		2000
-#define PARENTMOVEDPERIODMS		10000
+#define PARENTPACKETPERIODS	3
+#define CHILDPACKETPERIODS	3
+#define PARENTMOVEDPERIODS	10
 
 /*********************************************************
 *configTimers
@@ -42,6 +42,13 @@ void configTimerChildPacket();
 void configTimerParentMoved();
 
 /*********************************************************
+*configTimerSecond
+*configures one second timer
+*@return:none
+*********************************************************/
+void configTimerQuarterSecond();
+
+/*********************************************************
 *enableTimers
 *enables all three timers
 *@return:none
@@ -68,6 +75,13 @@ void enableTimerChildPacket();
 *@return:none
 *********************************************************/
 void enableTimerParentMoved();
+
+/*********************************************************
+*enableTimerSecond
+*enables the parent moved timer
+*@return:none
+*********************************************************/
+void enableTimerQuarterSecond();
 
 /*********************************************************
 *disableTimers

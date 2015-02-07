@@ -16,32 +16,32 @@
 
 static uint8_t u8_enabledAlerts;
 
-void _ISR _T3Interrupt (void) {
+void _ISR _T1Interrupt (void) {
 	buzzer = !buzzer;
-	_T3IF = 0;//clear T3 interrupt flag
+	_T1IF = 0;//clear T1 interrupt flag
 }
 
-void configTimer3(void) {
-	T3CONbits.TON = 0;
-	T3CON = T3_PS_1_1 | T3_SOURCE_INT;
-	TMR3 = 0;
-	PR3 = usToU16Ticks(100, getTimerPrescale(T3CONbits)) - 1;
-	_T3IP=7;
-	_T3IF=0;
-	_T3IE=1;
+void configTimer1(void) {
+	T1CONbits.TON = 0;
+	T1CON = T1_PS_1_1 | T1_SOURCE_INT;
+	TMR1 = 0;
+	PR3 = usToU16Ticks(100, getTimerPrescale(T1CONbits)) - 1;
+	_T1IP=7;
+	_T1IF=0;
+	_T1IE=1;
 }
 
 void configBuzzer(){
-	configTimer3();
+	configTimer1();
 	config_buzzer_pin();
 }
 
 void startBuzzer(){
-	T3CONbits.TON = 1;
+	T1CONbits.TON = 1;
 }
 
 void stopBuzzer(){
-	T3CONbits.TON = 0; 	//stop the timer
+	T1CONbits.TON = 0; 	//stop the timer
 	buzzer = 0;			//also leave the buzzer with zero volts across it
 }
 
