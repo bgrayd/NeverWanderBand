@@ -152,9 +152,9 @@ int main(void){
 			
 			//Did the parent stop moving (making their direction from the gps wrong)
 			else if(u8_fParentStationary){
-				giveAngleDegrees(normalizeAngle(i16_angleChild - i16_angleNorth)); //change to print direction with letter, not arrow --toChange
 				printCharacters(uitoa(u16_distance),1,1);
 				printCharacters(meters,1,1);
+                                giveAngleLetters(i16_angleChild);
 				updateScreen();
 			}
 			
@@ -314,6 +314,13 @@ int16_t getDirection(){
 uint8_t parentMoveCheck(st_gpsData parentPosition){
 	static st_gpsData previousPosition;
 	//add logic to actually see if the parent moved --toChange
+
+        if(abs(parentPosition.f_latitude - previousPosition.f_latitude) < 0.000027777)
+            return 0;
+
+        if(abs(parentPosition.f_longitude - previousPosition.f_longitude) < 0.000027777)
+            return 0;
+
 	previousPosition = parentPosition;
 	return 1;	
 }
@@ -337,6 +344,40 @@ void resetCursor(){
 	setCursor(0, 0);
 }
 
+/*********************************************************
+*displayAngleLetters
+*Displays letters on the screen at the specified angle
+*@i16_angle: angle to point to, in degrees, between -180 and 180
+*@return: nothing
+*********************************************************/
+void giveAngleLetters(int16_t i16_angle){
+        setCursor(64,32);
+        
+	if (i16_angle >= -68 && i16_angle <= 68){
+            char *c_N = "N";
+            printCharacters(c_N , 1, 4);
+        }
+        else if (i16_angle > 113 || i16_angle <= -113){
+            char *c_S = "S";
+            printCharacters(c_S , 1, 4);
+	}
+        
+        if (i16_angle > 23 && i16_angle <= 158){
+            char *c_E = "E";
+            printCharacters(c_E , 1, 4);
+	}
+        else if (i16_angle >= -158 && i16_angle < -23){
+            char *c_W = "W";
+            printCharacters(c_W , 1, 4);
+	}
+}
+
+/*********************************************************
+*displayAngleDegrees
+*Displays an arrow on the screen at the specified angle
+*@i16_angle: angle to point to, in degrees, between -180 and 180
+*@return: nothing
+*********************************************************/
 void giveAngleDegrees(int16_t i16_angle){
 	if (i16_angle >= -23 && i16_angle <= 23){
 		drawArrowN();

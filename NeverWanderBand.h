@@ -81,7 +81,13 @@ int16_t calcAngleDegrees(st_gpsData position1, st_gpsData position2);
 *********************************************************/
 void giveAngleDegrees(int16_t i16_angle);
 
-//void giveAngleWords(int16_t i16_angle);
+/*********************************************************
+*displayAngleLetters
+*Displays letter on the screen at the specified angle
+*@i16_angle: angle to point to, in degrees, between -180 and 180
+*@return: nothing
+*********************************************************/
+void giveAngleLetters(int16_t i16_angle);
 
 /*********************************************************
 *printCharacters
