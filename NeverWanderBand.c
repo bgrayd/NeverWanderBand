@@ -90,7 +90,7 @@ int main(void){
 			if(parentGpsPosition.u8_valid){
 				u8_fRecalcNeeded = 1;
 				u8_fParentPacketInvalid = 0;
-				if(parentMoveCheck(parentGpsPosition)){
+				if((parentMoveCheck(parentGpsPosition))==1){
 					resetParentMovedTimer();
 					u8_fParentStationary = 0;
 				}
@@ -138,16 +138,35 @@ int main(void){
 		}
 		
 		//Something cause the screen to need to change outside of settings mode
-		if(u8_fScreenChange && !SETTINGSMODE){
+		if((u8_fScreenChange || ERROROCCURRED) && !SETTINGSMODE){
 			u8_fScreenChange = 0;
                         clearScreen();
                         resetCursor();
 			
 			//Did an error occur?
 			if(ERROROCCURRED){
-				//print applicable error --toChange
+                            stopAlerts();
                             const char *errorMsg = "An Error has occured!!";
                             printCharacters(errorMsg,1,1);
+                            if(u8_fParentPacketInvalid){
+                                const char *invParMsg = "\nThe parent packet is invalid.";
+                                printCharacters(invParMsg,1,1);
+                            }
+                            
+                            if(u8_fChildPacketInvalid){
+                                const char *invChiMsg = "\nThe child packet is invalid.";
+                                printCharacters(invChiMsg,1,1);
+                            }
+
+                            if(u8_fChildTimeOut){
+                                const char *chiTimeOMsg = "\nTimeout from the Child GPS";
+                                printCharacters(chiTimeOMsg,1,1);
+                            }
+
+                            if(u8_fParentTimeOut){
+                                const char *parTimeOMsg = "\nTimeout from the Parent GPS";
+                                printCharacters(parTimeOMsg,1,1);
+                            }
 			}
 			
 			//Did the parent stop moving (making their direction from the gps wrong)
@@ -311,18 +330,15 @@ int16_t getDirection(){
 *@parentPosition: the st_gpsData with the parent position
 *@return:0 for not having moved enough, 1 for having moved
 *********************************************************/
+static st_gpsData previousPosition;
 uint8_t parentMoveCheck(st_gpsData parentPosition){
-	static st_gpsData previousPosition;
-	//add logic to actually see if the parent moved --toChange
-
-        if(abs(parentPosition.f_latitude - previousPosition.f_latitude) < 0.000027777)
+        if((fabs(parentPosition.f_latitude - previousPosition.f_latitude) < 0.0000455) && (fabs(parentPosition.f_longitude - previousPosition.f_longitude) < .00005389)){
             return 0;
-
-        if(abs(parentPosition.f_longitude - previousPosition.f_longitude) < 0.000027777)
-            return 0;
-
-	previousPosition = parentPosition;
-	return 1;	
+        }
+        else{
+            previousPosition = parentPosition;
+            return 1;
+        }
 }
 
 

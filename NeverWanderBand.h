@@ -36,6 +36,7 @@ extern uint8_t u8_fChildPacketInvalid;	//flag denoting the child packet is inval
 extern uint8_t u8_fChildTimeOut;		//flag denoting a timeout waiting for the child packet, error
 extern uint8_t u8_fParentTimeOut;		//flag denoting a timeout waiting for the parent packet, error
 
+
 #define ERROROCCURRED u8_fParentPacketInvalid || u8_fChildPacketInvalid || u8_fChildTimeOut || u8_fParentTimeOut
 
 /*********************************************************
